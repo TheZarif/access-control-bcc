@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ac5af850959047f69ecfba3ac2880a13" Name="Diagram1">
+        <EntityTypeShape EntityType="TestModel.AccessZoneInfo" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.AspNetRole" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.AspNetUser" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.CardInfo" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.CardLog" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.DeviceCardMap" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.DeviceInfo" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.EmployeeAccessZoneMap" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.Status" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.UserCardMap" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.VehicleInfo" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="TestModel.FK_DeviceInfo_AccessZoneInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.FK_EmployeeAccessZoneMap_AccessZoneInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.FK_EmployeeAccessZoneMap_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.FK_UserCardMap_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.FK_CardInfo_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.FK_CardLog_CardInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.FK_DeviceCardMap_CardInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.FK_UserCardMap_CardInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.FK_CardLog_DeviceInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.FK_DeviceCardMap_DeviceInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.FK_DeviceCardMap_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.FK_UserCardMap_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="TestModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,976 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessZoneInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Floor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="10" />
+          <Property Name="BloodGroup" Type="nchar" MaxLength="10" />
+          <Property Name="NId" Type="nchar" MaxLength="10" />
+          <Property Name="ProfilePicUrl" Type="nvarchar(max)" />
+          <Property Name="PresentAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="PresentDistrict" Type="nchar" MaxLength="10" />
+          <Property Name="PresentDivision" Type="nchar" MaxLength="10" />
+          <Property Name="PermanentAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="PermanentDistrict" Type="nchar" MaxLength="10" />
+          <Property Name="PermanentDivision" Type="nchar" MaxLength="10" />
+          <Property Name="Profession" Type="nchar" MaxLength="10" />
+          <Property Name="SummaryNote" Type="ntext" />
+          <Property Name="UserGroup" Type="nchar" MaxLength="10" />
+          <Property Name="EmployeeId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Designation" Type="nchar" MaxLength="10" />
+          <Property Name="DeskFloor" Type="nchar" MaxLength="10" />
+          <Property Name="RoomNo" Type="nchar" MaxLength="10" />
+          <Property Name="WorkDivision" Type="nchar" MaxLength="10" />
+          <Property Name="IsVerified" Type="int" />
+        </EntityType>
+        <EntityType Name="CardInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar" MaxLength="50" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CardLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CardId" Type="int" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+          <Property Name="DeviceId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeviceCardMap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceId" Type="int" Nullable="false" />
+          <Property Name="CardId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="AssignTime" Type="datetime" Nullable="false" />
+          <Property Name="ExpireTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeviceInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IP" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Port" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeviceType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeviceSDK" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DPass" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccessZoneId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeAccessZoneMap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccessZoneId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserCardMap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CardId" Type="int" Nullable="false" />
+          <Property Name="IssueDate" Type="datetime" Nullable="false" />
+          <Property Name="RevocationDate" Type="datetime" Nullable="false" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VehicleInfo">
+          <Key>
+            <PropertyRef Name="Serial" />
+          </Key>
+          <Property Name="Serial" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehicleId" Type="varchar" MaxLength="20" />
+          <Property Name="VehicleNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="OwnerName" Type="nvarchar" MaxLength="200" />
+          <Property Name="OwnerAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="DriverName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DriverDetails" Type="nvarchar" MaxLength="200" />
+          <Property Name="LicenseNo" Type="varchar" MaxLength="50" />
+          <Property Name="IsDelete" Type="varchar" MaxLength="10" />
+          <Property Name="Status" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_CardInfo_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="CardInfo" Type="Self.CardInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CardInfo">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CardLog_CardInfo">
+          <End Role="CardInfo" Type="Self.CardInfo" Multiplicity="1" />
+          <End Role="CardLog" Type="Self.CardLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CardLog">
+              <PropertyRef Name="CardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CardLog_DeviceInfo">
+          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="1" />
+          <End Role="CardLog" Type="Self.CardLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CardLog">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceCardMap_CardInfo">
+          <End Role="CardInfo" Type="Self.CardInfo" Multiplicity="1" />
+          <End Role="DeviceCardMap" Type="Self.DeviceCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceCardMap">
+              <PropertyRef Name="CardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceCardMap_DeviceInfo">
+          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="1" />
+          <End Role="DeviceCardMap" Type="Self.DeviceCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceCardMap">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceCardMap_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="DeviceCardMap" Type="Self.DeviceCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceCardMap">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceInfo_AccessZoneInfo">
+          <End Role="AccessZoneInfo" Type="Self.AccessZoneInfo" Multiplicity="1" />
+          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessZoneInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceInfo">
+              <PropertyRef Name="AccessZoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeAccessZoneMap_AccessZoneInfo">
+          <End Role="AccessZoneInfo" Type="Self.AccessZoneInfo" Multiplicity="1" />
+          <End Role="EmployeeAccessZoneMap" Type="Self.EmployeeAccessZoneMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessZoneInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeAccessZoneMap">
+              <PropertyRef Name="AccessZoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeAccessZoneMap_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="EmployeeAccessZoneMap" Type="Self.EmployeeAccessZoneMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeAccessZoneMap">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCardMap_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="UserCardMap" Type="Self.UserCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserCardMap">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCardMap_CardInfo">
+          <End Role="CardInfo" Type="Self.CardInfo" Multiplicity="1" />
+          <End Role="UserCardMap" Type="Self.UserCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserCardMap">
+              <PropertyRef Name="CardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCardMap_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="UserCardMap" Type="Self.UserCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserCardMap">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestModelStoreContainer">
+          <EntitySet Name="AccessZoneInfo" EntityType="Self.AccessZoneInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CardInfo" EntityType="Self.CardInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CardLog" EntityType="Self.CardLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceCardMap" EntityType="Self.DeviceCardMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceInfo" EntityType="Self.DeviceInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeAccessZoneMap" EntityType="Self.EmployeeAccessZoneMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserCardMap" EntityType="Self.UserCardMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleInfo" EntityType="Self.VehicleInfo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VehicleInfo].[Serial] AS [Serial], 
+    [VehicleInfo].[VehicleId] AS [VehicleId], 
+    [VehicleInfo].[VehicleNo] AS [VehicleNo], 
+    [VehicleInfo].[OwnerName] AS [OwnerName], 
+    [VehicleInfo].[OwnerAddress] AS [OwnerAddress], 
+    [VehicleInfo].[DriverName] AS [DriverName], 
+    [VehicleInfo].[DriverDetails] AS [DriverDetails], 
+    [VehicleInfo].[LicenseNo] AS [LicenseNo], 
+    [VehicleInfo].[IsDelete] AS [IsDelete], 
+    [VehicleInfo].[Status] AS [Status]
+    FROM [dbo].[VehicleInfo] AS [VehicleInfo]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_CardInfo_Status" Association="Self.FK_CardInfo_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="CardInfo" EntitySet="CardInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CardLog_CardInfo" Association="Self.FK_CardLog_CardInfo">
+            <End Role="CardInfo" EntitySet="CardInfo" />
+            <End Role="CardLog" EntitySet="CardLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CardLog_DeviceInfo" Association="Self.FK_CardLog_DeviceInfo">
+            <End Role="DeviceInfo" EntitySet="DeviceInfo" />
+            <End Role="CardLog" EntitySet="CardLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceCardMap_CardInfo" Association="Self.FK_DeviceCardMap_CardInfo">
+            <End Role="CardInfo" EntitySet="CardInfo" />
+            <End Role="DeviceCardMap" EntitySet="DeviceCardMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceCardMap_DeviceInfo" Association="Self.FK_DeviceCardMap_DeviceInfo">
+            <End Role="DeviceInfo" EntitySet="DeviceInfo" />
+            <End Role="DeviceCardMap" EntitySet="DeviceCardMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceCardMap_Status" Association="Self.FK_DeviceCardMap_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="DeviceCardMap" EntitySet="DeviceCardMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceInfo_AccessZoneInfo" Association="Self.FK_DeviceInfo_AccessZoneInfo">
+            <End Role="AccessZoneInfo" EntitySet="AccessZoneInfo" />
+            <End Role="DeviceInfo" EntitySet="DeviceInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeAccessZoneMap_AccessZoneInfo" Association="Self.FK_EmployeeAccessZoneMap_AccessZoneInfo">
+            <End Role="AccessZoneInfo" EntitySet="AccessZoneInfo" />
+            <End Role="EmployeeAccessZoneMap" EntitySet="EmployeeAccessZoneMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeAccessZoneMap_AspNetUsers" Association="Self.FK_EmployeeAccessZoneMap_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="EmployeeAccessZoneMap" EntitySet="EmployeeAccessZoneMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCardMap_AspNetUsers" Association="Self.FK_UserCardMap_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserCardMap" EntitySet="UserCardMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCardMap_CardInfo" Association="Self.FK_UserCardMap_CardInfo">
+            <End Role="CardInfo" EntitySet="CardInfo" />
+            <End Role="UserCardMap" EntitySet="UserCardMap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCardMap_Status" Association="Self.FK_UserCardMap_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="UserCardMap" EntitySet="UserCardMap" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccessZoneInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Floor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DeviceInfoes" Relationship="Self.FK_DeviceInfo_AccessZoneInfo" FromRole="AccessZoneInfo" ToRole="DeviceInfo" />
+          <NavigationProperty Name="EmployeeAccessZoneMaps" Relationship="Self.FK_EmployeeAccessZoneMap_AccessZoneInfo" FromRole="AccessZoneInfo" ToRole="EmployeeAccessZoneMap" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="BloodGroup" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ProfilePicUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PresentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PresentDistrict" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PresentDivision" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PermanentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentDistrict" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PermanentDivision" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Profession" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SummaryNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserGroup" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="EmployeeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DeskFloor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="RoomNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="WorkDivision" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsVerified" Type="Int32" />
+          <NavigationProperty Name="EmployeeAccessZoneMaps" Relationship="Self.FK_EmployeeAccessZoneMap_AspNetUsers" FromRole="AspNetUsers" ToRole="EmployeeAccessZoneMap" />
+          <NavigationProperty Name="UserCardMaps" Relationship="Self.FK_UserCardMap_AspNetUsers" FromRole="AspNetUsers" ToRole="UserCardMap" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="CardInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_CardInfo_Status" FromRole="CardInfo" ToRole="Status" />
+          <NavigationProperty Name="CardLogs" Relationship="Self.FK_CardLog_CardInfo" FromRole="CardInfo" ToRole="CardLog" />
+          <NavigationProperty Name="DeviceCardMaps" Relationship="Self.FK_DeviceCardMap_CardInfo" FromRole="CardInfo" ToRole="DeviceCardMap" />
+          <NavigationProperty Name="UserCardMaps" Relationship="Self.FK_UserCardMap_CardInfo" FromRole="CardInfo" ToRole="UserCardMap" />
+        </EntityType>
+        <EntityType Name="CardLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardId" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DeviceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CardInfo" Relationship="Self.FK_CardLog_CardInfo" FromRole="CardLog" ToRole="CardInfo" />
+          <NavigationProperty Name="DeviceInfo" Relationship="Self.FK_CardLog_DeviceInfo" FromRole="CardLog" ToRole="DeviceInfo" />
+        </EntityType>
+        <EntityType Name="DeviceCardMap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceId" Type="Int32" Nullable="false" />
+          <Property Name="CardId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="AssignTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpireTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CardInfo" Relationship="Self.FK_DeviceCardMap_CardInfo" FromRole="DeviceCardMap" ToRole="CardInfo" />
+          <NavigationProperty Name="DeviceInfo" Relationship="Self.FK_DeviceCardMap_DeviceInfo" FromRole="DeviceCardMap" ToRole="DeviceInfo" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_DeviceCardMap_Status" FromRole="DeviceCardMap" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="DeviceInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Port" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DeviceType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DeviceSDK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DPass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccessZoneId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AccessZoneInfo" Relationship="Self.FK_DeviceInfo_AccessZoneInfo" FromRole="DeviceInfo" ToRole="AccessZoneInfo" />
+          <NavigationProperty Name="CardLogs" Relationship="Self.FK_CardLog_DeviceInfo" FromRole="DeviceInfo" ToRole="CardLog" />
+          <NavigationProperty Name="DeviceCardMaps" Relationship="Self.FK_DeviceCardMap_DeviceInfo" FromRole="DeviceInfo" ToRole="DeviceCardMap" />
+        </EntityType>
+        <EntityType Name="EmployeeAccessZoneMap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccessZoneId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AccessZoneInfo" Relationship="Self.FK_EmployeeAccessZoneMap_AccessZoneInfo" FromRole="EmployeeAccessZoneMap" ToRole="AccessZoneInfo" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_EmployeeAccessZoneMap_AspNetUsers" FromRole="EmployeeAccessZoneMap" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CardInfoes" Relationship="Self.FK_CardInfo_Status" FromRole="Status" ToRole="CardInfo" />
+          <NavigationProperty Name="DeviceCardMaps" Relationship="Self.FK_DeviceCardMap_Status" FromRole="Status" ToRole="DeviceCardMap" />
+          <NavigationProperty Name="UserCardMaps" Relationship="Self.FK_UserCardMap_Status" FromRole="Status" ToRole="UserCardMap" />
+        </EntityType>
+        <EntityType Name="UserCardMap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CardId" Type="Int32" Nullable="false" />
+          <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RevocationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_UserCardMap_AspNetUsers" FromRole="UserCardMap" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CardInfo" Relationship="Self.FK_UserCardMap_CardInfo" FromRole="UserCardMap" ToRole="CardInfo" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_UserCardMap_Status" FromRole="UserCardMap" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="VehicleInfo">
+          <Key>
+            <PropertyRef Name="Serial" />
+          </Key>
+          <Property Name="Serial" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DriverName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DriverDetails" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LicenseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsDelete" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_DeviceInfo_AccessZoneInfo">
+          <End Role="AccessZoneInfo" Type="Self.AccessZoneInfo" Multiplicity="1" />
+          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessZoneInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceInfo">
+              <PropertyRef Name="AccessZoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeAccessZoneMap_AccessZoneInfo">
+          <End Role="AccessZoneInfo" Type="Self.AccessZoneInfo" Multiplicity="1" />
+          <End Role="EmployeeAccessZoneMap" Type="Self.EmployeeAccessZoneMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessZoneInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeAccessZoneMap">
+              <PropertyRef Name="AccessZoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeAccessZoneMap_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="EmployeeAccessZoneMap" Type="Self.EmployeeAccessZoneMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeAccessZoneMap">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCardMap_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="UserCardMap" Type="Self.UserCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserCardMap">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CardInfo_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="CardInfo" Type="Self.CardInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CardInfo">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CardLog_CardInfo">
+          <End Role="CardInfo" Type="Self.CardInfo" Multiplicity="1" />
+          <End Role="CardLog" Type="Self.CardLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CardLog">
+              <PropertyRef Name="CardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceCardMap_CardInfo">
+          <End Role="CardInfo" Type="Self.CardInfo" Multiplicity="1" />
+          <End Role="DeviceCardMap" Type="Self.DeviceCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceCardMap">
+              <PropertyRef Name="CardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCardMap_CardInfo">
+          <End Role="CardInfo" Type="Self.CardInfo" Multiplicity="1" />
+          <End Role="UserCardMap" Type="Self.UserCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CardInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserCardMap">
+              <PropertyRef Name="CardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CardLog_DeviceInfo">
+          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="1" />
+          <End Role="CardLog" Type="Self.CardLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CardLog">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceCardMap_DeviceInfo">
+          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="1" />
+          <End Role="DeviceCardMap" Type="Self.DeviceCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceInfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceCardMap">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceCardMap_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="DeviceCardMap" Type="Self.DeviceCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DeviceCardMap">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCardMap_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="UserCardMap" Type="Self.UserCardMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserCardMap">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="TestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessZoneInfoes" EntityType="Self.AccessZoneInfo" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="CardInfoes" EntityType="Self.CardInfo" />
+          <EntitySet Name="CardLogs" EntityType="Self.CardLog" />
+          <EntitySet Name="DeviceCardMaps" EntityType="Self.DeviceCardMap" />
+          <EntitySet Name="DeviceInfoes" EntityType="Self.DeviceInfo" />
+          <EntitySet Name="EmployeeAccessZoneMaps" EntityType="Self.EmployeeAccessZoneMap" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="UserCardMaps" EntityType="Self.UserCardMap" />
+          <EntitySet Name="VehicleInfoes" EntityType="Self.VehicleInfo" />
+          <AssociationSet Name="FK_DeviceInfo_AccessZoneInfo" Association="Self.FK_DeviceInfo_AccessZoneInfo">
+            <End Role="AccessZoneInfo" EntitySet="AccessZoneInfoes" />
+            <End Role="DeviceInfo" EntitySet="DeviceInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeAccessZoneMap_AccessZoneInfo" Association="Self.FK_EmployeeAccessZoneMap_AccessZoneInfo">
+            <End Role="AccessZoneInfo" EntitySet="AccessZoneInfoes" />
+            <End Role="EmployeeAccessZoneMap" EntitySet="EmployeeAccessZoneMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeAccessZoneMap_AspNetUsers" Association="Self.FK_EmployeeAccessZoneMap_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="EmployeeAccessZoneMap" EntitySet="EmployeeAccessZoneMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCardMap_AspNetUsers" Association="Self.FK_UserCardMap_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserCardMap" EntitySet="UserCardMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CardInfo_Status" Association="Self.FK_CardInfo_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="CardInfo" EntitySet="CardInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CardLog_CardInfo" Association="Self.FK_CardLog_CardInfo">
+            <End Role="CardInfo" EntitySet="CardInfoes" />
+            <End Role="CardLog" EntitySet="CardLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceCardMap_CardInfo" Association="Self.FK_DeviceCardMap_CardInfo">
+            <End Role="CardInfo" EntitySet="CardInfoes" />
+            <End Role="DeviceCardMap" EntitySet="DeviceCardMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCardMap_CardInfo" Association="Self.FK_UserCardMap_CardInfo">
+            <End Role="CardInfo" EntitySet="CardInfoes" />
+            <End Role="UserCardMap" EntitySet="UserCardMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CardLog_DeviceInfo" Association="Self.FK_CardLog_DeviceInfo">
+            <End Role="DeviceInfo" EntitySet="DeviceInfoes" />
+            <End Role="CardLog" EntitySet="CardLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceCardMap_DeviceInfo" Association="Self.FK_DeviceCardMap_DeviceInfo">
+            <End Role="DeviceInfo" EntitySet="DeviceInfoes" />
+            <End Role="DeviceCardMap" EntitySet="DeviceCardMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceCardMap_Status" Association="Self.FK_DeviceCardMap_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="DeviceCardMap" EntitySet="DeviceCardMaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCardMap_Status" Association="Self.FK_UserCardMap_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="UserCardMap" EntitySet="UserCardMaps" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestModelStoreContainer" CdmEntityContainer="TestEntities">
+          <EntitySetMapping Name="AccessZoneInfoes">
+            <EntityTypeMapping TypeName="TestModel.AccessZoneInfo">
+              <MappingFragment StoreEntitySet="AccessZoneInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="TestModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="TestModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+                <ScalarProperty Name="NId" ColumnName="NId" />
+                <ScalarProperty Name="ProfilePicUrl" ColumnName="ProfilePicUrl" />
+                <ScalarProperty Name="PresentAddress" ColumnName="PresentAddress" />
+                <ScalarProperty Name="PresentDistrict" ColumnName="PresentDistrict" />
+                <ScalarProperty Name="PresentDivision" ColumnName="PresentDivision" />
+                <ScalarProperty Name="PermanentAddress" ColumnName="PermanentAddress" />
+                <ScalarProperty Name="PermanentDistrict" ColumnName="PermanentDistrict" />
+                <ScalarProperty Name="PermanentDivision" ColumnName="PermanentDivision" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+                <ScalarProperty Name="SummaryNote" ColumnName="SummaryNote" />
+                <ScalarProperty Name="UserGroup" ColumnName="UserGroup" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="DeskFloor" ColumnName="DeskFloor" />
+                <ScalarProperty Name="RoomNo" ColumnName="RoomNo" />
+                <ScalarProperty Name="WorkDivision" ColumnName="WorkDivision" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardInfoes">
+            <EntityTypeMapping TypeName="TestModel.CardInfo">
+              <MappingFragment StoreEntitySet="CardInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardLogs">
+            <EntityTypeMapping TypeName="TestModel.CardLog">
+              <MappingFragment StoreEntitySet="CardLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceCardMaps">
+            <EntityTypeMapping TypeName="TestModel.DeviceCardMap">
+              <MappingFragment StoreEntitySet="DeviceCardMap">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="AssignTime" ColumnName="AssignTime" />
+                <ScalarProperty Name="ExpireTime" ColumnName="ExpireTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceInfoes">
+            <EntityTypeMapping TypeName="TestModel.DeviceInfo">
+              <MappingFragment StoreEntitySet="DeviceInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="Port" ColumnName="Port" />
+                <ScalarProperty Name="DeviceType" ColumnName="DeviceType" />
+                <ScalarProperty Name="DeviceSDK" ColumnName="DeviceSDK" />
+                <ScalarProperty Name="DUser" ColumnName="DUser" />
+                <ScalarProperty Name="DPass" ColumnName="DPass" />
+                <ScalarProperty Name="AccessZoneId" ColumnName="AccessZoneId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeAccessZoneMaps">
+            <EntityTypeMapping TypeName="TestModel.EmployeeAccessZoneMap">
+              <MappingFragment StoreEntitySet="EmployeeAccessZoneMap">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AccessZoneId" ColumnName="AccessZoneId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="TestModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserCardMaps">
+            <EntityTypeMapping TypeName="TestModel.UserCardMap">
+              <MappingFragment StoreEntitySet="UserCardMap">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+                <ScalarProperty Name="RevocationDate" ColumnName="RevocationDate" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleInfoes">
+            <EntityTypeMapping TypeName="TestModel.VehicleInfo">
+              <MappingFragment StoreEntitySet="VehicleInfo">
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="VehicleNo" ColumnName="VehicleNo" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="OwnerAddress" ColumnName="OwnerAddress" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="DriverDetails" ColumnName="DriverDetails" />
+                <ScalarProperty Name="LicenseNo" ColumnName="LicenseNo" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="TestModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
