@@ -8,16 +8,37 @@ namespace ACMVC
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+
+
+            // Use the development version of Modernizr to develop with and learn from. Then, when you're
+            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
+            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+                        "~/Scripts/modernizr-*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/vendors").Include(
+                        "~/Scripts/angular.min.js",
+                        "~/Scripts/toastr.js",
+                        "~/Scripts/angular-route.js"
+                        ));
+
+            bundles.Add(new ScriptBundle("~/bundles/spa").Include(
+                       "~/Scripts/App/modules/common.core.js",
+                       "~/Scripts/App/modules/common.ui.js",
+                       "~/Scripts/App/layouts/*.js",
+                       "~/Scripts/App/notificationService.js",
+                       "~/Scripts/App/app.js",
+                       "~/Scripts/App/rootCtrl.js",
+                       "~/Scripts/App/Status/*.js"
+
+                ));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
