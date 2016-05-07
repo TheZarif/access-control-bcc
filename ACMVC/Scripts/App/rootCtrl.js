@@ -3,10 +3,12 @@
 
     app.controller('rootCtrl', rootCtrl);
 
-    function rootCtrl($scope) {
+    rootCtrl.$inject = ['$scope', '$http']
+
+    function rootCtrl($scope, $http) {
 
         $scope.userData = {};
-        $scope.isWorking = "This is working";
+        $scope.userData.isLoggedIn = false;
 
         $scope.userData.displayUserInfo = displayUserInfo;
         $scope.logout = logout;
@@ -19,6 +21,13 @@
         function logout() {
 
         }
+
+        $http.get(baseUrl + "Account/checkifloggedin").success(function(data){
+            $scope.userData.userName = data;
+            $scope.userData.isLoggedIn = true;
+        }).error(function () {
+            alert("Not logged in");
+        })
     }
 
 })(angular.module('homeCinema'));

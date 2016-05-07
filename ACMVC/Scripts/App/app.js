@@ -15,9 +15,9 @@
                 templateUrl: "scripts/App/Status/index.html",
                 controller: "statusCtrl"
             })
-            .when("/register", {
-                templateUrl: "scripts/spa/account/register.html",
-                controller: "registerCtrl"
+            .when("/card", {
+                templateUrl: "scripts/App/Card/cardpage.html",
+                controller: "cardCtrl"
             })
             .when("/customers", {
                 templateUrl: "scripts/spa/customers/customers.html",

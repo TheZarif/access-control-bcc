@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ACMVC.Models;
+using System.Net;
 
 namespace ACMVC.Controllers
 {
@@ -17,6 +18,21 @@ namespace ACMVC.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+
+        public JsonResult checkIfLoggedIn()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var Username = User.Identity.Name;
+                return Json(Username, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                return Json("not logged in",JsonRequestBehavior.AllowGet);
+            }
+        }
 
         public AccountController()
         {

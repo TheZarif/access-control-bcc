@@ -17,7 +17,7 @@
                 return $http.post(baseUrl + "status/delete/" + status.Id);
             },
             updateStatus: function (status) {
-                return $http.post(baseUrl + "status/update/" + status.Id, status);
+                return $http.post(baseUrl + "status/edit/" + status.Id, status);
             }
         };
     }

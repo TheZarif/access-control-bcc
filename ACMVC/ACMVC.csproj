@@ -180,6 +180,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CardInfoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
@@ -287,6 +288,9 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\App\app.js" />
+    <Content Include="Scripts\App\Card\cardpage.html" />
+    <Content Include="Scripts\App\Card\cardCtrl.js" />
+    <Content Include="Scripts\App\Card\cardFactory.js" />
     <Content Include="Scripts\App\layouts\sidebar.html" />
     <Content Include="Scripts\App\layouts\sidebar.directive.js" />
     <Content Include="Scripts\App\modules\common.core.js" />
@@ -1120,6 +1124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\CardInfoes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

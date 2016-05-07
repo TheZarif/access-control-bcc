@@ -28,7 +28,8 @@ namespace ACMVC
                        "~/Scripts/App/notificationService.js",
                        "~/Scripts/App/app.js",
                        "~/Scripts/App/rootCtrl.js",
-                       "~/Scripts/App/Status/*.js"
+                       "~/Scripts/App/Status/*.js",
+                       "~/Scripts/App/Card/*.js"
 
                 ));
 
