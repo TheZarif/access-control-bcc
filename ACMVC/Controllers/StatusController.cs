@@ -10,6 +10,7 @@ using ACMVC.DAL;
 
 namespace ACMVC.Controllers
 {
+    
     public class StatusController : Controller
     {
         private TestEntities db = new TestEntities();
@@ -17,6 +18,7 @@ namespace ACMVC.Controllers
         public JsonResult GetAll()
         {
             var Statuses = db.Status.ToList();
+
             return Json(
                 Statuses.Select(x => new {
                     Id = x.Id,

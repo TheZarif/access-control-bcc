@@ -25,13 +25,13 @@ namespace ACMVC.DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AccessZoneInfo> AccessZoneInfoes { get; set; }
+        public virtual DbSet<AccessZone> AccessZones { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<CardInfo> CardInfoes { get; set; }
         public virtual DbSet<CardLog> CardLogs { get; set; }
+        public virtual DbSet<Device> Devices { get; set; }
         public virtual DbSet<DeviceCardMap> DeviceCardMaps { get; set; }
-        public virtual DbSet<DeviceInfo> DeviceInfoes { get; set; }
         public virtual DbSet<EmployeeAccessZoneMap> EmployeeAccessZoneMaps { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<UserCardMap> UserCardMaps { get; set; }

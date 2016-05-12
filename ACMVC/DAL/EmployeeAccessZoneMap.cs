@@ -18,7 +18,7 @@ namespace ACMVC.DAL
         public int AccessZoneId { get; set; }
         public string UserId { get; set; }
     
-        public virtual AccessZoneInfo AccessZoneInfo { get; set; }
+        public virtual AccessZone AccessZone { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
     }
 }

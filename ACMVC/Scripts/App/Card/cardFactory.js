@@ -18,8 +18,12 @@
             },
             updateCard: function (card) {
                 return $http.post(baseUrl + "cardinfoes/edit/" + card.Id, card);
+            },
+            getCardByNumber: function (number) {
+                console.log("cardFactory", number);
+                return $http.post(baseUrl + "cardinfoes/getall", {"Number": number});
             }
         };
     }
 
-})(angular.module('homeCinema'));
+})(angular.module('accessControl'));

@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('homeCinema', ['common.core', 'common.ui'])
+    angular.module('accessControl', ['common.core', 'common.ui', 'ui.bootstrap'])
         .config(config);
 
     config.$inject = ['$routeProvider'];
@@ -19,11 +19,31 @@
                 templateUrl: "scripts/App/Card/cardpage.html",
                 controller: "cardCtrl"
             })
-            .when("/customers", {
-                templateUrl: "scripts/spa/customers/customers.html",
-                controller: "customersCtrl"
+            .when("/role", {
+                templateUrl: "scripts/App/Role/rolePage.html",
+                controller: "roleCtrl"
             })
-            .when("/customers/register", {
+            .when("/zone", {
+                templateUrl: "scripts/App/AccessZone/zonepage.html",
+                controller: "zoneCtrl"
+            })
+            .when("/device", {
+                templateUrl: "scripts/App/Device/devicepage.html",
+                controller: "deviceCtrl"
+            })
+            .when("/cardlog", {
+                templateUrl: "scripts/App/CardLog/cardlogpage.html",
+                controller: "cardLogCtrl"
+            })
+            .when("/usercard", {
+                 templateUrl: "scripts/App/UserCard/usercardpage.html",
+                 controller: "userCardCtrl"
+            })
+            .when("/devicecard", {
+                templateUrl: "scripts/App/DeviceCard/devicecardpage.html",
+                controller: "deviceCardCtrl"
+            })
+            /*.when("/customers/register", {
                 templateUrl: "scripts/spa/customers/register.html",
                 controller: "customersRegCtrl"
             })
@@ -46,7 +66,8 @@
             .when("/rental", {
                 templateUrl: "scripts/spa/rental/rental.html",
                 controller: "rentStatsCtrl"
-            }).otherwise({ redirectTo: "/" });
+            })*/
+            .otherwise({ redirectTo: "/" });
     }
 
 })();

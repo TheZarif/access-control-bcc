@@ -22,4 +22,4 @@
         };
     }
 
-})(angular.module('homeCinema'));
+})(angular.module('accessControl'));

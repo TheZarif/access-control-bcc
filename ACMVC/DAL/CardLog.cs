@@ -20,6 +20,6 @@ namespace ACMVC.DAL
         public int DeviceId { get; set; }
     
         public virtual CardInfo CardInfo { get; set; }
-        public virtual DeviceInfo DeviceInfo { get; set; }
+        public virtual Device Device { get; set; }
     }
 }

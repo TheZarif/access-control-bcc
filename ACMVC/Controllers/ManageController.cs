@@ -10,7 +10,6 @@ using ACMVC.Models;
 
 namespace ACMVC.Controllers
 {
-    [Authorize]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

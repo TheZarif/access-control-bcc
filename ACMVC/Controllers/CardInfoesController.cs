@@ -21,13 +21,24 @@ namespace ACMVC.Controllers
             return View(cardInfoes.ToList());
         }
 
-        public JsonResult GetAll()
+
+
+        public JsonResult GetAll(string number)
         {
-            var cardInfoes = db.CardInfoes.Include(c => c.Status);
-            return Json(cardInfoes.Select(x => new {
+            IQueryable<CardInfo> cardInfoes;
+            if (string.IsNullOrEmpty(number))
+            {
+                cardInfoes = db.CardInfoes.Include(c => c.Status);                
+            }
+            else
+            {
+                cardInfoes = db.CardInfoes.Where(p => (p.Number.Contains(number)));
+            }
+            return Json(cardInfoes.Select(x => new
+            {
                 Id = x.Id,
                 Number = x.Number,
-                Notes = x.Notes,               
+                Notes = x.Notes,
                 StatusId = x.StatusId,
                 StatusType = x.Status.Type
             }), JsonRequestBehavior.AllowGet);

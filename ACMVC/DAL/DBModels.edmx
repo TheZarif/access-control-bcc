@@ -5,12 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="TestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="AccessZoneInfo">
+        <EntityType Name="AccessZone">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Floor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Floor" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="AspNetRoles">
@@ -82,18 +83,7 @@
           <Property Name="Time" Type="datetime" Nullable="false" />
           <Property Name="DeviceId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="DeviceCardMap">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DeviceId" Type="int" Nullable="false" />
-          <Property Name="CardId" Type="int" Nullable="false" />
-          <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="AssignTime" Type="datetime" Nullable="false" />
-          <Property Name="ExpireTime" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DeviceInfo">
+        <EntityType Name="Device">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -106,6 +96,17 @@
           <Property Name="DUser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DPass" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AccessZoneId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeviceCardMap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceId" Type="int" Nullable="false" />
+          <Property Name="CardId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="AssignTime" Type="datetime" Nullable="false" />
+          <Property Name="ExpireTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeAccessZoneMap">
           <Key>
@@ -176,11 +177,11 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CardLog_DeviceInfo">
-          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="1" />
+        <Association Name="FK_CardLog_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
           <End Role="CardLog" Type="Self.CardLog" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DeviceInfo">
+            <Principal Role="Device">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CardLog">
@@ -216,6 +217,18 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Device_AccessZone">
+          <End Role="AccessZone" Type="Self.AccessZone" Multiplicity="1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessZone">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="AccessZoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DeviceCardMap_CardInfo">
           <End Role="CardInfo" Type="Self.CardInfo" Multiplicity="1" />
           <End Role="DeviceCardMap" Type="Self.DeviceCardMap" Multiplicity="*" />
@@ -228,11 +241,11 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DeviceCardMap_DeviceInfo">
-          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="1" />
+        <Association Name="FK_DeviceCardMap_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
           <End Role="DeviceCardMap" Type="Self.DeviceCardMap" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DeviceInfo">
+            <Principal Role="Device">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="DeviceCardMap">
@@ -252,23 +265,11 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DeviceInfo_AccessZoneInfo">
-          <End Role="AccessZoneInfo" Type="Self.AccessZoneInfo" Multiplicity="1" />
-          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AccessZoneInfo">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DeviceInfo">
-              <PropertyRef Name="AccessZoneId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EmployeeAccessZoneMap_AccessZoneInfo">
-          <End Role="AccessZoneInfo" Type="Self.AccessZoneInfo" Multiplicity="1" />
+        <Association Name="FK_EmployeeAccessZoneMap_AccessZone">
+          <End Role="AccessZone" Type="Self.AccessZone" Multiplicity="1" />
           <End Role="EmployeeAccessZoneMap" Type="Self.EmployeeAccessZoneMap" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AccessZoneInfo">
+            <Principal Role="AccessZone">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="EmployeeAccessZoneMap">
@@ -325,14 +326,14 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TestModelStoreContainer">
-          <EntitySet Name="AccessZoneInfo" EntityType="Self.AccessZoneInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccessZone" EntityType="Self.AccessZone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardInfo" EntityType="Self.CardInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardLog" EntityType="Self.CardLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceCardMap" EntityType="Self.DeviceCardMap" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DeviceInfo" EntityType="Self.DeviceInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeAccessZoneMap" EntityType="Self.EmployeeAccessZoneMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCardMap" EntityType="Self.UserCardMap" Schema="dbo" store:Type="Tables" />
@@ -358,8 +359,8 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
             <End Role="CardInfo" EntitySet="CardInfo" />
             <End Role="CardLog" EntitySet="CardLog" />
           </AssociationSet>
-          <AssociationSet Name="FK_CardLog_DeviceInfo" Association="Self.FK_CardLog_DeviceInfo">
-            <End Role="DeviceInfo" EntitySet="DeviceInfo" />
+          <AssociationSet Name="FK_CardLog_Device" Association="Self.FK_CardLog_Device">
+            <End Role="Device" EntitySet="Device" />
             <End Role="CardLog" EntitySet="CardLog" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
@@ -370,24 +371,24 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK_Device_AccessZone" Association="Self.FK_Device_AccessZone">
+            <End Role="AccessZone" EntitySet="AccessZone" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
           <AssociationSet Name="FK_DeviceCardMap_CardInfo" Association="Self.FK_DeviceCardMap_CardInfo">
             <End Role="CardInfo" EntitySet="CardInfo" />
             <End Role="DeviceCardMap" EntitySet="DeviceCardMap" />
           </AssociationSet>
-          <AssociationSet Name="FK_DeviceCardMap_DeviceInfo" Association="Self.FK_DeviceCardMap_DeviceInfo">
-            <End Role="DeviceInfo" EntitySet="DeviceInfo" />
+          <AssociationSet Name="FK_DeviceCardMap_Device" Association="Self.FK_DeviceCardMap_Device">
+            <End Role="Device" EntitySet="Device" />
             <End Role="DeviceCardMap" EntitySet="DeviceCardMap" />
           </AssociationSet>
           <AssociationSet Name="FK_DeviceCardMap_Status" Association="Self.FK_DeviceCardMap_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="DeviceCardMap" EntitySet="DeviceCardMap" />
           </AssociationSet>
-          <AssociationSet Name="FK_DeviceInfo_AccessZoneInfo" Association="Self.FK_DeviceInfo_AccessZoneInfo">
-            <End Role="AccessZoneInfo" EntitySet="AccessZoneInfo" />
-            <End Role="DeviceInfo" EntitySet="DeviceInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EmployeeAccessZoneMap_AccessZoneInfo" Association="Self.FK_EmployeeAccessZoneMap_AccessZoneInfo">
-            <End Role="AccessZoneInfo" EntitySet="AccessZoneInfo" />
+          <AssociationSet Name="FK_EmployeeAccessZoneMap_AccessZone" Association="Self.FK_EmployeeAccessZoneMap_AccessZone">
+            <End Role="AccessZone" EntitySet="AccessZone" />
             <End Role="EmployeeAccessZoneMap" EntitySet="EmployeeAccessZoneMap" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeAccessZoneMap_AspNetUsers" Association="Self.FK_EmployeeAccessZoneMap_AspNetUsers">
@@ -412,15 +413,16 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="AccessZoneInfo">
+        <EntityType Name="AccessZone">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Floor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Floor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DeviceInfoes" Relationship="Self.FK_DeviceInfo_AccessZoneInfo" FromRole="AccessZoneInfo" ToRole="DeviceInfo" />
-          <NavigationProperty Name="EmployeeAccessZoneMaps" Relationship="Self.FK_EmployeeAccessZoneMap_AccessZoneInfo" FromRole="AccessZoneInfo" ToRole="EmployeeAccessZoneMap" />
+          <NavigationProperty Name="Devices" Relationship="Self.FK_Device_AccessZone" FromRole="AccessZone" ToRole="Device" />
+          <NavigationProperty Name="EmployeeAccessZoneMaps" Relationship="Self.FK_EmployeeAccessZoneMap_AccessZone" FromRole="AccessZone" ToRole="EmployeeAccessZoneMap" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
@@ -491,23 +493,9 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
           <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DeviceId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CardInfo" Relationship="Self.FK_CardLog_CardInfo" FromRole="CardLog" ToRole="CardInfo" />
-          <NavigationProperty Name="DeviceInfo" Relationship="Self.FK_CardLog_DeviceInfo" FromRole="CardLog" ToRole="DeviceInfo" />
+          <NavigationProperty Name="Device" Relationship="Self.FK_CardLog_Device" FromRole="CardLog" ToRole="Device" />
         </EntityType>
-        <EntityType Name="DeviceCardMap">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DeviceId" Type="Int32" Nullable="false" />
-          <Property Name="CardId" Type="Int32" Nullable="false" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="AssignTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ExpireTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="CardInfo" Relationship="Self.FK_DeviceCardMap_CardInfo" FromRole="DeviceCardMap" ToRole="CardInfo" />
-          <NavigationProperty Name="DeviceInfo" Relationship="Self.FK_DeviceCardMap_DeviceInfo" FromRole="DeviceCardMap" ToRole="DeviceInfo" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_DeviceCardMap_Status" FromRole="DeviceCardMap" ToRole="Status" />
-        </EntityType>
-        <EntityType Name="DeviceInfo">
+        <EntityType Name="Device">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -520,9 +508,23 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
           <Property Name="DUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DPass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AccessZoneId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AccessZoneInfo" Relationship="Self.FK_DeviceInfo_AccessZoneInfo" FromRole="DeviceInfo" ToRole="AccessZoneInfo" />
-          <NavigationProperty Name="CardLogs" Relationship="Self.FK_CardLog_DeviceInfo" FromRole="DeviceInfo" ToRole="CardLog" />
-          <NavigationProperty Name="DeviceCardMaps" Relationship="Self.FK_DeviceCardMap_DeviceInfo" FromRole="DeviceInfo" ToRole="DeviceCardMap" />
+          <NavigationProperty Name="AccessZone" Relationship="Self.FK_Device_AccessZone" FromRole="Device" ToRole="AccessZone" />
+          <NavigationProperty Name="CardLogs" Relationship="Self.FK_CardLog_Device" FromRole="Device" ToRole="CardLog" />
+          <NavigationProperty Name="DeviceCardMaps" Relationship="Self.FK_DeviceCardMap_Device" FromRole="Device" ToRole="DeviceCardMap" />
+        </EntityType>
+        <EntityType Name="DeviceCardMap">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceId" Type="Int32" Nullable="false" />
+          <Property Name="CardId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="AssignTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpireTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CardInfo" Relationship="Self.FK_DeviceCardMap_CardInfo" FromRole="DeviceCardMap" ToRole="CardInfo" />
+          <NavigationProperty Name="Device" Relationship="Self.FK_DeviceCardMap_Device" FromRole="DeviceCardMap" ToRole="Device" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_DeviceCardMap_Status" FromRole="DeviceCardMap" ToRole="Status" />
         </EntityType>
         <EntityType Name="EmployeeAccessZoneMap">
           <Key>
@@ -531,7 +533,7 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AccessZoneId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AccessZoneInfo" Relationship="Self.FK_EmployeeAccessZoneMap_AccessZoneInfo" FromRole="EmployeeAccessZoneMap" ToRole="AccessZoneInfo" />
+          <NavigationProperty Name="AccessZone" Relationship="Self.FK_EmployeeAccessZoneMap_AccessZone" FromRole="EmployeeAccessZoneMap" ToRole="AccessZone" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_EmployeeAccessZoneMap_AspNetUsers" FromRole="EmployeeAccessZoneMap" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="Status">
@@ -575,23 +577,23 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
           <Property Name="IsDelete" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK_DeviceInfo_AccessZoneInfo">
-          <End Role="AccessZoneInfo" Type="Self.AccessZoneInfo" Multiplicity="1" />
-          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="*" />
+        <Association Name="FK_Device_AccessZone">
+          <End Role="AccessZone" Type="Self.AccessZone" Multiplicity="1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AccessZoneInfo">
+            <Principal Role="AccessZone">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="DeviceInfo">
+            <Dependent Role="Device">
               <PropertyRef Name="AccessZoneId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EmployeeAccessZoneMap_AccessZoneInfo">
-          <End Role="AccessZoneInfo" Type="Self.AccessZoneInfo" Multiplicity="1" />
+        <Association Name="FK_EmployeeAccessZoneMap_AccessZone">
+          <End Role="AccessZone" Type="Self.AccessZone" Multiplicity="1" />
           <End Role="EmployeeAccessZoneMap" Type="Self.EmployeeAccessZoneMap" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AccessZoneInfo">
+            <Principal Role="AccessZone">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="EmployeeAccessZoneMap">
@@ -671,11 +673,11 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CardLog_DeviceInfo">
-          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="1" />
+        <Association Name="FK_CardLog_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
           <End Role="CardLog" Type="Self.CardLog" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DeviceInfo">
+            <Principal Role="Device">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CardLog">
@@ -683,11 +685,11 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DeviceCardMap_DeviceInfo">
-          <End Role="DeviceInfo" Type="Self.DeviceInfo" Multiplicity="1" />
+        <Association Name="FK_DeviceCardMap_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
           <End Role="DeviceCardMap" Type="Self.DeviceCardMap" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DeviceInfo">
+            <Principal Role="Device">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="DeviceCardMap">
@@ -724,23 +726,23 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
         <EntityContainer Name="TestEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AccessZoneInfoes" EntityType="Self.AccessZoneInfo" />
+          <EntitySet Name="AccessZones" EntityType="Self.AccessZone" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="CardInfoes" EntityType="Self.CardInfo" />
           <EntitySet Name="CardLogs" EntityType="Self.CardLog" />
+          <EntitySet Name="Devices" EntityType="Self.Device" />
           <EntitySet Name="DeviceCardMaps" EntityType="Self.DeviceCardMap" />
-          <EntitySet Name="DeviceInfoes" EntityType="Self.DeviceInfo" />
           <EntitySet Name="EmployeeAccessZoneMaps" EntityType="Self.EmployeeAccessZoneMap" />
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="UserCardMaps" EntityType="Self.UserCardMap" />
           <EntitySet Name="VehicleInfoes" EntityType="Self.VehicleInfo" />
-          <AssociationSet Name="FK_DeviceInfo_AccessZoneInfo" Association="Self.FK_DeviceInfo_AccessZoneInfo">
-            <End Role="AccessZoneInfo" EntitySet="AccessZoneInfoes" />
-            <End Role="DeviceInfo" EntitySet="DeviceInfoes" />
+          <AssociationSet Name="FK_Device_AccessZone" Association="Self.FK_Device_AccessZone">
+            <End Role="AccessZone" EntitySet="AccessZones" />
+            <End Role="Device" EntitySet="Devices" />
           </AssociationSet>
-          <AssociationSet Name="FK_EmployeeAccessZoneMap_AccessZoneInfo" Association="Self.FK_EmployeeAccessZoneMap_AccessZoneInfo">
-            <End Role="AccessZoneInfo" EntitySet="AccessZoneInfoes" />
+          <AssociationSet Name="FK_EmployeeAccessZoneMap_AccessZone" Association="Self.FK_EmployeeAccessZoneMap_AccessZone">
+            <End Role="AccessZone" EntitySet="AccessZones" />
             <End Role="EmployeeAccessZoneMap" EntitySet="EmployeeAccessZoneMaps" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeAccessZoneMap_AspNetUsers" Association="Self.FK_EmployeeAccessZoneMap_AspNetUsers">
@@ -767,12 +769,12 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
             <End Role="CardInfo" EntitySet="CardInfoes" />
             <End Role="UserCardMap" EntitySet="UserCardMaps" />
           </AssociationSet>
-          <AssociationSet Name="FK_CardLog_DeviceInfo" Association="Self.FK_CardLog_DeviceInfo">
-            <End Role="DeviceInfo" EntitySet="DeviceInfoes" />
+          <AssociationSet Name="FK_CardLog_Device" Association="Self.FK_CardLog_Device">
+            <End Role="Device" EntitySet="Devices" />
             <End Role="CardLog" EntitySet="CardLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK_DeviceCardMap_DeviceInfo" Association="Self.FK_DeviceCardMap_DeviceInfo">
-            <End Role="DeviceInfo" EntitySet="DeviceInfoes" />
+          <AssociationSet Name="FK_DeviceCardMap_Device" Association="Self.FK_DeviceCardMap_Device">
+            <End Role="Device" EntitySet="Devices" />
             <End Role="DeviceCardMap" EntitySet="DeviceCardMaps" />
           </AssociationSet>
           <AssociationSet Name="FK_DeviceCardMap_Status" Association="Self.FK_DeviceCardMap_Status">
@@ -794,10 +796,11 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TestModelStoreContainer" CdmEntityContainer="TestEntities">
-          <EntitySetMapping Name="AccessZoneInfoes">
-            <EntityTypeMapping TypeName="TestModel.AccessZoneInfo">
-              <MappingFragment StoreEntitySet="AccessZoneInfo">
+          <EntitySetMapping Name="AccessZones">
+            <EntityTypeMapping TypeName="TestModel.AccessZone">
+              <MappingFragment StoreEntitySet="AccessZone">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Floor" ColumnName="Floor" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
@@ -868,21 +871,9 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DeviceCardMaps">
-            <EntityTypeMapping TypeName="TestModel.DeviceCardMap">
-              <MappingFragment StoreEntitySet="DeviceCardMap">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-                <ScalarProperty Name="CardId" ColumnName="CardId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="AssignTime" ColumnName="AssignTime" />
-                <ScalarProperty Name="ExpireTime" ColumnName="ExpireTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DeviceInfoes">
-            <EntityTypeMapping TypeName="TestModel.DeviceInfo">
-              <MappingFragment StoreEntitySet="DeviceInfo">
+          <EntitySetMapping Name="Devices">
+            <EntityTypeMapping TypeName="TestModel.Device">
+              <MappingFragment StoreEntitySet="Device">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IP" ColumnName="IP" />
@@ -892,6 +883,18 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
                 <ScalarProperty Name="DUser" ColumnName="DUser" />
                 <ScalarProperty Name="DPass" ColumnName="DPass" />
                 <ScalarProperty Name="AccessZoneId" ColumnName="AccessZoneId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceCardMaps">
+            <EntityTypeMapping TypeName="TestModel.DeviceCardMap">
+              <MappingFragment StoreEntitySet="DeviceCardMap">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="AssignTime" ColumnName="AssignTime" />
+                <ScalarProperty Name="ExpireTime" ColumnName="ExpireTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

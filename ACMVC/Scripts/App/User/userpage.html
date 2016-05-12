@@ -1,0 +1,55 @@
+﻿<hr />
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-primary" id="">
+            <div class="panel-heading">
+                <h3 class="panel-title">Role Admin Page</h3>
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-condensed table-hover">
+                    <tr>
+                        <th style="width: 100px;">
+                            <div class="btn-toolbar"><span class="btn btn-primary" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-plus"></i></span></div>
+                        </th>
+                        <th>Name</th>
+                    </tr>
+                    <tr ng-show="addMode">
+                        <td>
+                            <div class="btn-toolbar">
+                                <div class="btn-group">
+                                    <span class="btn btn-success" ng-click="addRole()"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+                                    <span class="btn btn-danger" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-remove"></i></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <input ng-model="newRole.Name" />
+                        </td>
+                    </tr>
+                    <tr ng-repeat="role in roles">
+                        <td>
+                            <div class="btn-toolbar" ng-show="role.editMode == null || role.editMode == false">
+                                <div class="btn-group">
+                                    <span class="btn btn-primary" ng-click="toggleEditMode(role)"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    <span class="btn btn-danger" ng-click="deleteRole(role)"><i class="glyphicon glyphicon-trash"></i></span>
+                                </div>
+                            </div>
+                            <div class="btn-toolbar" ng-show="role.editMode == true">
+                                <div class="btn-group">
+                                    <span class="btn btn-success" ng-click="updateRole(role)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+                                    <span class="btn btn-danger" ng-click="toggleEditMode(role)"><i class="glyphicon glyphicon-remove"></i></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span ng-show="role.editMode == null || role.editMode == false">{{role.Name}}</span>
+                            <input ng-model="role.Number" ng-show="role.editMode == true" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

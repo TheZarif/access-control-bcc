@@ -12,10 +12,10 @@ namespace ACMVC.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class DeviceInfo
+    public partial class Device
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeviceInfo()
+        public Device()
         {
             this.CardLogs = new HashSet<CardLog>();
             this.DeviceCardMaps = new HashSet<DeviceCardMap>();
@@ -31,7 +31,7 @@ namespace ACMVC.DAL
         public string DPass { get; set; }
         public int AccessZoneId { get; set; }
     
-        public virtual AccessZoneInfo AccessZoneInfo { get; set; }
+        public virtual AccessZone AccessZone { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CardLog> CardLogs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

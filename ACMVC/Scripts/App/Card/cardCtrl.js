@@ -3,9 +3,9 @@
 
     app.controller('cardCtrl', cardCtrl);
 
-    cardCtrl.$inject = ['$scope', 'cardFactory', 'statusFactory'];
+    cardCtrl.$inject = ['$scope', 'cardFactory', 'statusFactory', 'notificationService'];
 
-    function cardCtrl($scope, cardFactory, statusFactory, apiService, notificationService) {
+    function cardCtrl($scope, cardFactory, statusFactory, notificationService) {
         $scope.cards = [];
         $scope.statuses = []
         $scope.addMode = false;
@@ -13,12 +13,13 @@
         var editMode = false;
 
         cardFactory.getCard().success(function (data) {
+            notificationService.displaySuccess("Successfully retrieved data");
             $scope.cards = data;
             statusFactory.getStatus()
                 .success(   function (data) { $scope.statuses = data;})
                 .error(function (err) { console.log(err);});
         }).error(function () {
-            //show error
+            notificationService.displayError("Could not load data");
             console.log("Could not retrieve data from server");
         });
 
@@ -39,7 +40,7 @@
                     data.StatusType = $scope.getStatusName(data.StatusId);
                 })
                 .error(function (err) {
-                    //TODO: Toastr Notification error
+                    notificationService.displayError("Could not add data");
                     console.log(err);
                 })
         };
@@ -47,11 +48,10 @@
         $scope.deleteCard = function (card) {
             cardFactory.deleteCard(card)
                 .success(function (data) {
-                    //TODO: Remove item from list
                     helperLib.deleteItem(card, $scope.cards);
                 })
                 .error(function (err) {
-                    //TODO: Toastr Notification error
+                    notificationService.displayError("Could not delete data");
                     console.log(err);
                 })
         };
@@ -63,7 +63,7 @@
                     card.StatusType = $scope.getStatusName(card.StatusId);
                 })
                 .error(function (err) {
-                    //TODO: Toastr Notification error
+                    notificationService.displayError("Could not update data");
                     console.log(err)
                 })
         };
@@ -74,11 +74,10 @@
                     return $scope.statuses[i].Type;
                 }
             }
-
         }
 
        
     }
 
 
-})(angular.module('homeCinema'));
+})(angular.module('accessControl'));

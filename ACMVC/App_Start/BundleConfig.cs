@@ -18,7 +18,9 @@ namespace ACMVC
             bundles.Add(new ScriptBundle("~/bundles/vendors").Include(
                         "~/Scripts/angular.min.js",
                         "~/Scripts/toastr.js",
-                        "~/Scripts/angular-route.js"
+                        "~/Scripts/angular-route.js",
+                        "~/Scripts/angular-ui/ui-bootstrap.js",
+                        "~/Scripts/angular-ui/ui-bootstrap-tpls.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/spa").Include(
@@ -29,7 +31,14 @@ namespace ACMVC
                        "~/Scripts/App/app.js",
                        "~/Scripts/App/rootCtrl.js",
                        "~/Scripts/App/Status/*.js",
-                       "~/Scripts/App/Card/*.js"
+                       "~/Scripts/App/Card/*.js",
+                       "~/Scripts/App/AccessZone/*.js",
+                       "~/Scripts/App/Device/*.js",
+                       "~/Scripts/App/CardLog/*.js",
+                       "~/Scripts/App/UserCard/*.js",
+                       "~/Scripts/App/DeviceCard/*.js",
+                       "~/Scripts/App/User/*.js",
+                       "~/Scripts/App/Role/*.js"
 
                 ));
 
@@ -42,12 +51,16 @@ namespace ACMVC
 
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/bootstrap.js"
+                      //,"~/Scripts/respond.js"
+                      ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/toastr.min.css",
+                      "~/Content/ui-bootstrap-csp.css"
+                      ));
         }
     }
 }

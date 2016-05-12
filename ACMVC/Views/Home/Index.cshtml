@@ -1,11 +1,10 @@
 ﻿<!DOCTYPE html>
-<html ng-app="homeCinema">
+<html ng-app="accessControl">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body ng-controller="rootCtrl">
@@ -49,10 +48,10 @@
         }
 
     </script>
-
-    @Scripts.Render("~/bundles/vendors")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
+    @Scripts.Render("~/bundles/vendors")
     @Scripts.Render("~/bundles/spa")
 </body>
 </html>

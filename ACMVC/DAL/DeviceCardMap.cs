@@ -22,7 +22,7 @@ namespace ACMVC.DAL
         public System.DateTime ExpireTime { get; set; }
     
         public virtual CardInfo CardInfo { get; set; }
-        public virtual DeviceInfo DeviceInfo { get; set; }
+        public virtual Device Device { get; set; }
         public virtual Status Status { get; set; }
     }
 }

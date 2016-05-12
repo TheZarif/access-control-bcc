@@ -12,21 +12,22 @@ namespace ACMVC.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class AccessZoneInfo
+    public partial class AccessZone
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AccessZoneInfo()
+        public AccessZone()
         {
-            this.DeviceInfoes = new HashSet<DeviceInfo>();
+            this.Devices = new HashSet<Device>();
             this.EmployeeAccessZoneMaps = new HashSet<EmployeeAccessZoneMap>();
         }
     
         public int Id { get; set; }
+        public string Name { get; set; }
         public string Floor { get; set; }
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeviceInfo> DeviceInfoes { get; set; }
+        public virtual ICollection<Device> Devices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeAccessZoneMap> EmployeeAccessZoneMaps { get; set; }
     }

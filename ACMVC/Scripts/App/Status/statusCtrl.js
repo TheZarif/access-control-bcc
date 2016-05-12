@@ -3,9 +3,9 @@
 
     app.controller('statusCtrl', statusCtrl);
 
-    statusCtrl.$inject = ['$scope', 'statusFactory'];
+    statusCtrl.$inject = ['$scope', 'statusFactory', 'notificationService'];
 
-    function statusCtrl($scope, statusFactory, apiService, notificationService) {
+    function statusCtrl($scope, statusFactory, notificationService) {
         $scope.statuses = [];
         $scope.addMode = false;
         $scope.newStatus = {};
@@ -14,7 +14,7 @@
         statusFactory.getStatus().success(function (data) {
             $scope.statuses = data;
         }).error(function () {
-            //show error
+            notificationService.displayError("Could not retrieve data");
             console.log("Could not retrieve data from server");
         });
 
@@ -34,7 +34,7 @@
                     $scope.toggleAddMode();
                 })
                 .error(function (err) {
-                    //TODO: Toastr Notification error
+                    notificationService.displayError("Could not add data");
                     console.log(err);
                 })
         };
@@ -42,11 +42,10 @@
         $scope.deleteStatus = function (status) {
             statusFactory.deleteStatus(status)
                 .success(function (data) {
-                    //TODO: Remove item from list
                     helperLib.deleteItem(status, $scope.statuses);
                 })
                 .error(function (err) {
-                    //TODO: Toastr Notification error
+                    notificationService.displayError("Could not delete data");
                     console.log(err);
                 })
         };
@@ -57,9 +56,9 @@
                     status.editMode = false;
                 })
                 .error(function () {
-                    //TODO: Toastr Notification error
+                    notificationService.displayError("Could not update data");
                 })
         };
     }
 
-})(angular.module('homeCinema'));
+})(angular.module('accessControl'));
