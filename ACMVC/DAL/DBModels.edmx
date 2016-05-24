@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AccessZone">
           <Key>
             <PropertyRef Name="Id" />
@@ -136,13 +136,11 @@
           <Property Name="Notes" Type="nvarchar(max)" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VehicleInfo">
           <Key>
-            <PropertyRef Name="Serial" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Serial" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VehicleId" Type="varchar" MaxLength="20" />
           <Property Name="VehicleNo" Type="nvarchar" MaxLength="50" />
           <Property Name="OwnerName" Type="nvarchar" MaxLength="200" />
@@ -337,20 +335,7 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
           <EntitySet Name="EmployeeAccessZoneMap" EntityType="Self.EmployeeAccessZoneMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCardMap" EntityType="Self.UserCardMap" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VehicleInfo" EntityType="Self.VehicleInfo" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [VehicleInfo].[Serial] AS [Serial], 
-    [VehicleInfo].[VehicleId] AS [VehicleId], 
-    [VehicleInfo].[VehicleNo] AS [VehicleNo], 
-    [VehicleInfo].[OwnerName] AS [OwnerName], 
-    [VehicleInfo].[OwnerAddress] AS [OwnerAddress], 
-    [VehicleInfo].[DriverName] AS [DriverName], 
-    [VehicleInfo].[DriverDetails] AS [DriverDetails], 
-    [VehicleInfo].[LicenseNo] AS [LicenseNo], 
-    [VehicleInfo].[IsDelete] AS [IsDelete], 
-    [VehicleInfo].[Status] AS [Status]
-    FROM [dbo].[VehicleInfo] AS [VehicleInfo]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="VehicleInfo" EntityType="Self.VehicleInfo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CardInfo_Status" Association="Self.FK_CardInfo_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="CardInfo" EntitySet="CardInfo" />
@@ -408,8 +393,7 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
             <End Role="UserCardMap" EntitySet="UserCardMap" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -561,21 +545,6 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_UserCardMap_AspNetUsers" FromRole="UserCardMap" ToRole="AspNetUsers" />
           <NavigationProperty Name="CardInfo" Relationship="Self.FK_UserCardMap_CardInfo" FromRole="UserCardMap" ToRole="CardInfo" />
           <NavigationProperty Name="Status" Relationship="Self.FK_UserCardMap_Status" FromRole="UserCardMap" ToRole="Status" />
-        </EntityType>
-        <EntityType Name="VehicleInfo">
-          <Key>
-            <PropertyRef Name="Serial" />
-          </Key>
-          <Property Name="Serial" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="VehicleId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="VehicleNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OwnerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="OwnerAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="DriverName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DriverDetails" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LicenseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsDelete" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Device_AccessZone">
           <End Role="AccessZone" Type="Self.AccessZone" Multiplicity="1" />
@@ -736,7 +705,6 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
           <EntitySet Name="EmployeeAccessZoneMaps" EntityType="Self.EmployeeAccessZoneMap" />
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="UserCardMaps" EntityType="Self.UserCardMap" />
-          <EntitySet Name="VehicleInfoes" EntityType="Self.VehicleInfo" />
           <AssociationSet Name="FK_Device_AccessZone" Association="Self.FK_Device_AccessZone">
             <End Role="AccessZone" EntitySet="AccessZones" />
             <End Role="Device" EntitySet="Devices" />
@@ -789,7 +757,23 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="VehicleInfoes" EntityType="TestModel.VehicleInfo" />
         </EntityContainer>
+        <EntityType Name="VehicleInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DriverName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DriverDetails" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LicenseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsDelete" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -929,22 +913,6 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VehicleInfoes">
-            <EntityTypeMapping TypeName="TestModel.VehicleInfo">
-              <MappingFragment StoreEntitySet="VehicleInfo">
-                <ScalarProperty Name="Serial" ColumnName="Serial" />
-                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
-                <ScalarProperty Name="VehicleNo" ColumnName="VehicleNo" />
-                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
-                <ScalarProperty Name="OwnerAddress" ColumnName="OwnerAddress" />
-                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
-                <ScalarProperty Name="DriverDetails" ColumnName="DriverDetails" />
-                <ScalarProperty Name="LicenseNo" ColumnName="LicenseNo" />
-                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="TestModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
@@ -953,6 +921,22 @@ warning 6002: The table/view 'Test.dbo.VehicleInfo' does not have a primary key 
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="VehicleInfoes">
+            <EntityTypeMapping TypeName="TestModel.VehicleInfo">
+              <MappingFragment StoreEntitySet="VehicleInfo">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="LicenseNo" ColumnName="LicenseNo" />
+                <ScalarProperty Name="DriverDetails" ColumnName="DriverDetails" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="OwnerAddress" ColumnName="OwnerAddress" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="VehicleNo" ColumnName="VehicleNo" />
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

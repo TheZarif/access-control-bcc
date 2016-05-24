@@ -13,14 +13,14 @@ namespace ACMVC.Controllers
     
     public class StatusController : Controller
     {
-        private TestEntities db = new TestEntities();
+        private readonly TestEntities _db = new TestEntities();
 
         public JsonResult GetAll()
         {
-            var Statuses = db.Status.ToList();
+            var statuses = _db.Status.ToList();
 
             return Json(
-                Statuses.Select(x => new {
+                statuses.Select(x => new {
                     Id = x.Id,
                     Type = x.Type,
                     Description = x.Description
@@ -35,7 +35,7 @@ namespace ACMVC.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json("Could not find object", JsonRequestBehavior.AllowGet);
             }
-            Status status = db.Status.Find(id);
+            Status status = _db.Status.Find(id);
             if (status == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -50,8 +50,8 @@ namespace ACMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Status.Add(status);
-                db.SaveChanges();
+                _db.Status.Add(status);
+                _db.SaveChanges();
                 return Json(status);
             }
 
@@ -67,8 +67,8 @@ namespace ACMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(status).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(status).State = EntityState.Modified;
+                _db.SaveChanges();
                 return Json(status);
             }
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -79,14 +79,14 @@ namespace ACMVC.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            Status status = db.Status.Find(id);
+            Status status = _db.Status.Find(id);
             if (status == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(new { jobId = -1 });
             }
-            db.Status.Remove(status);
-            db.SaveChanges();
+            _db.Status.Remove(status);
+            _db.SaveChanges();
             return Json("");
         }
 
@@ -94,7 +94,7 @@ namespace ACMVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

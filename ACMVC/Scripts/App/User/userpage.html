@@ -3,7 +3,7 @@
     <div class="col-md-8">
         <div class="panel panel-primary" id="">
             <div class="panel-heading">
-                <h3 class="panel-title">Role Admin Page</h3>
+                <h3 class="panel-title">User Admin Page</h3>
             </div>
 
             <div class="panel-body">
@@ -13,38 +13,53 @@
                             <div class="btn-toolbar"><span class="btn btn-primary" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-plus"></i></span></div>
                         </th>
                         <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Role</th>
+                        <th><!--Reset password--></th>
+                        <th><!--View details--></th>
                     </tr>
-                    <tr ng-show="addMode">
+
+                    <tr ng-repeat="user in users">
                         <td>
-                            <div class="btn-toolbar">
+                            <div class="btn-toolbar" ng-show="user.editMode == null || user.editMode == false">
                                 <div class="btn-group">
-                                    <span class="btn btn-success" ng-click="addRole()"><i class="glyphicon glyphicon-floppy-disk"></i></span>
-                                    <span class="btn btn-danger" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-remove"></i></span>
+                                    <span class="btn btn-primary" ng-click="toggleEditMode(user)"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    <!-- <span class="btn btn-danger" ng-click="deleteUser(user)"><i class="glyphicon glyphicon-trash"></i></span> -->
+                                </div>
+                            </div>
+                            <div class="btn-toolbar" ng-show="user.editMode == true">
+                                <div class="btn-group">
+                                    <span class="btn btn-success" ng-click="updateUser(user)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+                                    <span class="btn btn-danger" ng-click="toggleEditMode(user)"><i class="glyphicon glyphicon-remove"></i></span>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <input ng-model="newRole.Name" />
-                        </td>
-                    </tr>
-                    <tr ng-repeat="role in roles">
-                        <td>
-                            <div class="btn-toolbar" ng-show="role.editMode == null || role.editMode == false">
-                                <div class="btn-group">
-                                    <span class="btn btn-primary" ng-click="toggleEditMode(role)"><i class="glyphicon glyphicon-pencil"></i></span>
-                                    <span class="btn btn-danger" ng-click="deleteRole(role)"><i class="glyphicon glyphicon-trash"></i></span>
-                                </div>
-                            </div>
-                            <div class="btn-toolbar" ng-show="role.editMode == true">
-                                <div class="btn-group">
-                                    <span class="btn btn-success" ng-click="updateRole(role)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
-                                    <span class="btn btn-danger" ng-click="toggleEditMode(role)"><i class="glyphicon glyphicon-remove"></i></span>
-                                </div>
-                            </div>
+                            <span ng-show="user.editMode == null || user.editMode == false">{{user.Name}}</span>
+                            <input ng-model="user.Name" ng-show="user.editMode == true" />
                         </td>
                         <td>
-                            <span ng-show="role.editMode == null || role.editMode == false">{{role.Name}}</span>
-                            <input ng-model="role.Number" ng-show="role.editMode == true" />
+                            <span>{{user.Email}}</span>
+                            <!-- <input ng-model="user.Number" ng-show="user.editMode == true" /> -->
+                        </td>
+                        <td>
+                            <span ng-show="user.editMode == null || user.editMode == false">{{user.Phone}}</span>
+                            <input ng-model="user.Phone" ng-show="user.editMode == true" />
+                        </td>
+                        <td>
+                            <span ng-show="user.editMode == null || user.editMode == false">{{user.Role}}</span>
+                            <select ng-show="user.editMode == true"
+                                    ng-model="user.RoleId"
+                                    ng-options="role.Id as role.Name for role in roles"></select>
+                        </td>
+                        <td>
+                            <span class="clickable-text" ng-show="user.editPassword == null || user.editPassword == false"><a ng-click="?">Reset Password</a></span>
+                            <input ng-model="user.NewPassword" ng-show="user.editPassword == true" />
+
+                        </td>
+                        <td>
+                            <span class="clickable-text"><a ng-click="?">View Details</a></span>
                         </td>
                     </tr>
                 </table>

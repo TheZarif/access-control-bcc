@@ -190,6 +190,7 @@
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\UserCardMapsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\ZonesController.cs" />
     <Compile Include="DAL\AccessZone.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
@@ -245,7 +246,9 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Pager.cs" />
     <Compile Include="Models\UserSearchModel.cs" />
+    <Compile Include="Models\VehicleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\StatusVM.cs" />
@@ -335,6 +338,9 @@
     <Content Include="Scripts\App\User\userCtrl.js" />
     <Content Include="Scripts\App\User\userFactory.js" />
     <Content Include="Scripts\App\User\userpage.html" />
+    <Content Include="Scripts\App\Vehicle\vehicleCtrl.js" />
+    <Content Include="Scripts\App\Vehicle\vehicleFactory.js" />
+    <Content Include="Scripts\App\Vehicle\vehiclepage.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\errors.json" />
@@ -359,6 +365,7 @@
     <Content Include="DAL\DBModels.edmx.diagram">
       <DependentUpon>DBModels.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\MyProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
@@ -1117,7 +1124,9 @@
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1167,6 +1176,7 @@
     <Folder Include="Views\Roles\" />
     <Folder Include="Views\UserCardMaps\" />
     <Folder Include="Views\Users\" />
+    <Folder Include="Views\Vehicle\" />
     <Folder Include="Views\Zones\" />
   </ItemGroup>
   <ItemGroup>

@@ -43,6 +43,14 @@
                 templateUrl: "scripts/App/DeviceCard/devicecardpage.html",
                 controller: "deviceCardCtrl"
             })
+            .when("/user", {
+                templateUrl: "scripts/App/User/userpage.html",
+                controller: "userCtrl"
+            })
+            .when("/vehicle", {
+                templateUrl: "scripts/App/Vehicle/vehiclepage.html",
+                controller: "vehicleCtrl"
+            })
             /*.when("/customers/register", {
                 templateUrl: "scripts/spa/customers/register.html",
                 controller: "customersRegCtrl"

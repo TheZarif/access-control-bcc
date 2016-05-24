@@ -43,6 +43,19 @@ namespace ACMVC.Controllers
             return Json("Could not find object");
         }
 
+        public JsonResult GetAll()
+        {
+            var users = db.AspNetUsers.ToList();
+            return Json(
+                users.Select(x => new {
+                    Id = x.Id,
+                    Email = x.Email,
+                    Name = x.Email,
+                    Role = "Admin",
+                    Phone = x.PhoneNumber
+                }), JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Users/Details/5
         public JsonResult Details(string id)
         {
@@ -54,7 +67,11 @@ namespace ACMVC.Controllers
             AspNetUser aspNetUser = db.AspNetUsers.Find(id);
             if (aspNetUser != null)
             {
-                return Json(aspNetUser, JsonRequestBehavior.AllowGet);
+                return Json(new AspNetUser()
+                {
+                    Email = aspNetUser.Email,
+                    
+                }, JsonRequestBehavior.AllowGet);
             }
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json("Could not find object");

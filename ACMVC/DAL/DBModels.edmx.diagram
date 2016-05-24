@@ -15,7 +15,6 @@
         <EntityTypeShape EntityType="TestModel.EmployeeAccessZoneMap" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.Status" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.UserCardMap" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestModel.VehicleInfo" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
         <AssociationConnector Association="TestModel.FK_Device_AccessZone" ManuallyRouted="false" />
         <AssociationConnector Association="TestModel.FK_EmployeeAccessZoneMap_AccessZone" ManuallyRouted="false" />
         <AssociationConnector Association="TestModel.FK_EmployeeAccessZoneMap_AspNetUsers" ManuallyRouted="false" />
@@ -29,6 +28,7 @@
         <AssociationConnector Association="TestModel.FK_DeviceCardMap_Status" ManuallyRouted="false" />
         <AssociationConnector Association="TestModel.FK_UserCardMap_Status" ManuallyRouted="false" />
         <AssociationConnector Association="TestModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TestModel.VehicleInfo" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

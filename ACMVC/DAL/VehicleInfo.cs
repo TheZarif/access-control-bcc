@@ -14,7 +14,7 @@ namespace ACMVC.DAL
     
     public partial class VehicleInfo
     {
-        public long Serial { get; set; }
+        public long Id { get; set; }
         public string VehicleId { get; set; }
         public string VehicleNo { get; set; }
         public string OwnerName { get; set; }

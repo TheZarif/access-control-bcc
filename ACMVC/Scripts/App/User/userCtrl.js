@@ -3,12 +3,13 @@
 
     app.controller('userCtrl', userCtrl);
 
-    userCtrl.$inject = ['$scope', 'userFactory', 'notificationService'];
+    userCtrl.$inject = ['$scope', 'userFactory', 'roleFactory', 'notificationService'];
 
     function userCtrl($scope, userFactory, notificationService) {
         $scope.users = [];
-        $scope.addMode = false;
-        $scope.newUser = {};
+        %scope.roles = [];
+        // $scope.addMode = false;
+        // $scope.newUser = {};
         var editMode = false;
 
         userFactory.getUser().success(function (data) {
@@ -18,26 +19,33 @@
             console.log(err);
         });
 
-        $scope.toggleAddMode = function () {
-            $scope.addMode = !$scope.addMode;
-        };
+        roleFactory.getRole().success(function(data) {
+            $scope.roles = data;
+        }).error(function(err){
+            notificationService.displayError("Could not load data");
+            console.log(err);
+        })
+
+        // $scope.toggleAddMode = function () {
+        //     $scope.addMode = !$scope.addMode;
+        // };
 
         $scope.toggleEditMode = function (item) {
             item.editMode = !item.editMode;
         };
 
-        $scope.addUser = function () {
-            userFactory.addUser($scope.newUser)
-                .success(function (data) {
-                    $scope.users.push(data);
-                    $scope.newUser = {};
-                    $scope.toggleAddMode();
-                })
-                .error(function (err) {
-                    notificationService.displayError("Could not add data");
-                    console.log(err);
-                })
-        };
+        // $scope.addUser = function () {
+        //     userFactory.addUser($scope.newUser)
+        //         .success(function (data) {
+        //             $scope.users.push(data);
+        //             $scope.newUser = {};
+        //             $scope.toggleAddMode();
+        //         })
+        //         .error(function (err) {
+        //             notificationService.displayError("Could not add data");
+        //             console.log(err);
+        //         })
+        // };
 
         $scope.deleteUser = function (user) {
             userFactory.deleteUser(user)
