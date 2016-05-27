@@ -1,23 +1,24 @@
 ﻿(function (app) {
     'use strict';
 
-    app.factory('roleFactory', roleFactory);
+    app.factory('vehicleFactory', vehicleFactory);
 
-    roleFactory.$inject = ['$http'];
+    vehicleFactory.$inject = ['$http'];
 
-    function roleFactory($http) {
+    function vehicleFactory($http) {
         return {
-            getRole: function () {
-                return $http.get(baseUrl + "roles/getall");
+            getVehicle: function (page) {
+                if (!page) page = 1;
+                return $http.get(baseUrl + "vehicle/getall?page=" + page);
             },
-            addRole: function (role) {
-                return $http.post(baseUrl + "roles/create", role);
+            addVehicle: function (vehicle) {
+                return $http.post(baseUrl + "vehicle/create", vehicle);
             },
-            deleteRole: function (role) {
-                return $http.post(baseUrl + "roles/delete/" + role.Id);
+            deleteVehicle: function (vehicle) {
+                return $http.post(baseUrl + "vehicle/delete/" + vehicle.Id);
             },
-            updateRole: function (role) {
-                return $http.post(baseUrl + "roles/edit/" + role.Id, role);
+            updateVehicle: function (vehicle) {
+                return $http.post(baseUrl + "vehicle/edit/" + vehicle.Id, vehicle);
             }
         };
     }
