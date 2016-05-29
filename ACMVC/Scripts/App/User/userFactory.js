@@ -7,8 +7,10 @@
 
     function userFactory($http) {
         return {
-            getUser: function () {
-                return $http.get(baseUrl + "users/getall");
+            getUser: function (page, search) {
+                if (!page) page = 1;
+                if (!search) search = "";
+                return $http.get(baseUrl + "users/getall?page=" + page + "&search=" + search);
             },
             addUser: function (user) {
                 console.log("Method not implemented");
@@ -30,8 +32,22 @@
                         }
                     });
             },
-            changePassword: function (user) {
-                return $http.post(baseUrl + "users/ResetPassword", user);
+            resetPassword: function (user, password) {
+                return $http.post(baseUrl + "manage/ResetPassword", { "user": user, "password": password });
+            },
+            addRole: function(user, role) {
+                return $http.post(baseUrl + "users/addRole",
+                {
+                    "user": user,
+                    "role": role
+                });
+            },
+            removeRole: function (user, role) {
+                return $http.post(baseUrl + "users/removeRole",
+                {
+                    "user": user,
+                    "role": role
+                });
             }
         };
     }

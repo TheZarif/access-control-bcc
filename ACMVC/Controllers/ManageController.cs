@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using ACMVC.DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -243,6 +245,21 @@ namespace ACMVC.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public JsonResult ResetPassword(AspNetUser user, String password)
+        {
+            UserManager.RemovePassword(user.Id);
+            var identityResult = UserManager.AddPassword(user.Id, password);
+            if (identityResult.Succeeded)
+            {
+                return Json("");
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json("Could not find object");
+            }
+        }
         //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
