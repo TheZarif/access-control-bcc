@@ -1,12 +1,13 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('vehicleCtrl', vehicleCtrl);
+    app.controller("vehicleCtrl", vehicleCtrl);
 
-    vehicleCtrl.$inject = ['$scope', 'vehicleFactory', 'notificationService'];
+    vehicleCtrl.$inject = ["$scope", "vehicleFactory", "notificationService"];
 
     function vehicleCtrl($scope, vehicleFactory, notificationService) {
         $scope.vehicles = [];
+        $scope.search = "";
         $scope.addMode = false;
         $scope.newVehicle = {};
         var editMode = false;
@@ -14,9 +15,13 @@
         $scope.totalPages = 0;
         $scope.currentPage = 0;
 
+        $scope.searchItems = function() {
+            $scope.getVehicle(1, $scope.search);
+        }
 
-        $scope.getVehicle = function (page) {
-            vehicleFactory.getVehicle(page).success(function(data) {
+
+        $scope.getVehicle = function (page, search) {
+            vehicleFactory.getVehicle(page, search).success(function(data) {
                 $scope.vehicles = data.Vehicles;
                 $scope.totalPages = data.Pager.TotalPages;
                 $scope.totalItems = data.Pager.TotalItems;
@@ -37,15 +42,16 @@
 
         $scope.addVehicle = function () {
             vehicleFactory.addVehicle($scope.newVehicle)
-                .success(function (data) {
+                .success(function(data) {
                     $scope.vehicles.push(data);
                     $scope.newVehicle = {};
                     $scope.toggleAddMode();
+                    notificationService.displaySuccess("Added");
                 })
-                .error(function (err) {
+                .error(function(err) {
                     notificationService.displayError("Could not add data");
                     console.log(err);
-                })
+                });
         };
 
         $scope.deleteVehicle = function (vehicle) {

@@ -21,9 +21,18 @@ namespace ACMVC.Controllers
             return View(db.VehicleInfoes.ToList());
         }
 
-        public JsonResult GetAll(int? page)
+        public JsonResult GetAll(int? page, string search)
         {
-            var vehicles = db.VehicleInfoes.ToList();
+            List<VehicleInfo> vehicles;
+            if (!string.IsNullOrEmpty(search))
+            {
+                vehicles = db.VehicleInfoes.Where(p => (p.VehicleNo.Contains(search)) || (p.OwnerName.Contains(search)))
+                    .ToList();
+            }
+            else
+            {
+                vehicles = db.VehicleInfoes.ToList();
+            }
             var pager  = new Pager(vehicles.Count(), page);
 
             var viewModel = new VehicleViewModel()

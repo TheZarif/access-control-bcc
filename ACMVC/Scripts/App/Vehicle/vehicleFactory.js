@@ -7,9 +7,10 @@
 
     function vehicleFactory($http) {
         return {
-            getVehicle: function (page) {
+            getVehicle: function (page, search) {
                 if (!page) page = 1;
-                return $http.get(baseUrl + "vehicle/getall?page=" + page);
+                if (!search) search = "";
+                return $http.get(baseUrl + "vehicle/getall?page=" + page +"&search="+search);
             },
             addVehicle: function (vehicle) {
                 return $http.post(baseUrl + "vehicle/create", vehicle);
