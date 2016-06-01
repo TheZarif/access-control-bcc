@@ -51,6 +51,18 @@
                 templateUrl: "scripts/App/Vehicle/vehiclepage.html",
                 controller: "vehicleCtrl"
             })
+            .when("/appointments", {
+                templateUrl: "scripts/App/Appointment/allappointmentspage.html",
+                controller: "appointmentCtrl"
+            })
+            .when("/appointments/add", {
+                templateUrl: "scripts/App/Appointment/newappointmentpage.html",
+                controller: "appointmentCtrl"
+            })
+            .when("/appointments/:id", {
+                templateUrl: "scripts/App/Appointment/appointmentdetails.html",
+                controller: "appointmentCtrl"
+            })
             /*.when("/customers/register", {
                 templateUrl: "scripts/spa/customers/register.html",
                 controller: "customersRegCtrl"

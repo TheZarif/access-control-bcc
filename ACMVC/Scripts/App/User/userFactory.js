@@ -48,6 +48,9 @@
                     "user": user,
                     "role": role
                 });
+            },
+            getLoginDetails: function() {
+                return $http.post(baseUrl + "manage/GetLoginDetails");
             }
         };
     }

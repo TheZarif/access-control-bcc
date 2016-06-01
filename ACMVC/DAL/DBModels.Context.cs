@@ -36,5 +36,7 @@ namespace ACMVC.DAL
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<UserCardMap> UserCardMaps { get; set; }
         public virtual DbSet<VehicleInfo> VehicleInfoes { get; set; }
+        public virtual DbSet<Appointment> Appointments { get; set; }
+        public virtual DbSet<AppointmentStatu> AppointmentStatus { get; set; }
     }
 }

@@ -151,6 +151,62 @@
           <Property Name="IsDelete" Type="varchar" MaxLength="10" />
           <Property Name="Status" Type="varchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserTo" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Purpose" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RequestDetails" Type="nvarchar" MaxLength="255" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="255" />
+          <Property Name="Time" Type="datetime" />
+          <Property Name="AppointmentStatusId" Type="int" />
+        </EntityType>
+        <EntityType Name="AppointmentStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Appointment_AppointmentStatus">
+          <End Role="AppointmentStatus" Type="Self.AppointmentStatus" Multiplicity="0..1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppointmentStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="AppointmentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="UserBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_AspNetUsers1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="UserTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CardInfo_Status">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="CardInfo" Type="Self.CardInfo" Multiplicity="*" />
@@ -336,6 +392,20 @@
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCardMap" EntityType="Self.UserCardMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehicleInfo" EntityType="Self.VehicleInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="lmxacdb" store:Type="Tables" />
+          <EntitySet Name="AppointmentStatus" EntityType="Self.AppointmentStatus" Schema="lmxacdb" store:Type="Tables" />
+          <AssociationSet Name="FK_Appointment_AppointmentStatus" Association="Self.FK_Appointment_AppointmentStatus">
+            <End Role="AppointmentStatus" EntitySet="AppointmentStatus" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_AspNetUsers" Association="Self.FK_Appointment_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_AspNetUsers1" Association="Self.FK_Appointment_AspNetUsers1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
           <AssociationSet Name="FK_CardInfo_Status" Association="Self.FK_CardInfo_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="CardInfo" EntitySet="CardInfo" />
@@ -454,6 +524,8 @@
           <NavigationProperty Name="EmployeeAccessZoneMaps" Relationship="Self.FK_EmployeeAccessZoneMap_AspNetUsers" FromRole="AspNetUsers" ToRole="EmployeeAccessZoneMap" />
           <NavigationProperty Name="UserCardMaps" Relationship="Self.FK_UserCardMap_AspNetUsers" FromRole="AspNetUsers" ToRole="UserCardMap" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Appointments" Relationship="TestModel.FK_Appointment_AspNetUsers" FromRole="AspNetUser" ToRole="Appointment" />
+          <NavigationProperty Name="Appointments1" Relationship="TestModel.FK_Appointment_AspNetUsers1" FromRole="AspNetUser" ToRole="Appointment" />
         </EntityType>
         <EntityType Name="CardInfo">
           <Key>
@@ -758,6 +830,20 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="VehicleInfoes" EntityType="TestModel.VehicleInfo" />
+          <EntitySet Name="Appointments" EntityType="TestModel.Appointment" />
+          <EntitySet Name="AppointmentStatus" EntityType="TestModel.AppointmentStatu" />
+          <AssociationSet Name="FK_Appointment_AspNetUsers" Association="TestModel.FK_Appointment_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_AspNetUsers1" Association="TestModel.FK_Appointment_AspNetUsers1">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_AppointmentStatus" Association="TestModel.FK_Appointment_AppointmentStatus">
+            <End Role="AppointmentStatu" EntitySet="AppointmentStatus" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="VehicleInfo">
           <Key>
@@ -774,6 +860,66 @@
           <Property Name="IsDelete" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserTo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Purpose" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RequestDetails" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="AppointmentStatusId" Type="Int32" />
+          <NavigationProperty Name="AspNetUserBy" Relationship="TestModel.FK_Appointment_AspNetUsers" FromRole="Appointment" ToRole="AspNetUser" />
+          <NavigationProperty Name="AspNetUserTo" Relationship="TestModel.FK_Appointment_AspNetUsers1" FromRole="Appointment" ToRole="AspNetUser" />
+          <NavigationProperty Name="AppointmentStatu" Relationship="TestModel.FK_Appointment_AppointmentStatus" FromRole="Appointment" ToRole="AppointmentStatu" />
+        </EntityType>
+        <EntityType Name="AppointmentStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Appointments" Relationship="TestModel.FK_Appointment_AppointmentStatus" FromRole="AppointmentStatu" ToRole="Appointment" />
+        </EntityType>
+        <Association Name="FK_Appointment_AspNetUsers">
+          <End Type="TestModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="TestModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="UserBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_AspNetUsers1">
+          <End Type="TestModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="TestModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="UserTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_AppointmentStatus">
+          <End Type="TestModel.AppointmentStatu" Role="AppointmentStatu" Multiplicity="0..1" />
+          <End Type="TestModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppointmentStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="AppointmentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -933,6 +1079,28 @@
                 <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
                 <ScalarProperty Name="VehicleNo" ColumnName="VehicleNo" />
                 <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="TestModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="AppointmentStatusId" ColumnName="AppointmentStatusId" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="RequestDetails" ColumnName="RequestDetails" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="UserTo" ColumnName="UserTo" />
+                <ScalarProperty Name="UserBy" ColumnName="UserBy" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppointmentStatus">
+            <EntityTypeMapping TypeName="TestModel.AppointmentStatu">
+              <MappingFragment StoreEntitySet="AppointmentStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

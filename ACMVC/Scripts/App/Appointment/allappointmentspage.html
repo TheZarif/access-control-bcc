@@ -1,0 +1,28 @@
+﻿<hr />
+<div class="row">
+    <div class="col-md-8">
+        <span class="btn btn-default" ng-click="toggleAddMode()">Make Appointment</span>
+        <div ng-include="'/Scripts/App/Appointment/newappointmentpage.html'"
+             ng-show="addMode"></div>
+        <div ng-include="'/Scripts/App/Appointment/appointmentdetails.html'"
+             ng-show="expandMode"></div>
+
+        <table>
+            <tr>
+                <td>To</td>
+                <td>By</td>
+                <td>Purpose</td>
+                <td>Status</td>
+                <td></td>
+            </tr>
+            <tr ng-repeat="appointment in appointments">
+                <td>{{appointment.AspNetUserTo.Email}}, {{appointment.AspNetUserTo.Phone}}, {{appointment.AspNetUserTo.Designation}}<br /></td>
+                <td>{{appointment.AspNetUserBy.Email}}, {{appointment.AspNetUserBy.Phone}}, {{appointment.AspNetUserBy.Designation}}<br/></td>
+                <td>{{appointment.Purpose}}</td>
+                <td>{{appointment.AppointmentStatu.Name}}</td>
+                <td class="clickable" ng-click="expand(appointment)">View</td>
+            </tr>
+        </table>
+
+    </div>
+</div>

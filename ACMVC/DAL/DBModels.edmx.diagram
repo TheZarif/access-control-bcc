@@ -29,6 +29,11 @@
         <AssociationConnector Association="TestModel.FK_UserCardMap_Status" ManuallyRouted="false" />
         <AssociationConnector Association="TestModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TestModel.VehicleInfo" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TestModel.Appointment" Width="1.5" PointX="5.25" PointY="13.125" />
+        <EntityTypeShape EntityType="TestModel.AppointmentStatu" Width="1.5" PointX="3" PointY="19.875" />
+        <AssociationConnector Association="TestModel.FK_Appointment_AspNetUsers" />
+        <AssociationConnector Association="TestModel.FK_Appointment_AspNetUsers1" />
+        <AssociationConnector Association="TestModel.FK_Appointment_AppointmentStatus" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

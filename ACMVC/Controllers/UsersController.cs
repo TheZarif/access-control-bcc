@@ -64,7 +64,8 @@ namespace ACMVC.Controllers
                         results.Select(x => new {
                         Id = x.Id,
                         Email = x.Email,
-                        PhoneNumber = x.PhoneNumber
+                        PhoneNumber = x.PhoneNumber,
+                        UserName = x.UserName
                     }), JsonRequestBehavior.AllowGet);
                 }
             }

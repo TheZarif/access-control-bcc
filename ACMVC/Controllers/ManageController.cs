@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -249,7 +250,8 @@ namespace ACMVC.Controllers
         public JsonResult ResetPassword(AspNetUser user, String password)
         {
             UserManager.RemovePassword(user.Id);
-            var identityResult = UserManager.AddPassword(user.Id, password);
+            var identityResult = UserManager
+                .AddPassword(user.Id, password);
             if (identityResult.Succeeded)
             {
                 return Json("");
@@ -260,6 +262,30 @@ namespace ACMVC.Controllers
                 return Json("Could not find object");
             }
         }
+
+        [HttpPost]
+        public JsonResult GetLoginDetails()
+        {
+            var user = System.Web.HttpContext.Current.User;
+//            var roles = ((ClaimsIdentity)User.Identity).Claims
+//               .Where(c => c.Type == ClaimTypes.Role)
+//               .Select(c => c.Value);
+
+
+            if (string.IsNullOrEmpty(user.Identity.Name))
+            {
+                Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+                return Json("");
+            }
+            var userId = user.Identity.GetUserId();
+            return Json(new
+            {
+                UserId = userId,
+                Name = user.Identity.Name
+            });
+
+        }
+
         //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
