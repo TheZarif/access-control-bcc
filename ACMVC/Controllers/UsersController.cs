@@ -137,6 +137,7 @@ namespace ACMVC.Controllers
                     AspNetRoles = aspNetUser.AspNetRoles.Select(x => new AspNetRole() {Id = x.Id, Name = x.Name}).ToList(),
                     Id = aspNetUser.Id,
                     UserName = aspNetUser.UserName,
+                    FullName = aspNetUser.FullName,
                     PhoneNumber = aspNetUser.PhoneNumber,
                     Designation = aspNetUser.Designation,
                     IsVerified = aspNetUser.IsVerified,
@@ -160,16 +161,54 @@ namespace ACMVC.Controllers
         
         // POST: Users/Edit/5
         [HttpPost]
-        public JsonResult Edit(AspNetUser aspNetUser)
+        public JsonResult UpdateUser(AspNetUser aspNetUser)
         {
             if (ModelState.IsValid)
             {
                 var User = db.AspNetUsers.FirstOrDefault(x => x.Id == aspNetUser.Id);
-             
-                db.Entry(aspNetUser).State = EntityState.Modified;
-                db.SaveChanges();
-                return Json("");
+                if (User == null)
+                {
+                    Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                    return Json("Invalid Object");
+                }
+
+                User.FullName = aspNetUser.FullName;
+                User.BloodGroup = aspNetUser.BloodGroup;
+                User.Gender= aspNetUser.Gender;
+                User.NId = aspNetUser.NId;
+                User.PresentAddress = aspNetUser.PresentAddress;
+                User.PermanentAddress = aspNetUser.PermanentAddress;
+                User.PhoneNumber = aspNetUser.PhoneNumber;
+                User.Profession = aspNetUser.Profession;
+
+
+                db.Entry(User).State = EntityState.Modified;
+                try
+                {
+                    if (db.SaveChanges() > 0)
+                    {
+                        return Json("");
+                    }
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                {
+                    Exception raise = dbEx;
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            string message = string.Format("{0}:{1}",
+                                validationErrors.Entry.Entity.ToString(),
+                                validationError.ErrorMessage);
+                            // raise a new exception nesting
+                            // the current instance as InnerException
+                            raise = new InvalidOperationException(message, raise);
+                        }
+                    }
+                    throw raise;
+                }
             }
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json("");
         }
 

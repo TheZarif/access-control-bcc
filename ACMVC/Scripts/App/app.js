@@ -47,6 +47,14 @@
                 templateUrl: "scripts/App/User/userpage.html",
                 controller: "userCtrl"
             })
+            .when("/users", {
+                templateUrl: "scripts/App/User/userspublic.html",
+                controller: "userCtrl"
+            })
+            .when("/users/:id", {
+                templateUrl: "scripts/App/User/userdetails.html",
+                controller: "userDetailsCtrl"
+            })
             .when("/vehicle", {
                 templateUrl: "scripts/App/Vehicle/vehiclepage.html",
                 controller: "vehicleCtrl"

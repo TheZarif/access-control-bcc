@@ -1,44 +1,44 @@
-﻿            <form class="form-horizontal">
-                <fieldset>
+﻿
 
-                    <!-- Form Name -->
-                    <legend>Make Appointment</legend>
+<form class="form-horizontal">
+            <fieldset>
 
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="">Meeting with</label>
-                        <div class="col-md-4">
-                            <input id="" name=""
-                                   ng-model="newAppointment.U"
-                                   uib-typeahead="user as user.Email for user in users"
-                                   type="text" placeholder="Enter name of person you wish to meet" class="form-control input-md" required="">
-                        </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="">Meeting with</label>
+                    <div class="col-md-4">
+                        <input id="" name=""
+                               ng-model="newAppointment.U"
+                               uib-typeahead="user as user.Email for user in users"
+                               type="text" placeholder="Enter name of person you wish to meet" class="form-control input-md" required="">
                     </div>
+                </div>
 
-                    <!-- Textarea -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="textarea">Purpose of visit</label>
-                        <div class="col-md-4">
-                            <textarea class="form-control" ng-model="newAppointment.Purpose" id="textarea" name="textarea"></textarea>
-                        </div>
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="textarea">Purpose of visit</label>
+                    <div class="col-md-4">
+                        <textarea class="form-control" ng-model="newAppointment.Purpose" id="textarea" name="textarea"></textarea>
                     </div>
+                </div>
 
-                    <!-- Textarea -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="textarea">Request details</label>
-                        <div class="col-md-4">
-                            <textarea class="form-control" ng-model="newAppointment.RequestDetails" id="textarea" name="textarea">Enter time and date you wish to make the appointment</textarea>
-                        </div>
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="textarea">Request details</label>
+                    <div class="col-md-4">
+                        <textarea class="form-control" ng-model="newAppointment.RequestDetails" id="textarea" name="textarea">Enter time and date you wish to make the appointment</textarea>
                     </div>
+                </div>
 
-                    <!-- Button (Double) -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="submit-button"></label>
-                        <div class="col-md-8">
-                            <button id="submit-button" name="submit-button" class="btn btn-success" ng-click="addAppointment()">Submit</button>
-                            <button id="cancel-button" name="cancel-button" class="btn btn-danger" ng-click="cancelAppointment()">Cancel</button>
-                        </div>
+                <!-- Button (Double) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="submit-button"></label>
+                    <div class="col-md-8">
+                        <button id="submit-button" name="submit-button" class="btn btn-success" ng-click="addAppointment()">Submit</button>
+                        <button id="cancel-button" name="cancel-button" class="btn btn-danger" ng-click="cancelAppointment()">Cancel</button>
                     </div>
+                </div>
 
-                </fieldset>
-            </form>
+            </fieldset>
+        </form>

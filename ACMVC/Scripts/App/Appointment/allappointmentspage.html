@@ -1,28 +1,40 @@
 ﻿<hr />
 <div class="row">
     <div class="col-md-8">
-        <span class="btn btn-default" ng-click="toggleAddMode()">Make Appointment</span>
-        <div ng-include="'/Scripts/App/Appointment/newappointmentpage.html'"
-             ng-show="addMode"></div>
+<!--        <span class="btn btn-default" ng-click="toggleAddMode()"><span class="glyphicon glyphicon-plus"></span> Make Appointment</span>-->
+<!--        <div ng-include="'/Scripts/App/Appointment/newappointmentpage.html'"-->
+<!--             ng-show="addMode"></div>-->
+
+        <uib-accordion close-others="oneAtATime">
+            <uib-accordion-group is-open="status.open" panel-class="panel-success">
+                <uib-accordion-heading>
+                    <i class="glyphicon glyphicon-plus"></i>Add Appointment <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </uib-accordion-heading>
+                <div ng-include="'/Scripts/App/Appointment/newappointmentpage.html'"></div>
+            </uib-accordion-group>
+        </uib-accordion>
+        <br/>
         <div ng-include="'/Scripts/App/Appointment/appointmentdetails.html'"
              ng-show="expandMode"></div>
+        <br/>
+        All Appointments
 
-        <table>
-            <tr>
-                <td>To</td>
-                <td>By</td>
-                <td>Purpose</td>
-                <td>Status</td>
-                <td></td>
-            </tr>
-            <tr ng-repeat="appointment in appointments">
-                <td>{{appointment.AspNetUserTo.Email}}, {{appointment.AspNetUserTo.Phone}}, {{appointment.AspNetUserTo.Designation}}<br /></td>
-                <td>{{appointment.AspNetUserBy.Email}}, {{appointment.AspNetUserBy.Phone}}, {{appointment.AspNetUserBy.Designation}}<br/></td>
-                <td>{{appointment.Purpose}}</td>
-                <td>{{appointment.AppointmentStatu.Name}}</td>
-                <td class="clickable" ng-click="expand(appointment)">View</td>
-            </tr>
-        </table>
+        <table class="table table-bordered table-responsive">
+                <tr>
+                    <td>To</td>
+                    <td>By</td>
+                    <td>Purpose</td>
+                    <td>Status</td>
+                    <td></td>
+                </tr>
+                <tr ng-repeat="appointment in appointments">
+                    <td>{{appointment.AspNetUserTo.Email}}, {{appointment.AspNetUserTo.Phone}}, {{appointment.AspNetUserTo.Designation}}<br /></td>
+                    <td>{{appointment.AspNetUserBy.Email}}, {{appointment.AspNetUserBy.Phone}}, {{appointment.AspNetUserBy.Designation}}<br /></td>
+                    <td>{{appointment.Purpose}}</td>
+                    <td>{{appointment.AppointmentStatu.Name}}</td>
+                    <td class="clickable" ng-click="expand(appointment)">View</td>
+                </tr>
+            </table>
 
-    </div>
+</div>
 </div>

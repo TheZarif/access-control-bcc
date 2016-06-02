@@ -3,15 +3,18 @@
 
     app.controller("appointmentCtrl", appointmentCtrl);
 
-    appointmentCtrl.$inject = ["$scope", "appointmentFactory", "userFactory", "notificationService"];
+    appointmentCtrl.$inject = ["$scope", "$routeParams", "appointmentFactory", "userFactory", "notificationService"];
 
-    function appointmentCtrl($scope, appointmentFactory, userFactory, notificationService) {
+    function appointmentCtrl($scope, $routeParams, appointmentFactory, userFactory, notificationService) {
         $scope.appointments = [];
         $scope.search = "";
         $scope.addMode = false;
         $scope.expandMode = false;
         $scope.newAppointment = {};
         $scope.users = {};
+
+        var temp = $routeParams.id;
+        console.log(temp);
 
         $scope.totalPages = 0;
         $scope.currentPage = 0;
@@ -42,6 +45,7 @@
         };
 
         $scope.expand = function(item) {
+//            item.isAuthorized = { show: false};
             $scope.expandMode = true;
             $scope.selected = item;
             $scope.checkAuthorize(item);
@@ -66,7 +70,9 @@
             $scope.newAppointment.UserTo = $scope.newAppointment.U.Id;
             appointmentFactory.addAppointment($scope.newAppointment)
                 .success(function (data) {
-                    $scope.appointments.push(data);
+                    //                    $scope.appointments.push(data);
+                    $scope.getAppointment(1);
+
                     $scope.newAppointment = {};
                     $scope.toggleAddMode();
                     notificationService.displaySuccess("Added");
@@ -78,8 +84,8 @@
         };
 
 
-        $scope.approveAppointment = function (appointment) {
-            appointment.AppointmentStatusId = 3;
+        $scope.approveAppointment = function (appointment, statusId) {
+            appointment.AppointmentStatusId = statusId;
             appointmentFactory.approveAppointment(appointment)
                 .success(function (data) {
                     $scope.expandMode = false;
@@ -96,6 +102,8 @@
             userFactory.getLoginDetails().success(function(data) {
                 $scope.user = data;
                 item.isAuthorized = (item.AspNetUserTo.Id === data.UserId);
+
+//                $scope.$apply();
             });
         }
 

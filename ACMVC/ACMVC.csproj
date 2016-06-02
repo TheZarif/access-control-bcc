@@ -351,8 +351,11 @@
     <Content Include="Scripts\App\UserCard\userCardFactory.js" />
     <Content Include="Scripts\App\UserCard\usercardpage.html" />
     <Content Include="Scripts\App\User\userCtrl.js" />
+    <Content Include="Scripts\App\User\userdetails.html" />
+    <Content Include="Scripts\App\User\userDetailsCtrl.js" />
     <Content Include="Scripts\App\User\userFactory.js" />
     <Content Include="Scripts\App\User\userpage.html" />
+    <Content Include="Scripts\App\User\userspublic.html" />
     <Content Include="Scripts\App\Vehicle\vehicleCtrl.js" />
     <Content Include="Scripts\App\Vehicle\vehicleFactory.js" />
     <Content Include="Scripts\App\Vehicle\vehiclepage.html" />

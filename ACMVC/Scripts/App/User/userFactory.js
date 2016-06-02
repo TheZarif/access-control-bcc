@@ -21,7 +21,10 @@
             },
             updateUser: function (user) {
                 console.log("User: ", user);
-                return $http.post(baseUrl + "users/edit/" + user.Id, user);
+                return $http.post(baseUrl + "users/UpdateUser/" + user.Id, user);
+            },
+            getUserDetails: function(id) {
+                return $http.get(baseUrl + "users/Details/" + id);
             },
             findUser: function (email, phone) {
                 return $http.post(baseUrl + "users/SearchUser",

@@ -6,7 +6,7 @@
             <fieldset>
 
                 <!-- Form Name -->
-                <legend>Approve Appointment</legend>
+                <legend>Appointment #{{selected.Id}}</legend>
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="">Applicant</label>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <div ng-hide="'item.isAuthorized == true'">
+                <div ng-if="!selected.isAuthorized">
                     <!-- Textarea -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textarea">Request details</label>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                <div ng-if="'item.isAuthorized'">
+                <div ng-if="selected.isAuthorized">
                     <!-- Textarea -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textarea">Remarks</label>
@@ -66,9 +66,9 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="submit-button"></label>
                         <div class="col-md-8">
-                            <button id="submit-button" name="submit-button" class="btn btn-success" ng-click="approveAppointment(selected, 3)">Approve</button>
-                            <button id="cancel-button" name="cancel-button" class="btn btn-danger" ng-click="approveAppointment(selected, 2)">Cancel</button>
-                            <button id="cancel-button" name="cancel-button" class="btn btn-danger" ng-click="minimize()">Cancel</button>
+                            <button id="submit-button" name="submit-button" class="btn btn-success" ng-click="approveAppointment(selected, 3)">Approve <i class="glyphicon glyphicon-ok"></i></button>
+                            <button id="cancel-button" name="cancel-button" class="btn btn-danger" ng-click="approveAppointment(selected, 2)">Reject <i class="glyphicon glyphicon-remove"></i></button>
+                            <button id="cancel-button" name="cancel-button" class="btn btn-warning" ng-click="minimize()">Cancel</button>
                         </div>
                     </div>
                 </div>

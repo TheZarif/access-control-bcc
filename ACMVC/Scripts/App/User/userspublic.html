@@ -1,0 +1,34 @@
+﻿<hr />
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-primary" id="">
+            <div class="panel-heading">
+                <h3 class="panel-title">User Admin Page</h3>
+                <input class="search-bar" placeholder="Search by email or number" ng-model="search" /><i class="glyphicon glyphicon-search" ng-click="searchItems()"></i>
+
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-condensed table-hover">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th><!--View Details--></th>
+                    </tr>
+
+                    <tr ng-repeat="user in users">
+                        <td><span>{{user.FullName}}</span></td>
+                        <td><span>{{user.Email}}</span></td>
+                        <td><span>{{user.PhoneNumber}}</span></td>
+                        <td><span class="clickable-text"><a ng-href="#/users/{{user.Id}}">View Details</a></span></td>
+                    </tr>
+                </table>
+                <div>
+                    <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getUsers(currentPage)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
