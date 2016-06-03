@@ -13,8 +13,17 @@
         $scope.newAppointment = {};
         $scope.users = {};
 
-        var temp = $routeParams.id;
-        console.log(temp);
+        var userId = $routeParams.userId;
+
+        if (userId != null) {
+            userFactory.getUserDetails(userId).success(function(data) {
+                $scope.newAppointment.U = data;
+            }).error(function(err) {
+                console.log(err);
+                notificationService.displayError("Invalid user");
+            });
+        }
+
 
         $scope.totalPages = 0;
         $scope.currentPage = 0;

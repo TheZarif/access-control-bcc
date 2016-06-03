@@ -67,8 +67,8 @@
                 templateUrl: "scripts/App/Appointment/newappointmentpage.html",
                 controller: "appointmentCtrl"
             })
-            .when("/appointments/:id", {
-                templateUrl: "scripts/App/Appointment/appointmentdetails.html",
+            .when("/addappointment/:userId", {
+                templateUrl: "scripts/App/Appointment/newappointmentpage.html",
                 controller: "appointmentCtrl"
             })
             /*.when("/customers/register", {
