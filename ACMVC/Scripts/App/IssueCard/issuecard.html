@@ -1,0 +1,54 @@
+﻿
+
+<div class="col-md-8" ng-controller="issueCardCtrl">
+    <h3>Issue Card</h3>
+    <uib-accordion close-others="true">
+        <uib-accordion-group is-open="status.isFirstOpen" panel-class="panel-success">
+            <uib-accordion-heading>
+                <i class="glyphicon glyphicon-plus"></i>Card Issue from Appointment <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isFirstOpen, 'glyphicon-chevron-right': !status.isFirstOpen}"></i>
+            </uib-accordion-heading>
+            <div ng-controller="appointmentCtrl">
+                <!--Search-->
+                <div class="col-md-6">
+                    <div id="custom-search-input">
+                        <div class="input-group col-md-12">
+                            <input type="text" class="form-control input-lg" placeholder="Enter Appointment Id" ng-model="appointmentId" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-info btn-lg" type="button" ng-click="loadAppointment(appointmentId)">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Appointment #ID -->
+                <div ng-show="selected != null || undefined">
+                    <div ng-include="'/Scripts/App/Appointment/appointmentdetails.html'"></div>
+                    <div ng-include="'/Scripts/App/IssueCard/issuecardconfirm.html'"></div>
+                </div>
+
+            </div>
+            
+
+        </uib-accordion-group>
+        <uib-accordion-group is-open="status.isSecondOpen" panel-class="panel-success">
+            <uib-accordion-heading>
+                <i class="glyphicon glyphicon-plus"></i>Card Issue Manually<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isSecondOpen, 'glyphicon-chevron-right': !status.isSecondOpen}"></i>
+            </uib-accordion-heading>
+            <!--Search-->
+            <div class="col-md-6">
+                <div id="custom-search-input">
+                    <div class="input-group col-md-12">
+                        <input type="text" class="form-control input-lg" placeholder="Search User" ng-model="searchUser" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info btn-lg" type="button" ng-click="loadUser()">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div ng-include="'/Scripts/App/Appointment/newappointmentpage.html'"></div>-->
+        </uib-accordion-group>
+    </uib-accordion>
+</div>

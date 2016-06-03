@@ -67,10 +67,18 @@
                 templateUrl: "scripts/App/Appointment/newappointmentpage.html",
                 controller: "appointmentCtrl"
             })
+             .when("/appointments/:id", {
+                 templateUrl: "scripts/App/Appointment/newappointmentpage.html",
+                 controller: "appointmentCtrl"
+             })
             .when("/addappointment/:userId", {
                 templateUrl: "scripts/App/Appointment/newappointmentpage.html",
                 controller: "appointmentCtrl"
             })
+            .when("/issuecard", {
+                templateUrl: "scripts/App/IssueCard/issuecard.html"
+            })
+
             /*.when("/customers/register", {
                 templateUrl: "scripts/spa/customers/register.html",
                 controller: "customersRegCtrl"

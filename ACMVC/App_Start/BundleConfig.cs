@@ -40,7 +40,8 @@ namespace ACMVC
                        "~/Scripts/App/User/*.js",
                        "~/Scripts/App/Appointment/*.js",
                        "~/Scripts/App/Vehicle/*.js",
-                       "~/Scripts/App/Role/*.js"
+                       "~/Scripts/App/Role/*.js",
+                       "~/Scripts/App/IssueCard/*.js"
 
                 ));
 

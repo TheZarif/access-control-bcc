@@ -335,6 +335,8 @@
     <Content Include="Scripts\App\Device\deviceCtrl.js" />
     <Content Include="Scripts\App\Device\deviceFactory.js" />
     <Content Include="Scripts\App\Device\devicepage.html" />
+    <Content Include="Scripts\App\IssueCard\issuecard.html" />
+    <Content Include="Scripts\App\IssueCard\IssueCardCtrl.js" />
     <Content Include="Scripts\App\layouts\sidebar.html" />
     <Content Include="Scripts\App\layouts\sidebar.directive.js" />
     <Content Include="Scripts\App\modules\common.core.js" />

@@ -23,6 +23,9 @@
             },
             updateAppointment: function (appointment) {
                 return $http.post(baseUrl + "appointments/edit/" + appointment.Id, appointment);
+            },
+            getDetails: function(id) {
+                return $http.get(baseUrl + "appointments/details/" + id);
             }
         };
     }

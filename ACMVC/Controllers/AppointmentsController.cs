@@ -79,13 +79,41 @@ namespace ACMVC.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json("No ID entered");
             }
-            Appointment appointment = db.Appointments.Find(id);
-            if (appointment == null)
+            Appointment x = db.Appointments.Find(id);
+            if (x == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json("Could not find object");
             }
-            return Json(appointment);
+            var appointment = new Appointment()
+            {
+                Id = x.Id,
+                Purpose = x.Purpose,
+                Remarks = x.Remarks,
+                RequestDetails = x.RequestDetails,
+                Time = x.Time,
+                UserTo = x.UserTo,
+                UserBy = x.UserBy,
+                AppointmentStatusId = x.AppointmentStatusId,
+                AppointmentStatu = new AppointmentStatu()
+                {
+                    Id = x.AppointmentStatu.Id,
+                    Name = x.AppointmentStatu.Name
+                },
+                AspNetUserBy = new AspNetUser()
+                {
+                    Id = x.AspNetUserBy.Id,
+                    UserName = x.AspNetUserBy.UserName,
+                    Email = x.AspNetUserBy.Email
+                },
+                AspNetUserTo = new AspNetUser()
+                {
+                    Id = x.AspNetUserTo.Id,
+                    UserName = x.AspNetUserTo.UserName,
+                    Email = x.AspNetUserTo.Email
+                }
+            };
+            return Json(appointment, JsonRequestBehavior.AllowGet);
         }
 
 

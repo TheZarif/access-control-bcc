@@ -24,6 +24,15 @@
             });
         }
 
+        $scope.loadAppointment = function(id) {
+            appointmentFactory.getDetails(id).success(function(data) {
+                $scope.selected = data;
+            }).error(function (err) {
+                $scope.selected = null;
+                notificationService.displayError("Invalid input");
+                console.log(err);
+            });
+        };
 
         $scope.totalPages = 0;
         $scope.currentPage = 0;
