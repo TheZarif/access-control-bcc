@@ -11,16 +11,20 @@
             <div class="panel-body">
                 <table class="table table-striped table-bordered table-condensed table-hover">
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Designation</th>
                         <th><!--View Details--></th>
                     </tr>
 
                     <tr ng-repeat="user in users">
+                        <td><img src="{{user.ProfilePicUrl}}" alt="image" width="20px"/></td>
                         <td><span>{{user.FullName}}</span></td>
                         <td><span>{{user.Email}}</span></td>
                         <td><span>{{user.PhoneNumber}}</span></td>
+                        <td><span>{{user.Designation}}</span></td>
                         <td><span class="clickable-text"><a ng-href="#/users/{{user.Id}}">View Details</a></span></td>
                     </tr>
                 </table>

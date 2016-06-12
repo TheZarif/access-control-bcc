@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ACMVC.Models;
 using System.Net;
+using ACMVC.DAL;
 
 namespace ACMVC.Controllers
 {
@@ -25,7 +26,13 @@ namespace ACMVC.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var Username = User.Identity.Name;
-                return Json(Username, JsonRequestBehavior.AllowGet);
+                var id = User.Identity.GetUserId();
+                var roles = new TestEntities().AspNetUsers.Find(id).AspNetRoles.Select(x => new AspNetRole()
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                });
+                return Json(new {Id = id, UserName = Username, Roles = roles}, JsonRequestBehavior.AllowGet);
             }
             else
             {

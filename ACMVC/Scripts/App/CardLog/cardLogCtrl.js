@@ -101,9 +101,9 @@
             }
         }
 
-        $scope.getDateTime = function(item){
-            return new Date(parseInt(item.substr(6)));
-        }
+//        $scope.getDateTime = function(item){
+//            return new Date(parseInt(item.substr(6)));
+//        }
     }
 
 

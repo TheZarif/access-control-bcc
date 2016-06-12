@@ -3,11 +3,14 @@
 
     app.controller('issueCardCtrl', issueCardCtrl);
 
-    issueCardCtrl.$inject = ['$scope', "cardFactory", 'notificationService'];
+    issueCardCtrl.$inject = ['$scope', "cardFactory", "userFactory", 'notificationService'];
 
-    function issueCardCtrl($scope, cardFactory, notificationService) {
+    function issueCardCtrl($scope, cardFactory, userFactory, notificationService) {
         $scope.newIssueCard = {};
         $scope.cards = {};
+        $scope.users = {};
+        $scope.userLoaded = false;
+
 
         $scope.issueCard = function(object) {
             notificationService.displaySuccess("Card Issued");
@@ -23,5 +26,20 @@
                     console.log(err);
                 });
         });
+
+        $scope.loadUser = function (searchUser) {
+            userFactory.findUser(searchUser).success(function(data) {
+                $scope.users = data;
+                $scope.userLoaded = true;
+            }).error(function (err) {
+                notificationService.displayError("Something went wrong");
+                console.log(err);
+            });
+        }
+
+        $scope.selectUser = function(user) {
+            $scope.userSelected = true;
+            $scope.user = user;
+        }
     }
 })(angular.module('accessControl')); 

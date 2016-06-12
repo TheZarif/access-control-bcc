@@ -1,0 +1,90 @@
+﻿<form class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Employee Information</legend>
+
+        <!-- Multiple Radios -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="radios">Employee/Visitor</label>
+            <div class="col-md-4">
+                <div class="radio">
+                    <label for="radios-0">
+                        <input type="radio" name="radios" id="radios-0" ng-value="false" ng-checked="!tempUser.IsEmployee" ng-model="tempUser.IsEmployee">
+                        Visitor
+                    </label>
+                </div>
+                <div class="radio">
+                    <label for="radios-1">
+                        <input type="radio" name="radios" id="radios-1" ng-value="true" ng-checked="tempUser.IsEmployee" ng-model="tempUser.IsEmployee">
+                        Employee
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div ng-show="tempUser.IsEmployee == true">
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">EmployeeId</label>
+                <div class="col-md-4">
+                    <input ng-model="tempUser.EmployeeId" name="textinput" type="text" placeholder="Employee ID" class="form-control input-md">
+                    <span class="help-block">Enter the employee Id here</span>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">Designation</label>
+                <div class="col-md-4">
+                    <input ng-model="tempUser.Designation" name="textinput" type="text" placeholder="Officer, Secretary etc." class="form-control input-md">
+                    <span class="help-block">Enter the designation of employee</span>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">Room no</label>
+                <div class="col-md-4">
+                    <input ng-model="tempUser.RoomNo" name="textinput" type="text" placeholder="eg- 102" class="form-control input-md">
+                    <span class="help-block">Enter room number of employee</span>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">Work Division</label>
+                <div class="col-md-6">
+                    <input ng-model="tempUser.WorkDivision" name="textinput" type="text" placeholder="workdivision" class="form-control input-md">
+                    <span class="help-block">Enter work division of employee</span>
+                </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textarea">Summary/Notes</label>
+                <div class="col-md-4">
+                    <textarea class="form-control" ng-model="tempUser.SummaryNote" name="textarea"></textarea>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="textinput">Access Zone</label>
+                <div class="col-md-4">
+                    <input ng-model="tempUser.AccessZone" name="textinput" type="text" placeholder="eg- East 1A" class="form-control input-md">
+                    <span class="help-block">Enter access zone for employee (from dropdown/autocomplete)</span>
+                </div>
+            </div>
+
+            <!-- Button (Double) -->
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="button1id"></label>
+            <div class="col-md-8">
+                <button id="button1id" name="button1id" class="btn btn-success" ng-click="updateOfficial()">Save</button>
+                <button id="button2id" name="button2id" class="btn btn-danger" ng-click="cancelOfficial()">Cancel</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

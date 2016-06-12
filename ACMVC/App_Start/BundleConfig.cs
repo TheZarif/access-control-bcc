@@ -20,7 +20,9 @@ namespace ACMVC
                         "~/Scripts/toastr.js",
                         "~/Scripts/angular-route.js",
                         "~/Scripts/angular-ui/ui-bootstrap.js",
-                        "~/Scripts/angular-ui/ui-bootstrap-tpls.js"
+                        "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
+                        "~/Scripts/ng-file-upload.min.js",
+                        "~/Scripts/ng-file-upload-shim.min.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/spa").Include(
@@ -37,6 +39,7 @@ namespace ACMVC
                        "~/Scripts/App/CardLog/*.js",
                        "~/Scripts/App/UserCard/*.js",
                        "~/Scripts/App/DeviceCard/*.js",
+                       "~/Scripts/App/User/fileUploadCtrl.js",
                        "~/Scripts/App/User/*.js",
                        "~/Scripts/App/Appointment/*.js",
                        "~/Scripts/App/Vehicle/*.js",

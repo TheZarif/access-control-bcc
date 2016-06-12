@@ -1,133 +1,173 @@
 ﻿
 <hr />
-<div class="row" ng-if="editMode">
-    <div class="col-md-8">
-        <form class="form-horizontal">
+<div class="row editmode" ng-if="editMode">
 
-            <span class="btn btn-default" ng-click="toggleEditMode()" ng-show="editMode">Cancel changes</span>
-            <fieldset >
-                <!-- File Button -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="filebutton">Upload Photo</label>
-                    <div class="col-md-4">
-                        <input id="filebutton" name="filebutton" class="input-file" type="file">
-                    </div>
-                </div>
+    <span class="btn btn-default" ng-click="toggleEditMode()" ng-show="editMode"><i class="glyphicon glyphicon-backward"></i> Cancel changes</span><br/><br />
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Username</label>
-                    <div class="col-md-4">
-                        <input id="textinput" ng-model="user.UserName" type="text" placeholder="Name" class="form-control input-md">
-                        <span class="help-block">Edit phone number</span>
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Full Name</label>
-                    <div class="col-md-4">
-                        <input id="textinput" ng-model="user.FullName" type="text" placeholder="Name" class="form-control input-md">
-                        <span class="help-block">Edit phone number</span>
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="textinput">Phone</label>
-                    <div class="col-md-4">
-                        <input id="textinput" ng-model="user.PhoneNumber" type="text" placeholder="+8801xxxxxxxxx" class="form-control input-md">
-                        <span class="help-block">Edit phone number</span>
-                    </div>
-                </div>
-
-                <!-- Select Basic -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="gender">Gender</label>
-                    <div class="col-md-4">
-                        <select id="gender" class="form-control" ng-model="user.Gender">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="bloodgroup">Blood Group</label>
-                    <div class="col-md-4">
-                        <input id="bloodgroup" ng-model="user.BloodGroup" type="text" placeholder="B+/A/A-/,,," class="form-control input-md">
-                        <span class="help-block">Enter your blood group</span>
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="nidinpud">NID</label>
-                    <div class="col-md-4">
-                        <input id="nidinpud" ng-model="user.NId" type="text" placeholder="xxxxxxxxxxxxxxxxxxxx" class="form-control input-md">
-                        <span class="help-block">Enter your National Id</span>
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="presentaddress">Present Address</label>
-                    <div class="col-md-8">
-                        <input id="presentaddress" ng-model="user.PresentAddress" type="text" placeholder="House 21, Road 4/a, Dhanmondi r/a, Dhaka" class="form-control input-md">
-                        <span class="help-block">Present Address</span>
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="permanentaddress">Permanent Address</label>
-                    <div class="col-md-8">
-                        <input id="permanentaddress" ng-model="user.PermanentAddress" type="text" placeholder="House 21, Road 4/a, Dhanmondi r/a, Dhaka" class="form-control input-md">
-                        <span class="help-block">Permanent Address</span>
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="professioninput">Profession</label>
-                    <div class="col-md-5">
-                        <input id="professioninput" ng-model="user.Profession" type="text" placeholder="Professor at Dhaka University" class="form-control input-md">
-                        <span class="help-block">Enter your profession and place of work</span>
-                    </div>
-                </div>
-
-                <!-- Button (Double) -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="savechanges"></label>
-                    <div class="col-md-8">
-                        <button id="savechanges" name="savechanges" class="btn btn-success" ng-click="updateUser()">Save Changes</button>
-                        <button id="button2id" name="button2id" class="btn btn-danger" ng-click="toggleEditMode()">Cancel</button>
-                    </div>
-                </div>
-
-            </fieldset>
+    <uib-accordion close-others="oneAtATime">
+        <uib-accordion-group is-open="tab.firstOpen" panel-class="panel-success">
+            <uib-accordion-heading>
+                <i class="glyphicon glyphicon-plus"></i>Add/Update Employee Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': tab.firstOpen, 'glyphicon-chevron-right': !tab.firstOpen}"></i>
+            </uib-accordion-heading>
+            <div ng-include="'/Scripts/App/User/userdetails-employee.html'"></div>
+        </uib-accordion-group>
+        <uib-accordion-group is-open="tab.secondOpen" panel-class="panel-success">
+            <uib-accordion-heading>
+                <i class="glyphicon glyphicon-plus"></i>Update general information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': tab.secondOpen, 'glyphicon-chevron-right': !tab.secondOpen}"></i>
+            </uib-accordion-heading>
+            <div class="col-md-8">
+                <form class="form-horizontal">
+                    <fieldset>
+                        <!-- File Button -->
+                        <div class="form-group" ng-controller=fileUploadCtrl>
+                            <label class="col-md-4 control-label" for="filebutton">Upload Photo</label>
+                            <div class="col-md-4">
+                                <!-- <input id="filebutton" name="filebutton" class="input-file" type="file">-->
+                                <button type="file" ngf-select="uploadFiles($file, $invalidFiles, user.Id)"
+                                        accept="image/*" ngf-max-height="1000" n gf-max-size="1MB">
+                                    Select File
+                                </button>
+                            </div>
+                            <div style="font: smaller">
+                                {{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                                <span class="progress" ng-show="f.progress >= 0">
+                                    <div style="width:{{f.progress}}%"
+                                         ng-bind="f.progress + '%'"></div>
+                                </span>
+                            </div>
+                            {{errorMsg}}
+                        </div>
 
 
-        </form>
-    </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">Username</label>
+                            <div class="col-md-4">
+                                <input id="textinput" ng-model="user.UserName" type="text" placeholder="Name" class="form-control input-md">
+                                <span class="help-block">Edit phone number</span>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">Full Name</label>
+                            <div class="col-md-4">
+                                <input id="textinput" ng-model="user.FullName" type="text" placeholder="Name" class="form-control input-md">
+                                <span class="help-block">Edit phone number</span>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">Phone</label>
+                            <div class="col-md-4">
+                                <input id="textinput" ng-model="user.PhoneNumber" type="text" placeholder="+8801xxxxxxxxx" class="form-control input-md">
+                                <span class="help-block">Edit phone number</span>
+                            </div>
+                        </div>
+
+                        <!-- Select Basic -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="gender">Gender</label>
+                            <div class="col-md-4">
+                                <select id="gender" class="form-control" ng-model="user.Gender">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="bloodgroup">Blood Group</label>
+                            <div class="col-md-4">
+                                <input id="bloodgroup" ng-model="user.BloodGroup" type="text" placeholder="B+/A/A-/,,," class="form-control input-md">
+                                <span class="help-block">Enter your blood group</span>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="nidinpud">NID</label>
+                            <div class="col-md-4">
+                                <input id="nidinpud" ng-model="user.NId" type="text" placeholder="xxxxxxxxxxxxxxxxxxxx" class="form-control input-md">
+                                <span class="help-block">Enter your National Id</span>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="presentaddress">Present Address</label>
+                            <div class="col-md-8">
+                                <input id="presentaddress" ng-model="user.PresentAddress" type="text" placeholder="House 21, Road 4/a, Dhanmondi r/a, Dhaka" class="form-control input-md">
+                                <span class="help-block">Present Address</span>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="permanentaddress">Permanent Address</label>
+                            <div class="col-md-8">
+                                <input id="permanentaddress" ng-model="user.PermanentAddress" type="text" placeholder="House 21, Road 4/a, Dhanmondi r/a, Dhaka" class="form-control input-md">
+                                <span class="help-block">Permanent Address</span>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="professioninput">Profession</label>
+                            <div class="col-md-5">
+                                <input id="professioninput" ng-model="user.Profession" type="text" placeholder="Professor at Dhaka University" class="form-control input-md">
+                                <span class="help-block">Enter your profession and place of work</span>
+                            </div>
+                        </div>
+
+                        <!-- Button (Double) -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="savechanges"></label>
+                            <div class="col-md-8">
+                                <button id="savechanges" name="savechanges" class="btn btn-success" ng-click="updateUser()">Save Changes</button>
+                                <button id="button2id" name="button2id" class="btn btn-danger" ng-click="toggleEditMode()">Cancel</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+
+                </form>
+            </div>
+        </uib-accordion-group>
+    </uib-accordion>
 </div>
-    <div class="row" ng-hide="editMode">
-       
-        <div class="col-md-6">
 
 
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{user.FullName || user.Email}}</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://www.lajesfss.com/public/common/images/_default_user_social.gif" class="img-circle img-responsive"> </div>
 
-                        <div class=" col-md-9 col-lg-9 ">
-                            <table class="table table-user-information">
-                                <tbody>
+
+<div class="row viewMode" ng-hide="editMode">
+
+    <div class="col-md-6">
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{user.FullName || user.Email}}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3 col-lg-3 " align="center">
+                        <img alt="User Pic" src="{{user.ProfilePicUrl}}" class="img-circle img-responsive">
+                    </div>
+
+
+
+                    <div class="col-md-9 col-lg-9">
+                        <div ng-show="user.IsEmployee">
+                            <h4>Employee Id: {{user.EmployeeId}}</h4>
+                            <h4>Designation: {{user.Designation}}</h4>
+
+                        </div>
+                        <table class="table table-user-information">
+                            <tbody>
                                 <tr>
                                     <td>Username:</td>
                                     <td>{{user.UserName}}</td>
@@ -164,23 +204,23 @@
                                     <td>Profession:</td>
                                     <td>{{user.Profession || default}}</td>
                                 </tr>
-                                </tbody>
-                            </table>
+                            </tbody>
+                        </table>
 
-                           
-                        </div>
+
                     </div>
                 </div>
-                <div class="panel-footer">
-                    
-                    <a ng-href="#/addappointment/{{user.Id}}" type="button" class="btn btn-sm btn-primary">Make Appointment <i class="glyphicon glyphicon-envelope"></i></a>
-
-                    <span class="pull-right" ng-if="isSelf()">
-                        <a ng-click="toggleEditMode()" ng-hide="editMode" type="button" class="btn btn-sm btn-warning">Edit <i class="glyphicon glyphicon-edit"></i></a>
-                        <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-                    </span>
-                </div>
-
             </div>
+            <div class="panel-footer">
+
+                <a ng-href="#/addappointment/{{user.Id}}" type="button" class="btn btn-sm btn-primary">Make Appointment <i class="glyphicon glyphicon-envelope"></i></a>
+
+                <span class="pull-right" ng-if="isSelf() || userData.isAdmin">
+                    <a ng-click="toggleEditMode()" ng-hide="editMode" type="button" class="btn btn-sm btn-warning">Edit <i class="glyphicon glyphicon-edit"></i></a>
+                    <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                </span>
+            </div>
+
         </div>
     </div>
+</div>

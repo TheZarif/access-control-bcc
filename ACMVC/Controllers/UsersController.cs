@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -37,6 +38,7 @@ namespace ACMVC.Controllers
                     Id = x.Id,
                     Email  = x.Email,
                     PhoneNumber = x.PhoneNumber,
+                    FullName = x.FullName,
                     Designation = x.Designation,
                     DeskFloor = x.DeskFloor,
                     IsVerified = x.IsVerified,
@@ -152,7 +154,8 @@ namespace ACMVC.Controllers
                     ProfilePicUrl = aspNetUser.ProfilePicUrl,
                     UserGroup = aspNetUser.UserGroup,
                     WorkDivision = aspNetUser.WorkDivision,
-                    SummaryNote = aspNetUser.SummaryNote
+                    SummaryNote = aspNetUser.SummaryNote,
+                    IsEmployee = aspNetUser.IsEmployee
                 }, JsonRequestBehavior.AllowGet);
             }
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -212,6 +215,57 @@ namespace ACMVC.Controllers
             return Json("");
         }
 
+        [HttpPost]
+        public JsonResult UpdateUserOfficial(AspNetUser aspNetUser)
+        {
+            if (aspNetUser == null) throw new ArgumentNullException(nameof(aspNetUser));
+            if (ModelState.IsValid)
+            {
+                var User = db.AspNetUsers.FirstOrDefault(x => x.Id == aspNetUser.Id);
+                if (User == null)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json("Invalid Object");
+                }
+//                User.EmployeeAccessZoneMaps.Add();
+                User.IsEmployee = aspNetUser.IsEmployee;
+                User.EmployeeId = aspNetUser.EmployeeId;
+                User.Designation = aspNetUser.Designation;
+                User.RoomNo = aspNetUser.RoomNo;
+                User.WorkDivision = aspNetUser.WorkDivision;
+                User.SummaryNote = aspNetUser.SummaryNote;
+
+
+                db.Entry(User).State = EntityState.Modified;
+                try
+                {
+                    if (db.SaveChanges() > 0)
+                    {
+                        return Json("");
+                    }
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                {
+                    Exception raise = dbEx;
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            string message = string.Format("{0}:{1}",
+                                validationErrors.Entry.Entity.ToString(),
+                                validationError.ErrorMessage);
+                            // raise a new exception nesting
+                            // the current instance as InnerException
+                            raise = new InvalidOperationException(message, raise);
+                        }
+                    }
+                    throw raise;
+                }
+            }
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json("");
+        }
+
 
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -223,6 +277,49 @@ namespace ACMVC.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public JsonResult UploadFile(String id)
+        {
+            if (Request.Files != null && Request.Files.Count > 0 && !string.IsNullOrEmpty(id))
+            {
+                var User = db.AspNetUsers.Find(id);
+
+                var file = Request.Files[0];
+                var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                var fileSrc = Path.Combine(Server.MapPath("~/UploadedFiles"), fileName);
+
+                try
+                {
+                    file.SaveAs(Path.Combine(Server.MapPath("~/UploadedFiles"), fileName));
+                    var oldFile = User.ProfilePicUrl;
+                    if (System.IO.File.Exists(oldFile))
+                    {
+                        System.IO.File.Delete(oldFile);
+                    }
+                    User.ProfilePicUrl = fileSrc;
+                    db.Entry(User).State = EntityState.Modified;
+                    if (db.SaveChanges() > 0)
+                    {
+                        return Json(fileSrc);
+                    }
+                    else
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        return Json("Database Error");
+                    }
+                }
+                catch
+                {
+                    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    return Json("Couldn't save file");
+                }
+            }
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json("");
+        }
+    
+
 
         protected override void Dispose(bool disposing)
         {

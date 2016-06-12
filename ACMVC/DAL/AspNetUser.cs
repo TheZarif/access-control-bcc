@@ -56,6 +56,7 @@ namespace ACMVC.DAL
         public string WorkDivision { get; set; }
         public Nullable<int> IsVerified { get; set; }
         public string FullName { get; set; }
+        public Nullable<bool> IsEmployee { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeAccessZoneMap> EmployeeAccessZoneMaps { get; set; }

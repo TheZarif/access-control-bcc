@@ -11,6 +11,9 @@
         $scope.user = {};
         $scope.selfId = null;
         $scope.default = "N/A";
+        $scope.tab = { firstOpen: false, secondOpen: true };
+
+        $scope.tempUser = {};
 
         userFactory.getLoginDetails().success(function (data) {
             $scope.selfId = data.UserId;
@@ -27,6 +30,7 @@
         $scope.getDetails = function() {
             userFactory.getUserDetails($scope.id).success(function (data) {
                 $scope.user = data;
+                $scope.tempUser = angular.copy($scope.user);
             }).error(function (err) {
                 notificationService.displayError("Something went wrong.");
                 console.log(err);
@@ -52,6 +56,23 @@
                     console.log(err);
                 });
         };
+
+        $scope.updateOfficial = function() {
+            userFactory.updateUserOfficial($scope.tempUser)
+                .success(function (data) {
+                    $scope.user = $scope.tempUser;
+                    notificationService.displaySuccess("Saved");
+                })
+                .error(function(err) {
+                    notificationService.displayError("Could not update data");
+                    console.log(err);
+                });
+        }
+
+        $scope.cancelOfficial = function() {
+            $scope.tempUser = $scope.user;
+            $scope.tab.firstOpen = false;
+        }
 
     }
 

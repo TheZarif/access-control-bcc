@@ -11,6 +11,7 @@
             <div class="panel-body">
                 <table class="table table-striped table-bordered table-condensed table-hover">
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
@@ -20,19 +21,13 @@
                     </tr>
 
                     <tr ng-repeat="user in users">
+                        <td><img src="{{user.ProfilePicUrl}}" alt="Image" /></td>
                         <td>
-                            <span ng-show="user.editMode == null || user.editMode == false">{{user.Name}}</span>
-                            <input ng-model="user.Name" ng-show="user.editMode == true"/>
+                            <span ng-show="user.editMode == null || user.editMode == false">{{user.FullName || "N/A"}}</span>
+                            <input ng-model="user.FullName" ng-show="user.editMode == true"/>
                         </td>
-                        <td>
-                            <span>{{user.Email}}</span>
-                            <!-- <input ng-model="user.Number" ng-show="user.editMode == true"/> -->
-                        </td>
-                        <td>
-                            <span>{{user.PhoneNumber}}</span>
-                            <!-- <span ng-show="user.editMode == null || user.editMode == false">{{user.PhoneNumber}}</span>-->
-                            <!-- <input ng-model="user.Phone" ng-show="user.editMode == true"/>-->
-                        </td>
+                        <td><span>{{user.Email}}</span></td>
+                        <td><span>{{user.PhoneNumber || "N/A"}}</span></td>
                         <td>
                             <span ng-repeat="role in user.AspNetRoles">
                                 <span class="label label-default">
@@ -41,7 +36,6 @@
                                 </span>,
                             </span>
                             <a ng-click="toggleAddRoleMode(user)" ng-show="!user.addRoleMode" class="clickable-text">Add</a>
-                            <!-- <span ng-show="user.editMode == null || user.editMode == false">{{user.Role}}</span>-->
                             <span ng-show="user.addRoleMode == true">
                                 <select 
                                         ng-model="newRole"

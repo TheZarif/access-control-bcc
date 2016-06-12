@@ -65,6 +65,7 @@
           <Property Name="WorkDivision" Type="nchar" MaxLength="10" />
           <Property Name="IsVerified" Type="int" />
           <Property Name="FullName" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsEmployee" Type="bit" />
         </EntityType>
         <EntityType Name="CardInfo">
           <Key>
@@ -528,6 +529,7 @@
           <NavigationProperty Name="Appointments" Relationship="TestModel.FK_Appointment_AspNetUsers" FromRole="AspNetUser" ToRole="Appointment" />
           <NavigationProperty Name="Appointments1" Relationship="TestModel.FK_Appointment_AspNetUsers1" FromRole="AspNetUser" ToRole="Appointment" />
           <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsEmployee" Type="Boolean" />
         </EntityType>
         <EntityType Name="CardInfo">
           <Key>
@@ -949,6 +951,7 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="TestModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="IsEmployee" ColumnName="IsEmployee" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

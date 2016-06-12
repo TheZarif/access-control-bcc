@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('accessControl', ['common.core', 'common.ui', 'ui.bootstrap'])
+    angular.module('accessControl', ['common.core', 'common.ui', 'ui.bootstrap', 'ngFileUpload'])
         .config(config);
 
     config.$inject = ['$routeProvider'];

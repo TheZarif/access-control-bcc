@@ -14,14 +14,17 @@
             },
             addUser: function (user) {
                 console.log("Method not implemented");
-                return $http.post(baseUrl + "users/create", user);
+                return $http.post(baseUrl + "users/crrreat", user);
             },
             deleteUser: function (user) {
                 return $http.post(baseUrl + "users/delete/" + user.Id);
             },
             updateUser: function (user) {
-                console.log("User: ", user);
                 return $http.post(baseUrl + "users/UpdateUser/" + user.Id, user);
+            },
+            updateUserOfficial: function (user) {
+                console.log("User: ", user);
+                return $http.post(baseUrl + "users/UpdateUserOfficial/", user);
             },
             getUserDetails: function(id) {
                 return $http.get(baseUrl + "users/Details/" + id);
