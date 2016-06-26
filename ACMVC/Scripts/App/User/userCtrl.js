@@ -78,27 +78,11 @@
         $scope.toggleResetPassword = function(user) {
             user.editPassword = !user.editPassword;
         }
-        // $scope.toggleAddMode = function () {
-        //     $scope.addMode = !$scope.addMode;
-        // };
 
         $scope.toggleEditMode = function (item) {
             item.editMode = !item.editMode;
         };
-
-        // $scope.addUser = function () {
-        //     userFactory.addUser($scope.newUser)
-        //         .success(function (data) {
-        //             $scope.users.push(data);
-        //             $scope.newUser = {};
-        //             $scope.toggleAddMode();
-        //         })
-        //         .error(function (err) {
-        //             notificationService.displayError("Could not add data");
-        //             console.log(err);
-        //         })
-        // };
-
+        
         $scope.deleteUser = function (user) {
             userFactory.deleteUser(user)
                 .success(function() {

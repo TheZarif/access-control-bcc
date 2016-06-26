@@ -29,14 +29,8 @@
             getUserDetails: function(id) {
                 return $http.get(baseUrl + "users/Details/" + id);
             },
-            findUser: function (email, phone) {
-                return $http.post(baseUrl + "users/SearchUser",
-                    {
-                        "searchModel": {
-                            Email: email,
-                            Phone: phone
-                        }
-                    });
+            findUser: function (searchString) {
+                return $http.post(baseUrl + "users/SearchUser", { "searchModel": searchString });
             },
             resetPassword: function (user, password) {
                 return $http.post(baseUrl + "manage/ResetPassword", { "user": user, "password": password });
@@ -57,6 +51,9 @@
             },
             getLoginDetails: function() {
                 return $http.post(baseUrl + "manage/GetLoginDetails");
+            },
+            getProfileCompletion: function(id) {
+                return $http.get(baseUrl + "Users/ProfileCompletionPercent/" + id);
             }
         };
     }

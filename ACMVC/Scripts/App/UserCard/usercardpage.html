@@ -26,7 +26,8 @@
                             </div>
                         </td>
                         <td>
-                            <input type="text" ng-model="newUserCard.Email" placeholder="User Name" uib-typeahead="user.Email for user in users | filter:$viewValue:startsWith" class="form-control">
+<!--                            <input type="text" ng-model="newUserCard.Email" placeholder="User Name" uib-typeahead="user.Email for user in users | filter:$viewValue:startsWith" class="form-control">-->
+                            <user-auto-suggest user="newUserCard.U" placeholder="'Enter user to assign card'"></user-auto-suggest>
                         </td>
                         <td>
                             <input type="text" ng-model="newUserCard.CardNumber" placeholder="Card Number" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith" class="form-control">

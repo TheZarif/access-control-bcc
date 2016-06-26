@@ -104,11 +104,11 @@ namespace ACMVC.Controllers
         }
 
         [HttpPost]
-        public JsonResult SearchUser(UserSearchModel searchModel)
+        public JsonResult SearchUser(String searchModel)
         {
-            if (!string.IsNullOrEmpty(searchModel.email) || !string.IsNullOrEmpty(searchModel.phone))
+            if (!string.IsNullOrEmpty(searchModel))
             {
-                var results = db.AspNetUsers.Where(p => (p.Email.Contains(searchModel.email) || p.PhoneNumber.Contains(searchModel.phone)));
+                var results = db.AspNetUsers.Where(p => (p.Email.Contains(searchModel) || p.PhoneNumber.Contains(searchModel) || p.Designation.Contains(searchModel))).Take(5);
                 if (results != null)
                 {
                     return Json(
@@ -119,7 +119,7 @@ namespace ACMVC.Controllers
                         UserName = x.UserName,
                         Designation = x.Designation,
                         FullName = x.FullName,
-                        DisplayName = x.FullName + " " + x.Email + " " + x.Designation
+                        DisplayName = "[" + x.FullName + "] [" + x.Email + "] [" + x.Designation + "]"
                     }), JsonRequestBehavior.AllowGet);
                 }
             }
@@ -370,8 +370,27 @@ namespace ACMVC.Controllers
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json("");
         }
-    
 
+        public JsonResult ProfileCompletionPercent(string userId)
+        {
+            AspNetUser User = db.AspNetUsers.Find(userId);
+            int count = 0, total = 9, percent;
+
+            if (User.BloodGroup != null) count++;
+            if (User.FullName != null) count++;
+            if (User.Gender != null) count++;
+            if (User.NId != null) count++;
+            if (User.PhoneNumber != null) count++;
+            if (User.PermanentAddress != null) count++;
+            if (User.PresentAddress != null) count++;
+            if (User.Profession != null) count++;
+            if (User.ProfilePicUrl != null) count++;
+
+            percent = (int)(count / (float)total * 100);
+
+            return Json(percent, JsonRequestBehavior.AllowGet);
+
+        }
 
         protected override void Dispose(bool disposing)
         {

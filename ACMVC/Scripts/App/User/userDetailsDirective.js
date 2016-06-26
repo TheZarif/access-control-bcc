@@ -19,6 +19,7 @@
                 $scope.user = {};
                 $scope.tab = { firstOpen: false, secondOpen: true };
                 $scope.tempUser = {};
+                $scope.percentComplete = 0;
 
                 console.log($scope.viewMode);
 
@@ -34,6 +35,12 @@
                     userFactory.getUserDetails($scope.userInfo.Id).success(function(data) {
                         $scope.user = data;
                         $scope.tempUser = angular.copy($scope.user);
+
+                        userFactory.getProfileCompletion(data.Id).success(function(data) {
+                            $scope.percentComplete = data;
+                        }).error(function(err) {
+                            console.log(err);
+                        });
                     }).error(function(err) {
                         notificationService.displayError("Something went wrong.");
                         console.log(err);
