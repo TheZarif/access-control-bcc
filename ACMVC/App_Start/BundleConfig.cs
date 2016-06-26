@@ -22,7 +22,8 @@ namespace ACMVC
                         "~/Scripts/angular-ui/ui-bootstrap.js",
                         "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                         "~/Scripts/ng-file-upload.min.js",
-                        "~/Scripts/ng-file-upload-shim.min.js"
+                        "~/Scripts/ng-file-upload-shim.min.js",
+                        "~/Scripts/angular-animate.min.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/spa").Include(
@@ -44,8 +45,8 @@ namespace ACMVC
                        "~/Scripts/App/Appointment/*.js",
                        "~/Scripts/App/Vehicle/*.js",
                        "~/Scripts/App/Role/*.js",
-                       "~/Scripts/App/IssueCard/*.js"
-
+                       "~/Scripts/App/IssueCard/*.js",
+                       "~/Scripts/App/Home/*.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

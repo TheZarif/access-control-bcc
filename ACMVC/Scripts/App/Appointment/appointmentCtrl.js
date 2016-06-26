@@ -12,6 +12,7 @@
         $scope.expandMode = false;
         $scope.newAppointment = {};
         $scope.users = {};
+        $scope.status = {};
 
         var userId = $routeParams.userId;
 
@@ -56,6 +57,7 @@
 
         $scope.toggleAddMode = function () {
             $scope.addMode = !$scope.addMode;
+            $scope.status.open = false;
         };
 
         $scope.toggleEditMode = function (item) {

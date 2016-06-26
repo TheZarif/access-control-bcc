@@ -1,16 +1,14 @@
 ﻿
 
-<form class="form-horizontal">
+<form class="form-horizontal" novalidate>
             <fieldset>
-
-
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="">Meeting with</label>
                     <div class="col-md-4">
                         <input id="" name=""
                                ng-model="newAppointment.U"
-                               uib-typeahead="user as user.Email for user in users"
+                               uib-typeahead="user as user.DisplayName for user in users"
                                type="text" placeholder="Enter name of person you wish to meet" class="form-control input-md" required="">
                     </div>
                 </div>
@@ -31,12 +29,23 @@
                     </div>
                 </div>
 
+                <!-- Date -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="textarea">Date</label>
+                    <div style="display: inline-block; min-height: 290px;">
+                        <em>{{newAppointment.Time | date:'fullDate' }}</em>
+                        <uib-datepicker ng-model="newAppointment.Time" class="well well-sm"></uib-datepicker>
+                    </div>
+                    <!--<input type="datetime-local" ng-model="newAppointment.Time"/>-->
+                </div>
+
+
                 <!-- Button (Double) -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="submit-button"></label>
                     <div class="col-md-8">
                         <button id="submit-button" name="submit-button" class="btn btn-success" ng-click="addAppointment()">Submit</button>
-                        <button id="cancel-button" name="cancel-button" class="btn btn-danger" ng-click="cancelAppointment()">Cancel</button>
+                        <button id="cancel-button" name="cancel-button" class="btn btn-danger" ng-click="toggleAddMode()">Cancel</button>
                     </div>
                 </div>
 

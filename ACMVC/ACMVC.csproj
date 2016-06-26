@@ -322,6 +322,8 @@
     <Content Include="Scripts\App\Appointment\appointmentdetails.html" />
     <Content Include="Scripts\App\Appointment\appointmentCtrl.js" />
     <Content Include="Scripts\App\Appointment\appointmentFactory.js" />
+    <Content Include="Scripts\App\Appointment\appointmentsminibar.html" />
+    <Content Include="Scripts\App\Appointment\appointmentsMinibar.js" />
     <Content Include="Scripts\App\Appointment\newappointmentpage.html" />
     <Content Include="Scripts\App\CardLog\cardLogCtrl.js" />
     <Content Include="Scripts\App\CardLog\cardLogFactory.js" />
@@ -335,6 +337,7 @@
     <Content Include="Scripts\App\Device\deviceCtrl.js" />
     <Content Include="Scripts\App\Device\deviceFactory.js" />
     <Content Include="Scripts\App\Device\devicepage.html" />
+    <Content Include="Scripts\App\Home\homepage.html" />
     <Content Include="Scripts\App\IssueCard\issuecard.html" />
     <Content Include="Scripts\App\IssueCard\issuecardconfirm.html" />
     <Content Include="Scripts\App\IssueCard\IssueCardCtrl.js" />
@@ -359,8 +362,10 @@
     <Content Include="Scripts\App\User\userdetails-employee.html" />
     <Content Include="Scripts\App\User\userdetails.html" />
     <Content Include="Scripts\App\User\userDetailsCtrl.js" />
+    <Content Include="Scripts\App\User\userDetailsDirective.js" />
     <Content Include="Scripts\App\User\userFactory.js" />
     <Content Include="Scripts\App\User\userpage.html" />
+    <Content Include="Scripts\App\User\userprofile.html" />
     <Content Include="Scripts\App\User\userspublic.html" />
     <Content Include="Scripts\App\Vehicle\vehicleCtrl.js" />
     <Content Include="Scripts\App\Vehicle\vehicleFactory.js" />

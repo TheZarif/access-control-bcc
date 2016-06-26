@@ -1,0 +1,21 @@
+﻿<hr/>
+<div class="container">
+    <h4>Last 5 appointments</h4>
+    <table class="table table-bordered table-responsive">   
+        <tr>
+            <td>Id</td>
+            <td>To</td>
+            <td>By</td>
+            <td>Status</td>
+        </tr>
+        <tr ng-repeat="appointment in appointments | limitTo:5">
+            <td>{{appointment.Id}}</td>
+            <td>{{appointment.AspNetUserTo.Email}}, {{appointment.AspNetUserTo.Designation}}<br/></td>
+            <td>{{appointment.AspNetUserBy.Email}}, {{appointment.AspNetUserBy.Designation}}<br/></td>
+            <td>{{appointment.AppointmentStatu.Name}}</td>
+        </tr>
+        <tr ng-if="appointments">
+            <td colspan="4" class="text-center"><a ng-href="#/appointments">Show all</a></td>
+        </tr>
+    </table>
+</div>

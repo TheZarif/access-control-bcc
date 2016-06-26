@@ -47,11 +47,60 @@ namespace ACMVC.Controllers
                     {
                         Id = p.Id,
                         Name = p.Name
+                    }).ToList(),
+                    EmployeeAccessZoneMaps =  x.EmployeeAccessZoneMaps.Select(p=> new EmployeeAccessZoneMap()
+                    {
+                        AccessZone = new AccessZone()
+                        {
+                            Id = p.AccessZone.Id,
+                            Name = p.AccessZone.Name,
+                            Description = p.AccessZone.Description
+                        }
                     }).ToList()
                 }),
                 Pager = pager
             };
             return Json(viewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult AddAccessZone(String userId, AccessZone accessZone)
+        {
+            if (userId != null && accessZone != null)
+            {
+                var user = db.AspNetUsers.Find(userId);
+                if (user != null)
+                {
+                    user.EmployeeAccessZoneMaps.Add(new EmployeeAccessZoneMap() { UserId = userId, AccessZone = accessZone });
+                    if (db.SaveChanges() > 0)
+                    {
+                        return Json("");
+                    }
+                }
+            }
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json("Could not find object");
+        }
+
+        [HttpPost]
+        public JsonResult RemoveAccessZone(String userId, AccessZone accessZone)
+        {
+            if (userId != null && accessZone != null)
+            {
+                var user = db.AspNetUsers.Find(userId);
+                if (user != null)
+                {
+                    user.EmployeeAccessZoneMaps.Add(new EmployeeAccessZoneMap() { UserId = userId, AccessZone = accessZone });
+                    if (db.SaveChanges() > 0)
+                    {
+                        return Json("");
+                    }
+                }
+            }
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json("Could not find object");
         }
 
         [HttpPost]
@@ -67,7 +116,10 @@ namespace ACMVC.Controllers
                         Id = x.Id,
                         Email = x.Email,
                         PhoneNumber = x.PhoneNumber,
-                        UserName = x.UserName
+                        UserName = x.UserName,
+                        Designation = x.Designation,
+                        FullName = x.FullName,
+                        DisplayName = x.FullName + " " + x.Email + " " + x.Designation
                     }), JsonRequestBehavior.AllowGet);
                 }
             }

@@ -26,6 +26,7 @@
                 <td>By</td>
                 <td>Purpose</td>
                 <td>Status</td>
+                <td>Time</td>
                 <td></td>
             </tr>
             <tr ng-repeat="appointment in appointments">
@@ -34,9 +35,12 @@
                 <td>{{appointment.AspNetUserBy.Email}}, {{appointment.AspNetUserBy.Phone}}, {{appointment.AspNetUserBy.Designation}}<br/></td>
                 <td>{{appointment.Purpose}}</td>
                 <td>{{appointment.AppointmentStatu.Name}}</td>
+                <td>{{appointment.Time | date:"MM/dd/yyyy 'at' h:mma"}}</td>
                 <td class="clickable" ng-click="expand(appointment)">View</td>
             </tr>
             </table>
-
+        <div>
+            <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getAppointment(currentPage)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+        </div>
 </div>
 </div>

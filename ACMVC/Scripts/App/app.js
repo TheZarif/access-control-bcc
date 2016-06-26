@@ -1,15 +1,14 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('accessControl', ['common.core', 'common.ui', 'ui.bootstrap', 'ngFileUpload'])
+    angular.module('accessControl', ['common.core', 'common.ui', 'ngAnimate', 'ui.bootstrap', 'ngFileUpload'])
         .config(config);
 
     config.$inject = ['$routeProvider'];
     function config($routeProvider) {
         $routeProvider
             .when("/", {
-                templateUrl: "scripts/App/Status/index.html",
-                controller: "statusCtrl"
+                templateUrl: "scripts/App/Home/homepage.html"
             })
             .when("/status", {
                 templateUrl: "scripts/App/Status/index.html",
