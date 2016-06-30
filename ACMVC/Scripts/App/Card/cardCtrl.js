@@ -15,10 +15,17 @@
         $scope.totalPages = 0;
         $scope.currentPage = 0;
 
+        $scope.defaultFilter = {
+            Id: null,
+            Type: "All"
+        }
+
+        $scope.filterStatus = $scope.defaultFilter;
+
        
 
-        $scope.getCards = function (page, search) {
-            cardFactory.getCard(page, search).success(function (data) {
+        $scope.getCards = function (page, search, statusId) {
+            cardFactory.getCard(page, search, statusId).success(function (data) {
                 notificationService.displaySuccess("Successfully retrieved data");
                 $scope.cards = data.Cards;
                 $scope.totalPages = data.Pager.TotalPages;
@@ -89,11 +96,16 @@
             }
         }
 
+        $scope.setFilterStatus = function(data) {
+            $scope.filterStatus = data;
+            $scope.getCards(1, $scope.searchConfig.model, data.Id);
+        }
+
          $scope.searchConfig = {
             method: $scope.getCards,
             placeholder: "Search Card by number",
             model: ""
-        }
+        }   
 
        
     }

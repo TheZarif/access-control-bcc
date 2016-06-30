@@ -16,7 +16,7 @@ namespace ACMVC.Controllers
     {
         private TestEntities db = new TestEntities();
 
-        public JsonResult GetAll(int? page, string search)
+        public JsonResult GetAll(int? page, string search, int? statusId)
         {
             List<CardInfo> cardInfoes;
             if (string.IsNullOrEmpty(search))
@@ -27,6 +27,11 @@ namespace ACMVC.Controllers
             {
                 cardInfoes = db.CardInfoes.Where(p => (p.Number.Contains(search))).ToList();
             }
+            if (statusId != null)
+            {
+                cardInfoes = cardInfoes.Where(p => p.StatusId == statusId).ToList();
+            }
+
             var pager = new Pager(cardInfoes.Count(), page);
 
             var viewModel = new CardViewModel()

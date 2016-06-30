@@ -8,6 +8,24 @@
                 <div class="col-md-6">
                     <search config="searchConfig"></search><br/>
                 </div>
+                <div class="col-md-6">
+                    Filter status:
+                    <div class="btn-group" uib-dropdown keyboard-nav>
+                        <button id="simple-btn-keyboard-nav" type="button" class="btn btn-default" uib-dropdown-toggle>
+                            {{filterStatus.Type}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                            <li role="menuitem"><a ng-click="setFilterStatus(defaultFilter)">ALL</a></li>
+                            <li class="divider"></li>
+                            <li ng-repeat="status in statuses" role="menuitem"><a ng-click="setFilterStatus(status)">{{status.Type}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                
+
+
                 <table class="table table-striped table-bordered table-condensed table-hover">
                     <tr>
                         <th style="width: 100px;">
@@ -69,7 +87,7 @@
                     </tr>
                 </table>
                 <div>
-                    <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getCards(currentPage, searchConfig.model)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getCards(currentPage, searchConfig.model, filterStatus.Id)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
                 </div>
             </div>
 
