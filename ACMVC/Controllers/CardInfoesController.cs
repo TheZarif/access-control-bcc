@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ACMVC.DAL;
+using ACMVC.Models;
+using ACMVC.Models.ViewModels;
 
 namespace ACMVC.Controllers
 {
@@ -14,34 +16,38 @@ namespace ACMVC.Controllers
     {
         private TestEntities db = new TestEntities();
 
-        // GET: CardInfoes
-        public ActionResult Index()
+        public JsonResult GetAll(int? page, string search)
         {
-            var cardInfoes = db.CardInfoes.Include(c => c.Status);
-            return View(cardInfoes.ToList());
-        }
-
-
-
-        public JsonResult GetAll(string number)
-        {
-            IQueryable<CardInfo> cardInfoes;
-            if (string.IsNullOrEmpty(number))
+            List<CardInfo> cardInfoes;
+            if (string.IsNullOrEmpty(search))
             {
-                cardInfoes = db.CardInfoes.Include(c => c.Status);                
+                cardInfoes = db.CardInfoes.Include(c => c.Status).ToList();                
             }
             else
             {
-                cardInfoes = db.CardInfoes.Where(p => (p.Number.Contains(number)));
+                cardInfoes = db.CardInfoes.Where(p => (p.Number.Contains(search))).ToList();
             }
-            return Json(cardInfoes.Select(x => new
+            var pager = new Pager(cardInfoes.Count(), page);
+
+            var viewModel = new CardViewModel()
             {
-                Id = x.Id,
-                Number = x.Number,
-                Notes = x.Notes,
-                StatusId = x.StatusId,
-                StatusType = x.Status.Type
-            }), JsonRequestBehavior.AllowGet);
+                Cards = cardInfoes.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize).Select(x => new CardInfo()
+                {
+                    Id = x.Id,
+                    Number = x.Number,
+                    Notes = x.Notes,
+                    StatusId = x.StatusId,
+                    Status = new Status()
+                    {
+                        Id = x.Status.Id,
+                        Type = x.Status.Type,
+                        Description = x.Status.Description
+                    }
+                }).ToList(),
+                Pager = pager
+            };
+
+            return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
 
         // GET: CardInfoes/Details/5

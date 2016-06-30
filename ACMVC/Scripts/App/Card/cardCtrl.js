@@ -12,16 +12,29 @@
         $scope.newCard = {};
         var editMode = false;
 
-        cardFactory.getCard().success(function (data) {
-            notificationService.displaySuccess("Successfully retrieved data");
-            $scope.cards = data;
-            statusFactory.getStatus()
-                .success(   function (data) { $scope.statuses = data;})
-                .error(function (err) { console.log(err);});
-        }).error(function () {
-            notificationService.displayError("Could not load data");
-            console.log("Could not retrieve data from server");
-        });
+        $scope.totalPages = 0;
+        $scope.currentPage = 0;
+
+       
+
+        $scope.getCards = function (page, search) {
+            cardFactory.getCard(page, search).success(function (data) {
+                notificationService.displaySuccess("Successfully retrieved data");
+                $scope.cards = data.Cards;
+                $scope.totalPages = data.Pager.TotalPages;
+                $scope.totalItems = data.Pager.TotalItems;
+                $scope.currentPage = data.Pager.CurrentPage;
+
+                statusFactory.getStatus()
+                    .success(   function (data) { $scope.statuses = data;})
+                    .error(function (err) { console.log(err);});
+            }).error(function () {
+                notificationService.displayError("Could not load data");
+                console.log("Could not retrieve data from server");
+            });
+        }
+
+        $scope.getCards(1);
 
         $scope.toggleAddMode = function () {
             $scope.addMode = !$scope.addMode;
@@ -74,6 +87,12 @@
                     return $scope.statuses[i].Type;
                 }
             }
+        }
+
+         $scope.searchConfig = {
+            method: $scope.getCards,
+            placeholder: "Search Card by number",
+            model: ""
         }
 
        

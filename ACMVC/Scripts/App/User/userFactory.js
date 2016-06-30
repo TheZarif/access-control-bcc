@@ -53,7 +53,7 @@
                 return $http.post(baseUrl + "manage/GetLoginDetails");
             },
             getProfileCompletion: function(id) {
-                return $http.get(baseUrl + "Users/ProfileCompletionPercent/" + id);
+                return $http.get(baseUrl + "Users/ProfileCompletionPercent?userId=" + id);
             }
         };
     }

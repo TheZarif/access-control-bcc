@@ -147,7 +147,10 @@
 
 
 <div class="container viewMode" ng-hide="editMode">
-    PROFILE COMPLETE: {{percentComplete}}
+    <h3>Profile Completed: </h3>
+    <uib-progressbar animate="false" value="percentComplete" type="success"><b>{{percentComplete}}%</b></uib-progressbar>
+    <span ng-if="percentComplete<70" class="red">This profile is not sufficiently edited. You cannot make an appointment until you edit your profile and add in more information.</span>
+    <h3>Profile: </h3>
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title">{{user.FullName || user.Email}}</h3>

@@ -38,6 +38,7 @@
 
                         userFactory.getProfileCompletion(data.Id).success(function(data) {
                             $scope.percentComplete = data;
+                            $scope.user.percentComplete = data;
                         }).error(function(err) {
                             console.log(err);
                         });
@@ -54,7 +55,7 @@
                 $scope.isSelf = function () {
                     return $scope.self.Id === $scope.user.Id;
                 }
-
+                
                 $scope.updateUser = function () {
                     userFactory.updateUser($scope.user)
                         .success(function (data) {

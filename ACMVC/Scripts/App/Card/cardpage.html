@@ -1,12 +1,13 @@
 ﻿<hr />
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 container">
+        <h3>Cards Page</h3>
         <div class="panel panel-primary" id="">
-            <div class="panel-heading">
-                <h3 class="panel-title">Card Admin Page</h3>
-            </div>
 
             <div class="panel-body">
+                <div class="col-md-6">
+                    <search config="searchConfig"></search><br/>
+                </div>
                 <table class="table table-striped table-bordered table-condensed table-hover">
                     <tr>
                         <th style="width: 100px;">
@@ -26,10 +27,10 @@
                             </div>
                         </td>
                         <td>
-                            <input ng-model="newCard.Number" />
+                            <input ng-model="newCard.Number"/>
                         </td>
                         <td>
-                            <input ng-model="newCard.Notes" />
+                            <input ng-model="newCard.Notes"/>
                         </td>
                         <td>
                             <select ng-model="newCard.StatusId"
@@ -53,21 +54,25 @@
                         </td>
                         <td>
                             <span ng-show="card.editMode == null || card.editMode == false">{{card.Number}}</span>
-                            <input ng-model="card.Number" ng-show="card.editMode == true" />
+                            <input ng-model="card.Number" ng-show="card.editMode == true"/>
                         </td>
                         <td>
                             <span ng-show="card.editMode == null || card.editMode == false">{{card.Notes}}</span>
-                            <input ng-model="card.Notes" ng-show="card.editMode == true" />
+                            <input ng-model="card.Notes" ng-show="card.editMode == true"/>
                         </td>
                         <td>
-                            <span ng-show="card.editMode == null || card.editMode == false">{{card.StatusType}}</span>
+                            <span ng-show="card.editMode == null || card.editMode == false">{{card.Status.Type}}</span>
                             <select ng-show="card.editMode == true"
                                     ng-model="card.StatusId"
                                     ng-options="status.Id as status.Type for status in statuses"></select>
                         </td>
                     </tr>
                 </table>
+                <div>
+                    <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getCards(currentPage, searchConfig.model)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                </div>
             </div>
+
 
         </div>
     </div>

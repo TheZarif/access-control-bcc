@@ -257,6 +257,7 @@
     <Compile Include="Models\UserSearchModel.cs" />
     <Compile Include="Models\VehicleViewModel.cs" />
     <Compile Include="Models\ViewModels\AppointmentPagerViewModel.cs" />
+    <Compile Include="Models\ViewModels\CardViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -342,6 +343,7 @@
     <Content Include="Scripts\App\IssueCard\issuecardconfirm.html" />
     <Content Include="Scripts\App\IssueCard\IssueCardCtrl.js" />
     <Content Include="Scripts\App\IssueCard\users.html" />
+    <Content Include="Scripts\App\layouts\search.html" />
     <Content Include="Scripts\App\layouts\sidebar.html" />
     <Content Include="Scripts\App\layouts\sidebar.directive.js" />
     <Content Include="Scripts\App\modules\common.core.js" />
@@ -395,6 +397,7 @@
       <DependentUpon>DBModels.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\MyProfile.pubxml" />
+    <Content Include="Scripts\App\layouts\search.directive.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\FileAPI.flash.swf" />
     <Content Include="Scripts\FileAPI.js" />

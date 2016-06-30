@@ -41,5 +41,13 @@
             $scope.userSelected = true;
             $scope.user = user;
         }
+        
+
+        $scope.searchConfigUser = {
+            method: $scope.loadUser,
+            placeholder: "Search User here",
+            model: $scope.dummy1,
+            noPaginate: true
+        }
     }
 })(angular.module('accessControl')); 

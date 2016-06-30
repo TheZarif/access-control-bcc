@@ -12,7 +12,7 @@
                 <div class="col-md-6">
                     <div id="custom-search-input">
                         <div class="input-group col-md-12">
-                            <input type="text" class="form-control input-lg" placeholder="Enter Appointment Id" ng-model="appointmentId" />
+                            <input type="text" class="form-control input-lg" placeholder="Enter Appointment Id" ng-model="appointmentId"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-info btn-lg" type="button" ng-click="loadAppointment(appointmentId)">
                                     <i class="glyphicon glyphicon-search"></i>
@@ -21,6 +21,8 @@
                         </div>
                     </div>
                 </div>
+                <search config="config"></search>
+
                 <!-- Appointment #ID -->
                 <div ng-show="selected != null || undefined">
                     <div ng-include="'/Scripts/App/Appointment/appointmentdetails.html'"></div>
@@ -37,16 +39,7 @@
             </uib-accordion-heading>
             <!--Search-->
             <div class="col-md-6">
-                <div id="custom-search-input">
-                    <div class="input-group col-md-12">
-                        <input type="text" class="form-control input-lg" placeholder="Search User" ng-model="searchUser"/>
-                        <span class="input-group-btn">
-                            <button class="btn btn-info btn-lg" type="button" ng-click="loadUser(searchUser)">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </div>
+                <search config="searchConfigUser"></search>
             </div>
             <div ng-show="userLoaded" ng-include="'/Scripts/App/IssueCard/users.html'"></div>
             <div ng-show="userSelected" ng-include="'/Scripts/App/User/userdetails.html'"></div>
