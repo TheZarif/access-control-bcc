@@ -18,17 +18,18 @@ namespace ACMVC.Controllers
         {
             var Devices = db.Devices.ToList();
             return Json(
-                Devices.Select(x => new {
+                Devices.Select(x => new Device(){
                     Id = x.Id,
                     Name = x.Name,
                     IP = x.IP,
                     Port = x.Port,
-                    DeviceType = x.DeviceType,
+                    DeviceTypeId = x.DeviceTypeId,
+                    DeviceType = new DeviceType() { Id = x.DeviceType.Id, Name = x.DeviceType.Name},
                     DeviceSDK= x.DeviceSDK,
                     DUser = x.DUser,
                     DPass = x.DPass,
                     AccessZoneId = x.AccessZoneId,
-                    AccessZoneName = x.AccessZone.Name
+                    AccessZone = new AccessZone() { Id = x.AccessZone.Id,  Name = x.AccessZone.Name}
                 }), JsonRequestBehavior.AllowGet);
         }
 
@@ -53,11 +54,12 @@ namespace ACMVC.Controllers
                         Name = device.Name,
                         IP = device.IP,
                         Port = device.Port,
-                        DeviceType = device.DeviceType,
+                        DeviceTypeId = device.DeviceTypeId,
+                        DeviceType = new DeviceType() { Id = device.DeviceType.Id, Name = device.DeviceType.Name },
                         DeviceSDK = device.DeviceSDK,
                         DUser = device.DUser,
                         DPass = device.DPass,
-                        AccessZoneId = device.AccessZoneId
+                        AccessZone = new AccessZone() { Id = device.AccessZone.Id, Name = device.AccessZone.Name }
                     }, JsonRequestBehavior.AllowGet);
         }
 

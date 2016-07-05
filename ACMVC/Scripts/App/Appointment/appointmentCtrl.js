@@ -154,7 +154,20 @@
                 })
         };
 
-        
+        $scope.setHour = function () {
+            if ($scope.newAppointment.hours >= 0 && $scope.newAppointment.hours <= 23) {
+                console.log("Hours set Before", $scope.newAppointment.Time);
+                $scope.newAppointment.Time.setHours($scope.newAppointment.hours);
+                console.log("Hours set After", $scope.newAppointment.Time);
+            }
+        }
+
+        $scope.setMin = function () {
+            if ($scope.newAppointment.minutes >= 0 && $scope.newAppointment.minutes <= 59) {
+                $scope.newAppointment.Time.setHours($scope.newAppointment.hours, $scope.newAppointment.minutes);
+                console.log("Minutes set", $scope.newAppointment.Time);
+            }
+        }
 
 
     }

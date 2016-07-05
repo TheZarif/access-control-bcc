@@ -31,6 +31,7 @@
                         <th style="width: 100px;">
                             <div class="btn-toolbar"><span class="btn btn-primary" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-plus"></i></span></div>
                         </th>
+                        <th>ID No.</th>
                         <th>Number</th>
                         <th>Notes</th>
                         <th>Status</th>
@@ -43,6 +44,9 @@
                                     <span class="btn btn-danger" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-remove"></i></span>
                                 </div>
                             </div>
+                        </td>
+                        <td>
+                            <input ng-model="newCard.IdNumber" />
                         </td>
                         <td>
                             <input ng-model="newCard.Number"/>
@@ -69,6 +73,10 @@
                                     <span class="btn btn-danger" ng-click="toggleEditMode(card)"><i class="glyphicon glyphicon-remove"></i></span>
                                 </div>
                             </div>
+                        </td>
+                        <td>
+                            <span ng-show="card.editMode == null || card.editMode == false">{{card.IdNumber}}</span>
+                            <input ng-model="card.IdNumber" ng-show="card.editMode == true" />
                         </td>
                         <td>
                             <span ng-show="card.editMode == null || card.editMode == false">{{card.Number}}</span>

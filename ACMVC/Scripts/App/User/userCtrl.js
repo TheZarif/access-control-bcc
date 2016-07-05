@@ -3,9 +3,9 @@
 
     app.controller('userCtrl', userCtrl);
 
-    userCtrl.$inject = ['$scope', 'userFactory', 'roleFactory', 'notificationService'];
+    userCtrl.$inject = ['$scope', 'userFactory', 'roleFactory', "$uibModal", 'notificationService'];
 
-    function userCtrl($scope, userFactory, roleFactory, notificationService) {
+    function userCtrl($scope, userFactory, roleFactory, $uibModal, notificationService) {
 
       
         $scope.searchItems = function() {
@@ -105,7 +105,20 @@
                 });
         };
 
+        $scope.openProfile = function (user) {
+            $scope.selectedUser = user;
+            var modalInstance = $uibModal.open({
+                templateUrl: "scripts/App/User/usermodaltemplate.html"
+//                size: size,
+//                resolve: {
+//                    items: function () {
+//                        return $scope.items;
+//                    }
+//                }
+            });
+        }
 
+        
     }
 
 

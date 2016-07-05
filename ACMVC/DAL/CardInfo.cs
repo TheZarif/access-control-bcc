@@ -26,6 +26,7 @@ namespace ACMVC.DAL
         public string Number { get; set; }
         public string Notes { get; set; }
         public int StatusId { get; set; }
+        public string IdNumber { get; set; }
     
         public virtual Status Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -12,30 +12,18 @@ namespace ACMVC.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Device
+    public partial class DeviceType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Device()
+        public DeviceType()
         {
-            this.CardLogs = new HashSet<CardLog>();
-            this.DeviceCardMaps = new HashSet<DeviceCardMap>();
+            this.Devices = new HashSet<Device>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string IP { get; set; }
-        public string Port { get; set; }
-        public string DeviceSDK { get; set; }
-        public string DUser { get; set; }
-        public string DPass { get; set; }
-        public int AccessZoneId { get; set; }
-        public int DeviceTypeId { get; set; }
     
-        public virtual AccessZone AccessZone { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CardLog> CardLogs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeviceCardMap> DeviceCardMaps { get; set; }
-        public virtual DeviceType DeviceType { get; set; }
+        public virtual ICollection<Device> Devices { get; set; }
     }
 }

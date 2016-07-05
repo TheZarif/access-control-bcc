@@ -14,27 +14,31 @@
         $scope.newCardLog = {};
         var editMode = false;
 
-        cardLogFactory.getCardLog().success(function (data) {
-            $scope.cardLogs = data;
-        }).error(function (err) {
-            notificationService.displayError("Could not load data");
-            console.log(err);
-        });
+        $scope.dateTo = null;
+        $scope.dateFrom = null;
+        $scope.searchLogs = function() {
+            cardLogFactory.getCardLog($scope.dateFrom, $scope.dateTo).success(function (data) {
+                $scope.cardLogs = data;
+            }).error(function (err) {
+                notificationService.displayError("Could not load data");
+                console.log(err);
+            });
+        }
 
-        cardFactory.getCard().success(function (data) {
-            notificationService.displaySuccess("Successfully retrieved data");
-            $scope.cards = data;
-        }).error(function (err) {
-            notificationService.displayError("Could not load data");
-            console.log(err);
-        });
-
-        deviceFactory.getDevice().success(function (data) {
-            $scope.devices = data;
-        }).error(function () {
-            notificationService.displayError("Could not load data");
-            console.log(err);
-        });
+//        cardFactory.getCard().success(function (data) {
+//            notificationService.displaySuccess("Successfully retrieved data");
+//            $scope.cards = data;
+//        }).error(function (err) {
+//            notificationService.displayError("Could not load data");
+//            console.log(err);
+//        });
+//
+//        deviceFactory.getDevice().success(function (data) {
+//            $scope.devices = data;
+//        }).error(function () {
+//            notificationService.displayError("Could not load data");
+//            console.log(err);
+//        });
 
 
 

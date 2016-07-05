@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ACMVC.DAL;
+using ACMVC.Models.ViewModels;
 
 namespace ACMVC.Controllers
 {
@@ -15,16 +16,28 @@ namespace ACMVC.Controllers
         private TestEntities db = new TestEntities();
 
         // GET: CardLogs
-        public JsonResult GetAll()
+        [HttpPost]
+        public JsonResult GetAll(SearchModel sModel)
         {
-            var CardLog = db.CardLogs.ToList();
+            var cardLog = sModel.dateFrom != null ? db.CardLogs.Where(x => sModel.dateFrom <= DbFunctions.TruncateTime(x.Time)).ToList() : db.CardLogs.ToList();
+            cardLog = sModel.dateTo != null ? db.CardLogs.Where(x => sModel.dateTo >= DbFunctions.TruncateTime(x.Time)).ToList() : cardLog;
+
             return Json(
-                CardLog.Select(x => new {
+                cardLog.Select(x => new CardLog{
                     Id = x.Id,
                     CardId = x.CardId,
-                    CardNumber = x.CardInfo.Number,
+                    CardInfo = new CardInfo()
+                    {
+                        Id = x.CardInfo.Id,
+                        IdNumber = x.CardInfo.IdNumber,
+                        Number = x.CardInfo.Number
+                    },
                     DeviceId = x.DeviceId,
-                    DeviceName = x.Device.Name,
+                    Device = new Device()
+                    {
+                        Id = x.Device.Id,
+                        Name = x.Device.Name
+                    },
                     Time = x.Time
                 }), JsonRequestBehavior.AllowGet);
         }
@@ -43,9 +56,13 @@ namespace ACMVC.Controllers
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json("Could not find object", JsonRequestBehavior.AllowGet);
             }
-            return Json(new CardLog { Id = CardLog.Id, CardId = CardLog.CardId, Time = CardLog.Time,
+            return Json(new CardLog {
+                Id = CardLog.Id,
+                CardId = CardLog.CardId,
+                Time = CardLog.Time,
                 CardInfo = new CardInfo {
                     Id = CardLog.Id,
+                    IdNumber = CardLog.CardInfo.IdNumber,
                     Number = CardLog.CardInfo.Number
                 },
                 DeviceId = CardLog.DeviceId,

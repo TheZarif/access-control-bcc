@@ -21,7 +21,7 @@
                     </tr>
 
                     <tr ng-repeat="user in users">
-                        <td><img src="{{user.ProfilePicUrl}}" alt="Image" /></td>
+                        <td><img src="{{user.ProfilePicUrl}}" alt="Image"/></td>
                         <td>
                             <span ng-show="user.editMode == null || user.editMode == false">{{user.FullName || "N/A"}}</span>
                             <input ng-model="user.FullName" ng-show="user.editMode == true"/>
@@ -54,7 +54,7 @@
                             </span>
                         </td>
                         <td>
-                            <span class="clickable-text"><a ng-click="?">View Details</a></span>
+                            <span class="clickable-text"><a ng-click="openProfile(user)">View Details</a></span>
                         </td>
                     </tr>
                 </table>
@@ -62,6 +62,8 @@
                     <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getUsers(currentPage)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
                 </div>
             </div>
+
+          
 
         </div>
     </div>

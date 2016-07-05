@@ -2,71 +2,35 @@
 <div class="row">
     <div class="col-md-8">
         <div class="panel panel-primary" id="">
-            <div class="panel-heading">
-                <h3 class="panel-title">CardLog Admin Page</h3>
+
+            <h3>CardLog Admin Page</h3>
+            <div>
+                Date From:
+                <div style="display:inline-block; min-height:290px;">
+                    <uib-datepicker ng-model="dateFrom" class="well well-sm" datepicker-options="options"></uib-datepicker>
+                </div>
+
+                Date To:
+                <div style="display:inline-block; min-height:290px;">
+                    <uib-datepicker ng-model="dateTo" class="well well-sm" datepicker-options="options"></uib-datepicker>
+                </div>
+
+                <button class="btn btn-default" ng-click="searchLogs()">Search</button>
+                <button class="btn btn-info">Get Logs</button>
             </div>
 
             <div class="panel-body">
                 <table class="table table-striped table-bordered table-condensed table-hover">
                     <tr>
-                        <th style="width: 100px;">
-                            <div class="btn-toolbar"><span class="btn btn-primary" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-plus"></i></span></div>
-                        </th>
                         <th>Card</th>
                         <th>Device</th>
                         <th>Time</th>
                     </tr>
-                    <tr ng-show="addMode">
-                        <td>
-                            <div class="btn-toolbar">
-                                <div class="btn-group">
-                                    <span class="btn btn-success" ng-click="addCardLog()"><i class="glyphicon glyphicon-floppy-disk"></i></span>
-                                    <span class="btn btn-danger" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-remove"></i></span>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <select ng-model="newCardLog.CardId"
-                                    ng-options="card.Id as card.Number for card in cards"></select>
-                        </td>
-                        <td>
-                            <select ng-model="newCardLog.DeviceId"
-                                    ng-options="device.Id as device.Name for device in devices"></select>
-                        </td>
-                        <td>
-                            {{getDateTime(cardLog.Time)}}
-                        </td>
-                    </tr>
+                    
                     <tr ng-repeat="cardLog in cardLogs">
-                        <td>
-                            <div class="btn-toolbar" ng-show="cardLog.editMode == null || cardLog.editMode == false">
-                                <div class="btn-group">
-                                    <span class="btn btn-primary" ng-click="toggleEditMode(cardLog)"><i class="glyphicon glyphicon-pencil"></i></span>
-                                    <span class="btn btn-danger" ng-click="deleteCardLog(cardLog)"><i class="glyphicon glyphicon-trash"></i></span>
-                                </div>
-                            </div>
-                            <div class="btn-toolbar" ng-show="cardLog.editMode == true">
-                                <div class="btn-group">
-                                    <span class="btn btn-success" ng-click="updateCardLog(cardLog)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
-                                    <span class="btn btn-danger" ng-click="toggleEditMode(cardLog)"><i class="glyphicon glyphicon-remove"></i></span>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span ng-show="cardLog.editMode == null || cardLog.editMode == false">{{cardLog.CardNumber}}</span>
-                            <select ng-show="cardLog.editMode == true"
-                                    ng-model="newCardLog.CardId"
-                                    ng-options="card.Id as card.Number for card in cards"></select>
-                        </td>
-                        <td>
-                            <span ng-show="cardLog.editMode == null || cardLog.editMode == false">{{cardLog.DeviceName}}</span>
-                            <select ng-show="cardLog.editMode == true"
-                                    ng-model="newCardLog.DeviceId"
-                                    ng-options="device.Id as device.Name for device in devices"></select>
-                        </td>
-                        <td>
-                            {{getDateTime(cardLog.Time)}}
-                        </td>
+                        <td><span>{{cardLog.CardInfo.IdNumber}}</span></td>
+                        <td><span>{{cardLog.Device.Name}}</span></td>
+                        <td><span>{{cardLog.Time || date:"dd/MM/yyyy 'at' h:mma"}}</span></td>
                     </tr>
                 </table>
             </div>

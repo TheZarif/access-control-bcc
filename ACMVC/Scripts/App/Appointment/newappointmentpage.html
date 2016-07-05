@@ -39,6 +39,12 @@
                     <!--<input type="datetime-local" ng-model="newAppointment.Time"/>-->
                 </div>
 
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="">Time</label>
+                    <input type="number" ng-model="newAppointment.hours" ng-change="setHour()" min="0" max="23" ng-disabled="newAppointment.Time==null"/> hours 
+                    <input type="number" ng-model="newAppointment.minutes" ng-change="setMin()" min="0" max="59" ng-disabled="newAppointment.Time==null"/> minutes
+                </div>
+
 
                 <!-- Button (Double) -->
                 <div class="form-group">

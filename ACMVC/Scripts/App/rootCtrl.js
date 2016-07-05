@@ -36,8 +36,8 @@
                 }
             }
             console.log(data);
-        }).error(function() {
-            alert("Not logged in");
+        }).error(function(err, status) {
+            alert("Not logged in with status:", status);
         });
 
 

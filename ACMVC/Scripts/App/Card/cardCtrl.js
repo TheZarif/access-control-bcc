@@ -12,6 +12,8 @@
         $scope.newCard = {};
         var editMode = false;
 
+       
+
         $scope.totalPages = 0;
         $scope.currentPage = 0;
 

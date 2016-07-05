@@ -21,6 +21,8 @@
                 $scope.tempUser = {};
                 $scope.percentComplete = 0;
 
+                console.log($scope.userInfo, $scope.self);
+
                 console.log($scope.viewMode);
 
                 if ($scope.userInfo.isLoggedIn !== false) {
@@ -90,48 +92,6 @@
     }
 
 
-    function userCtrl($scope, $routeParams, userFactory, notificationService) {
-        $scope.id = $routeParams.id;
-        $scope.editMode = false;
-        $scope.user = {};
-        $scope.selfId = null;
-        $scope.default = "N/A";
-        $scope.tab = { firstOpen: false, secondOpen: true };
-
-        $scope.tempUser = {};
-
-
-
-        $scope.updateUser = function () {
-            userFactory.updateUser($scope.user)
-                .success(function (data) {
-                    $scope.editMode = false;
-                    notificationService.displaySuccess("Saved");
-                })
-                .error(function (err) {
-                    notificationService.displayError("Could not update data");
-                    console.log(err);
-                });
-        };
-
-        $scope.updateOfficial = function() {
-            userFactory.updateUserOfficial($scope.tempUser)
-                .success(function (data) {
-                    $scope.user = $scope.tempUser;
-                    notificationService.displaySuccess("Saved");
-                })
-                .error(function(err) {
-                    notificationService.displayError("Could not update data");
-                    console.log(err);
-                });
-        }
-
-        $scope.cancelOfficial = function() {
-            $scope.tempUser = $scope.user;
-            $scope.tab.firstOpen = false;
-        }
-
-    }
 
 
 })(angular.module("accessControl"));

@@ -20,6 +20,7 @@ namespace ACMVC.DAL
         public int StatusId { get; set; }
         public System.DateTime AssignTime { get; set; }
         public System.DateTime ExpireTime { get; set; }
+        public string Note { get; set; }
     
         public virtual CardInfo CardInfo { get; set; }
         public virtual Device Device { get; set; }

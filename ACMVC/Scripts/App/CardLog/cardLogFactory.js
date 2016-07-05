@@ -7,8 +7,14 @@
 
     function cardLogFactory($http) {
         return {
-            getCardLog: function () {
-                return $http.get(baseUrl + "CardLogs/getall");
+            getCardLog: function (dFrom, dTo) {
+                var sModel = {
+                    dateFrom: dFrom,
+                    dateTo: dTo,
+                    dummySearch: "Hello"
+                }
+//                return $http.get(baseUrl + "CardLogs/getall?dateFrom="+dateFrom + "&dateTo="+dateTo);
+                return $http.post(baseUrl + "CardLogs/getall", sModel);
             },
             addCardLog: function (cardLog) {
                 return $http.post(baseUrl + "CardLogs/create", cardLog);

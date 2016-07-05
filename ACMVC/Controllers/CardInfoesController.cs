@@ -18,15 +18,8 @@ namespace ACMVC.Controllers
 
         public JsonResult GetAll(int? page, string search, int? statusId)
         {
-            List<CardInfo> cardInfoes;
-            if (string.IsNullOrEmpty(search))
-            {
-                cardInfoes = db.CardInfoes.Include(c => c.Status).ToList();                
-            }
-            else
-            {
-                cardInfoes = db.CardInfoes.Where(p => (p.Number.Contains(search))).ToList();
-            }
+            List<CardInfo> cardInfoes = string.IsNullOrEmpty(search) ? db.CardInfoes.Include(c => c.Status).ToList() : db.CardInfoes.Where(p => (p.Number.Contains(search))).ToList();
+
             if (statusId != null)
             {
                 cardInfoes = cardInfoes.Where(p => p.StatusId == statusId).ToList();
@@ -40,6 +33,7 @@ namespace ACMVC.Controllers
                 {
                     Id = x.Id,
                     Number = x.Number,
+                    IdNumber = x.IdNumber,
                     Notes = x.Notes,
                     StatusId = x.StatusId,
                     Status = new Status()
@@ -74,6 +68,7 @@ namespace ACMVC.Controllers
                 Id = card.Id,
                 Number = card.Number,
                 Notes = card.Notes,
+                IdNumber = card.IdNumber,
                 Status = new Status { Id = card.Status.Id, Type = card.Status.Type, Description = card.Status.Description }
             }, 
             JsonRequestBehavior.AllowGet);
@@ -98,7 +93,7 @@ namespace ACMVC.Controllers
        
         // POST: CardInfoes/Edit/5
         [HttpPost]
-        public ActionResult Edit(CardInfo cardInfo)
+        public JsonResult Edit(CardInfo cardInfo)
         {
             if (ModelState.IsValid)
             {
