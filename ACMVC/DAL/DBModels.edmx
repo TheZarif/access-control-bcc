@@ -59,13 +59,13 @@
           <Property Name="SummaryNote" Type="ntext" />
           <Property Name="UserGroup" Type="nchar" MaxLength="10" />
           <Property Name="EmployeeId" Type="nvarchar" MaxLength="50" />
-          <Property Name="Designation" Type="nchar" MaxLength="10" />
           <Property Name="DeskFloor" Type="nchar" MaxLength="10" />
           <Property Name="RoomNo" Type="nchar" MaxLength="10" />
           <Property Name="WorkDivision" Type="nchar" MaxLength="10" />
           <Property Name="IsVerified" Type="int" />
           <Property Name="FullName" Type="nvarchar" MaxLength="256" />
           <Property Name="IsEmployee" Type="bit" />
+          <Property Name="DesignationId" Type="int" />
         </EntityType>
         <EntityType Name="CardInfo">
           <Key>
@@ -175,6 +175,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="DeviceType">
           <Key>
             <PropertyRef Name="Id" />
@@ -215,6 +223,18 @@
             </Principal>
             <Dependent Role="Appointment">
               <PropertyRef Name="UserTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsers_Designation">
+          <End Role="Designation" Type="Self.Designation" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="DesignationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -417,6 +437,7 @@
           <EntitySet Name="VehicleInfo" EntityType="Self.VehicleInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="lmxacdb" store:Type="Tables" />
           <EntitySet Name="AppointmentStatus" EntityType="Self.AppointmentStatus" Schema="lmxacdb" store:Type="Tables" />
+          <EntitySet Name="Designation" EntityType="Self.Designation" Schema="lmxacdb" store:Type="Tables" />
           <EntitySet Name="DeviceType" EntityType="Self.DeviceType" Schema="lmxacdb" store:Type="Tables" />
           <AssociationSet Name="FK_Appointment_AppointmentStatus" Association="Self.FK_Appointment_AppointmentStatus">
             <End Role="AppointmentStatus" EntitySet="AppointmentStatus" />
@@ -429,6 +450,10 @@
           <AssociationSet Name="FK_Appointment_AspNetUsers1" Association="Self.FK_Appointment_AspNetUsers1">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_Designation" Association="Self.FK_AspNetUsers_Designation">
+            <End Role="Designation" EntitySet="Designation" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_CardInfo_Status" Association="Self.FK_CardInfo_Status">
             <End Role="Status" EntitySet="Status" />
@@ -544,7 +569,6 @@
           <Property Name="SummaryNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UserGroup" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="EmployeeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Designation" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="DeskFloor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="RoomNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="WorkDivision" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -556,6 +580,8 @@
           <NavigationProperty Name="Appointments1" Relationship="TestModel.FK_Appointment_AspNetUsers1" FromRole="AspNetUser" ToRole="Appointment" />
           <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="IsEmployee" Type="Boolean" />
+          <Property Name="DesignationId" Type="Int32" />
+          <NavigationProperty Name="Designation" Relationship="TestModel.FK_AspNetUsers_Designation" FromRole="AspNetUser" ToRole="Designation" />
         </EntityType>
         <EntityType Name="CardInfo">
           <Key>
@@ -882,6 +908,11 @@
             <End Role="DeviceType" EntitySet="DeviceTypes" />
             <End Role="Device" EntitySet="Devices" />
           </AssociationSet>
+          <EntitySet Name="Designations" EntityType="TestModel.Designation" />
+          <AssociationSet Name="FK_AspNetUsers_Designation" Association="TestModel.FK_AspNetUsers_Designation">
+            <End Role="Designation" EntitySet="Designations" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="VehicleInfo">
           <Key>
@@ -978,6 +1009,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TestModel.FK_AspNetUsers_Designation" FromRole="Designation" ToRole="AspNetUser" />
+        </EntityType>
+        <Association Name="FK_AspNetUsers_Designation">
+          <End Type="TestModel.Designation" Role="Designation" Multiplicity="0..1" />
+          <End Type="TestModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUser">
+              <PropertyRef Name="DesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1005,6 +1057,7 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="TestModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
                 <ScalarProperty Name="IsEmployee" ColumnName="IsEmployee" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1033,7 +1086,6 @@
                 <ScalarProperty Name="SummaryNote" ColumnName="SummaryNote" />
                 <ScalarProperty Name="UserGroup" ColumnName="UserGroup" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="DeskFloor" ColumnName="DeskFloor" />
                 <ScalarProperty Name="RoomNo" ColumnName="RoomNo" />
                 <ScalarProperty Name="WorkDivision" ColumnName="WorkDivision" />
@@ -1170,6 +1222,15 @@
           <EntitySetMapping Name="DeviceTypes">
             <EntityTypeMapping TypeName="TestModel.DeviceType">
               <MappingFragment StoreEntitySet="DeviceType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designations">
+            <EntityTypeMapping TypeName="TestModel.Designation">
+              <MappingFragment StoreEntitySet="Designation">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

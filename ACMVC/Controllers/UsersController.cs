@@ -39,7 +39,7 @@ namespace ACMVC.Controllers
                     Email  = x.Email,
                     PhoneNumber = x.PhoneNumber,
                     FullName = x.FullName,
-                    Designation = x.Designation,
+                    Designation = new Designation() {Name = x.Designation.Name},
                     DeskFloor = x.DeskFloor,
                     IsVerified = x.IsVerified,
                     UserName = x.UserName,
@@ -108,7 +108,7 @@ namespace ACMVC.Controllers
         {
             if (!string.IsNullOrEmpty(searchModel))
             {
-                var results = db.AspNetUsers.Where(p => (p.Email.Contains(searchModel) || p.PhoneNumber.Contains(searchModel) || p.Designation.Contains(searchModel))).Take(5);
+                var results = db.AspNetUsers.Where(p => (p.Email.Contains(searchModel) || p.FullName.Contains(searchModel) || p.PhoneNumber.Contains(searchModel) || p.Designation.Name.Contains(searchModel))).Take(5);
                 if (results != null)
                 {
                     return Json(
@@ -117,9 +117,9 @@ namespace ACMVC.Controllers
                         Email = x.Email,
                         PhoneNumber = x.PhoneNumber,
                         UserName = x.UserName,
-                        Designation = x.Designation,
+                        Designation = new Designation() {Name = x.Designation.Name},
                         FullName = x.FullName,
-                        DisplayName = "[" + x.FullName + "] [" + x.Email + "] [" + x.Designation + "]"
+                        DisplayName = "[" + x.FullName + "] [" + x.Email + "] [" + x.Designation.Name + "]"
                     }), JsonRequestBehavior.AllowGet);
                 }
             }
@@ -193,7 +193,7 @@ namespace ACMVC.Controllers
                     UserName = aspNetUser.UserName,
                     FullName = aspNetUser.FullName,
                     PhoneNumber = aspNetUser.PhoneNumber,
-                    Designation = aspNetUser.Designation,
+                    Designation = aspNetUser.Designation != null?  new Designation() {Id = aspNetUser.Designation.Id, Name = aspNetUser.Designation.Name, Order = aspNetUser.Designation.Order} : null,
                     IsVerified = aspNetUser.IsVerified,
                     DeskFloor = aspNetUser.DeskFloor,
                     BloodGroup = aspNetUser.BloodGroup,
@@ -282,7 +282,7 @@ namespace ACMVC.Controllers
 //                User.EmployeeAccessZoneMaps.Add();
                 User.IsEmployee = aspNetUser.IsEmployee;
                 User.EmployeeId = aspNetUser.EmployeeId;
-                User.Designation = aspNetUser.Designation;
+                User.DesignationId = aspNetUser.DesignationId;
                 User.RoomNo = aspNetUser.RoomNo;
                 User.WorkDivision = aspNetUser.WorkDivision;
                 User.SummaryNote = aspNetUser.SummaryNote;
@@ -318,17 +318,6 @@ namespace ACMVC.Controllers
             return Json("");
         }
 
-
-        // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
-            db.AspNetUsers.Remove(aspNetUser);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         [HttpPost]
         public JsonResult UploadFile(String id)

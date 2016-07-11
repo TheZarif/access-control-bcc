@@ -2,7 +2,7 @@
     <fieldset>
 
         <!-- Form Name -->
-        <legend>Employee Information</legend>
+        <legend>Employee Information1</legend>
 
         <!-- Multiple Radios -->
         <div class="form-group">
@@ -34,9 +34,13 @@
 
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="textinput">Designation</label>
+                <label class="col-md-4 control-label" for="textinput">Designation?</label>
                 <div class="col-md-4">
-                    <input ng-model="tempUser.Designation" name="textinput" type="text" placeholder="Officer, Secretary etc." class="form-control input-md">
+                    <select ng-model="tempUser.Designation.Id"
+                            ng-options="designation.Id as designation.Name for designation in designations"></select>
+<!---->
+<!--                    <select ng-show="device.editMode == true" ng-model="device.DeviceTypeId"-->
+<!--                            ng-options="DeviceType.Id as DeviceType.Name for DeviceType in DeviceTypes"></select>-->
                     <span class="help-block">Enter the designation of employee</span>
                 </div>
             </div>

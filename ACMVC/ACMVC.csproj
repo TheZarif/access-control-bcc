@@ -183,6 +183,7 @@
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\CardInfoesController.cs" />
     <Compile Include="Controllers\CardLogsController.cs" />
+    <Compile Include="Controllers\DesignationsController.cs" />
     <Compile Include="Controllers\DeviceCardMapsController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -228,6 +229,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DBModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Designation.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Device.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
@@ -336,6 +340,7 @@
     <Content Include="Scripts\App\Card\cardpage.html" />
     <Content Include="Scripts\App\Card\cardCtrl.js" />
     <Content Include="Scripts\App\Card\cardFactory.js" />
+    <Content Include="Scripts\App\Designation\designationFactory.js" />
     <Content Include="Scripts\App\DeviceCard\deviceCardCtrl.js" />
     <Content Include="Scripts\App\DeviceCard\deviceCardFactory.js" />
     <Content Include="Scripts\App\DeviceCard\devicecardpage.html" />
@@ -400,6 +405,7 @@
     </EntityDeploy>
     <Content Include="DAL\DBModels.edmx.diagram">
       <DependentUpon>DBModels.edmx</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\MyProfile.pubxml" />
     <Content Include="Scripts\App\layouts\search.directive.js" />
@@ -1219,6 +1225,7 @@
     <Folder Include="Views\AspNetUsers\" />
     <Folder Include="Views\CardInfoes\" />
     <Folder Include="Views\CardLogs\" />
+    <Folder Include="Views\Designations\" />
     <Folder Include="Views\DeviceCardMaps\" />
     <Folder Include="Views\Devices\" />
     <Folder Include="Views\Roles\" />

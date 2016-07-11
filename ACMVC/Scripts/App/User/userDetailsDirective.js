@@ -13,13 +13,15 @@
                 self: "=",
                 viewMode: "="
             },
-            controller: ['$scope', 'userFactory', 'notificationService', function($scope, userFactory, notificationService) {
+            controller: ['$scope', 'userFactory', 'designationFactory', 'notificationService', function($scope, userFactory, designationFactory, notificationService) {
 
                 $scope.default = "N/A";
                 $scope.user = {};
                 $scope.tab = { firstOpen: false, secondOpen: true };
                 $scope.tempUser = {};
                 $scope.percentComplete = 0;
+
+                $scope.designations = null;
 
                 console.log($scope.userInfo, $scope.self);
 
@@ -86,6 +88,13 @@
                     $scope.tempUser = $scope.user;
                     $scope.tab.firstOpen = false;
                 }
+
+                designationFactory.getDesignations().success(function (data) {
+                    $scope.designations = data;
+                    console.log("Designations", data);
+                }).error(function (err) {
+                    console.log(err);
+                });
             }],
             templateUrl: "scripts/App/User/userprofile.html"
         }

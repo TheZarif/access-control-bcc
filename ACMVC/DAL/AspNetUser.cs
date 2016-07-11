@@ -50,13 +50,13 @@ namespace ACMVC.DAL
         public string SummaryNote { get; set; }
         public string UserGroup { get; set; }
         public string EmployeeId { get; set; }
-        public string Designation { get; set; }
         public string DeskFloor { get; set; }
         public string RoomNo { get; set; }
         public string WorkDivision { get; set; }
         public Nullable<int> IsVerified { get; set; }
         public string FullName { get; set; }
         public Nullable<bool> IsEmployee { get; set; }
+        public Nullable<int> DesignationId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeAccessZoneMap> EmployeeAccessZoneMaps { get; set; }
@@ -68,5 +68,6 @@ namespace ACMVC.DAL
         public virtual ICollection<Appointment> Appointments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments1 { get; set; }
+        public virtual Designation Designation { get; set; }
     }
 }

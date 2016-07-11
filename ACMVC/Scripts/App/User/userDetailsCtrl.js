@@ -3,15 +3,17 @@
 
     app.controller('userDetailsCtrl', userCtrl);
 
-    userCtrl.$inject = ['$scope', '$routeParams', 'userFactory', 'notificationService'];
+    userCtrl.$inject = ['$scope', '$routeParams', 'userFactory', 'designationFactory', 'notificationService'];
 
-    function userCtrl($scope, $routeParams, userFactory, notificationService) {
+    function userCtrl($scope, $routeParams, userFactory, designationFactory, notificationService) {
         $scope.id = $routeParams.id;
         $scope.editMode = false;
         $scope.user = {};
         $scope.selfId = null;
         $scope.default = "N/A";
         $scope.tab = { firstOpen: false, secondOpen: true };
+
+        $scope.designations = null;
 
         $scope.tempUser = {};
 
@@ -74,6 +76,12 @@
             $scope.tab.firstOpen = false;
         }
 
+        designationFactory.getDesignations().success(function(data) {
+            $scope.designations = data;
+            console.log("Designations", data);
+        }).error(function(err) {
+            console.log(err);
+        });
     }
 
 

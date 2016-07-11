@@ -36,6 +36,8 @@
         <AssociationConnector Association="TestModel.FK_Appointment_AppointmentStatus" />
         <EntityTypeShape EntityType="TestModel.DeviceType" Width="1.5" PointX="7.375" PointY="8.875" />
         <AssociationConnector Association="TestModel.FK_Device_DeviceType" />
+        <EntityTypeShape EntityType="TestModel.Designation" Width="1.5" PointX="9.375" PointY="0.875" />
+        <AssociationConnector Association="TestModel.FK_AspNetUsers_Designation" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
