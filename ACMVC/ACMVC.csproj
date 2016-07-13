@@ -378,6 +378,7 @@
     <Content Include="Scripts\App\User\usermodaltemplate.html" />
     <Content Include="Scripts\App\User\userpage.html" />
     <Content Include="Scripts\App\User\userprofile.html" />
+    <Content Include="Scripts\App\User\userPublicCtrl.js" />
     <Content Include="Scripts\App\User\userspublic.html" />
     <Content Include="Scripts\App\Vehicle\vehicleCtrl.js" />
     <Content Include="Scripts\App\Vehicle\vehicleFactory.js" />

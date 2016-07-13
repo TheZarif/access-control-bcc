@@ -58,7 +58,7 @@
                 templateUrl: "scripts/App/Vehicle/vehiclepage.html",
                 controller: "vehicleCtrl"
             })
-            .when("/appointments", {
+            .when("/appointments/:userId?", {
                 templateUrl: "scripts/App/Appointment/allappointmentspage.html",
                 controller: "appointmentCtrl"
             })
@@ -66,16 +66,16 @@
                 templateUrl: "scripts/App/Appointment/newappointmentpage.html",
                 controller: "appointmentCtrl"
             })
-             .when("/appointments/:id", {
-                 templateUrl: "scripts/App/Appointment/newappointmentpage.html",
-                 controller: "appointmentCtrl"
-             })
             .when("/addappointment/:userId", {
                 templateUrl: "scripts/App/Appointment/newappointmentpage.html",
                 controller: "appointmentCtrl"
             })
             .when("/issuecard", {
                 templateUrl: "scripts/App/IssueCard/issuecard.html"
+            })
+            .when("/official", {
+                templateUrl: "scripts/App/User/userspublic.html",
+                controller: "userPublicCtrl"
             })
 
             /*.when("/customers/register", {

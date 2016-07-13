@@ -7,10 +7,15 @@
 
     function userFactory($http) {
         return {
-            getUser: function (page, search) {
+            getUser: function (page, search, selectedFilter) {
+                console.log(selectedFilter);
                 if (!page) page = 1;
                 if (!search) search = "";
-                return $http.get(baseUrl + "users/getall?page=" + page + "&search=" + search);
+                if (!selectedFilter) selectedFilter = "";
+                return $http.get(baseUrl + "users/getall?page=" + page + "&search=" + search + "&selectedFilter=" + selectedFilter);
+            },
+            getUserByDesignation: function() {
+                return $http.get(baseUrl + "users/GetByDesignation");
             },
             addUser: function (user) {
                 console.log("Method not implemented");
@@ -47,6 +52,13 @@
                 {
                     "user": user,
                     "role": role
+                });
+            },
+            editType: function (user, type) {
+                return $http.post(baseUrl + "users/EditType",
+                {
+                    "user": user,
+                    "isEmployee": type
                 });
             },
             getLoginDetails: function() {

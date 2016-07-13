@@ -17,30 +17,34 @@
         var userId = $routeParams.userId;
 
         if (userId != null) {
+            console.log("User Id: " + userId);
             userFactory.getUserDetails(userId).success(function(data) {
                 $scope.newAppointment.U = data;
+                $scope.status.open = true;
+                $scope.fixedUser = true;
+                console.log($scope.newAppointment.U);
             }).error(function(err) {
                 console.log(err);
                 notificationService.displayError("Invalid user");
             });
         }
 
-        $scope.loadAppointment = function(id) {
-            appointmentFactory.getDetails(id).success(function(data) {
-                $scope.selected = data;
-            }).error(function (err) {
-                $scope.selected = null;
-                notificationService.displayError("Invalid input");
-                console.log(err);
-            });
-        };
+//        $scope.loadAppointment = function(id) {
+//            appointmentFactory.getDetails(id).success(function(data) {
+//                $scope.selected = data;
+//            }).error(function (err) {
+//                $scope.selected = null;
+//                notificationService.displayError("Invalid input");
+//                console.log(err);
+//            });
+//        };
 
         $scope.totalPages = 0;
         $scope.currentPage = 0;
 
-        $scope.searchItems = function () {
-            $scope.getAppointment(1, $scope.search);
-        }
+//        $scope.searchItems = function () {
+//            $scope.getAppointment(1, $scope.search);
+//        }
 
 
         $scope.getAppointment = function (page, search) {
@@ -58,6 +62,8 @@
         $scope.toggleAddMode = function () {
             $scope.addMode = !$scope.addMode;
             $scope.status.open = false;
+            $scope.fixedUser = false;
+            $scope.newAppointment = {};
         };
 
         $scope.toggleEditMode = function (item) {
@@ -90,7 +96,6 @@
             $scope.newAppointment.UserTo = $scope.newAppointment.U.Id;
             appointmentFactory.addAppointment($scope.newAppointment)
                 .success(function (data) {
-                    //                    $scope.appointments.push(data);
                     $scope.getAppointment(1);
 
                     $scope.newAppointment = {};
@@ -134,43 +139,56 @@
 
         $scope.deleteAppointment = function (appointment) {
             appointmentFactory.deleteAppointment(appointment)
-                .success(function (data) {
+                .success(function(data) {
                     helperLib.deleteItem(appointment, $scope.appointments);
                 })
-                .error(function (err) {
+                .error(function(err) {
                     notificationService.displayError("Could not delete data");
                     console.log(err);
-                })
+                });
         };
 
         $scope.updateAppointment = function (appointment) {
             appointmentFactory.updateAppointment(appointment)
-                .success(function (data) {
+                .success(function(data) {
                     appointment.editMode = false;
                 })
-                .error(function (err) {
+                .error(function(err) {
                     notificationService.displayError("Could not update data");
-                    console.log(err)
-                })
+                    console.log(err);
+                });
         };
 
         $scope.setHour = function () {
             if ($scope.newAppointment.hours >= 0 && $scope.newAppointment.hours <= 23) {
-                console.log("Hours set Before", $scope.newAppointment.Time);
                 $scope.newAppointment.Time.setHours($scope.newAppointment.hours);
-                console.log("Hours set After", $scope.newAppointment.Time);
             }
         }
 
         $scope.setMin = function () {
             if ($scope.newAppointment.minutes >= 0 && $scope.newAppointment.minutes <= 59) {
                 $scope.newAppointment.Time.setHours($scope.newAppointment.hours, $scope.newAppointment.minutes);
-                console.log("Minutes set", $scope.newAppointment.Time);
             }
         }
+
+        $scope.getDate = function(jsonDate) {
+            return jsonDate? new Date(parseInt(jsonDate.substr(6))) : "";
+        }
+
+        $scope.searchConfig = {
+            method: $scope.getAppointment,
+            placeholder: "Search Appointment",
+            model: ""
+        }
+
+
+        $scope.selectedFilter = "All";
+        $scope.appointmentStatuses = ["All", "Pending", "Approved"];
+        $scope.setFilterStatus = function (data) { $scope.selectedFilter = data }
 
 
     }
 
+       
 
 })(angular.module('accessControl'));

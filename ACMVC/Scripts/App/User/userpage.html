@@ -1,70 +1,89 @@
 ﻿<hr />
-<div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-primary" id="">
-            <div class="panel-heading">
-                <h3 class="panel-title">User Admin Page</h3>
-                <input class="search-bar" placeholder="Search by email or number" ng-model="search" /><i class="glyphicon glyphicon-search" ng-click="searchItems()"></i>
+<div class="col-md-8 container">
+    <h3>Users</h3>
 
+    <div class="query-params">
+        <input class=" search-bar" placeholder="Search by email or number" ng-model="search"/>
+        Filter:
+        <select ng-model="selectedFilter">
+            <option value="visitor">Visitor</option>
+            <option value="employee">employee</option>
+        </select>
+        <span class="btn btn-primary" ng-click="getUser()">Search <i class="glyphicon glyphicon-search"></i></span>
+    </div>
+
+
+    <div class="panel panel-primary" id="">
+
+        <div class="panel-body">
+            <table class="table table-striped table-bordered table-condensed table-hover">
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Roles</th>
+                    <th>User Type</th>
+                    <th><!--Reset password--></th>
+                    <th><!--View details--></th>
+                </tr>
+
+                <tr ng-repeat="user in users">
+                    <td><img src="{{user.ProfilePicUrl}}" alt="Image" /></td>
+                    <td>
+                        <span ng-show="user.editMode == null || user.editMode == false">{{user.FullName || "N/A"}}</span>
+                        <input ng-model="user.FullName" ng-show="user.editMode == true" />
+                    </td>
+                    <td><span>{{user.Email}}</span></td>
+                    <td><span>{{user.PhoneNumber || "N/A"}}</span></td>
+                    <td>
+                        <span ng-repeat="role in user.AspNetRoles">
+                            <span class="label label-default">
+                                {{role.Name}}
+                                <span class="glyphicon glyphicon-remove" ng-click="removeRole(user, role)"></span>
+                            </span>,
+                        </span>
+                        <a ng-click="toggleAddRoleMode(user)" ng-show="!user.addRoleMode" class="clickable-text">Add</a>
+                        <span ng-show="user.addRoleMode == true">
+                            <select ng-model="newRole"
+                                    ng-options="role as role.Name for role in roles"></select>
+
+                            <span class="btn btn-success" ng-click="addRole(user, newRole)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+                            <span class="btn btn-danger" ng-click="toggleAddRoleMode(user)"><i class="glyphicon glyphicon-remove"></i></span>
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-hide="user.editUserType">
+                            {{user.IsEmployee == true ? "Employee" : "Visitor"}}
+                            <span class="btn btn-primary" ng-click="toggleEditUserType(user)"><i class="glyphicon glyphicon-edit"></i></span>
+                        </span>
+                        <span ng-show="user.editUserType">
+                            <select ng-show="user.editUserType" name="repeatSelect" id="repeatSelect" ng-model="user.IsEmployee">
+                                <option ng-repeat="option in filterUserType" value="{{option.value}}">{{option.name}}</option>
+                            </select>
+                            <span class="btn btn-success" ng-click="saveUserType(user, user.IsEmployee)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+                            <span class="btn btn-danger" ng-click="toggleEditUserType(user)"><i class="glyphicon glyphicon-remove"></i></span>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="clickable-text" ng-show="user.editPassword == null || user.editPassword == false"><a ng-click="toggleResetPassword(user)">Reset Password</a></span>
+                        <span ng-show="user.editPassword">
+                            <input ng-model="user.NewPassword" />
+                            <span class="btn btn-success" ng-click="resetPassword(user, user.NewPassword)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+                            <span class="btn btn-danger" ng-click="toggleResetPassword(user)"><i class="glyphicon glyphicon-remove"></i></span>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="clickable-text"><a ng-click="openProfile(user)">View Details</a></span>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getUsers(currentPage)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
             </div>
-
-            <div class="panel-body">
-                <table class="table table-striped table-bordered table-condensed table-hover">
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Roles</th>
-                        <th><!--Reset password--></th>
-                        <th><!--View details--></th>
-                    </tr>
-
-                    <tr ng-repeat="user in users">
-                        <td><img src="{{user.ProfilePicUrl}}" alt="Image"/></td>
-                        <td>
-                            <span ng-show="user.editMode == null || user.editMode == false">{{user.FullName || "N/A"}}</span>
-                            <input ng-model="user.FullName" ng-show="user.editMode == true"/>
-                        </td>
-                        <td><span>{{user.Email}}</span></td>
-                        <td><span>{{user.PhoneNumber || "N/A"}}</span></td>
-                        <td>
-                            <span ng-repeat="role in user.AspNetRoles">
-                                <span class="label label-default">
-                                    {{role.Name}}
-                                    <span class="glyphicon glyphicon-remove" ng-click="removeRole(user, role)"></span>
-                                </span>,
-                            </span>
-                            <a ng-click="toggleAddRoleMode(user)" ng-show="!user.addRoleMode" class="clickable-text">Add</a>
-                            <span ng-show="user.addRoleMode == true">
-                                <select 
-                                        ng-model="newRole"
-                                        ng-options="role as role.Name for role in roles"></select>
-
-                                <span class="btn btn-success" ng-click="addRole(user, newRole)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
-                                <span class="btn btn-danger" ng-click="toggleAddRoleMode(user)"><i class="glyphicon glyphicon-remove"></i></span>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="clickable-text" ng-show="user.editPassword == null || user.editPassword == false"><a ng-click="toggleResetPassword(user)">Reset Password</a></span>
-                            <span ng-show="user.editPassword">
-                                <input ng-model="user.NewPassword"/>
-                                <span class="btn btn-success" ng-click="resetPassword(user, user.NewPassword)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
-                                <span class="btn btn-danger" ng-click="toggleResetPassword(user)"><i class="glyphicon glyphicon-remove"></i></span>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="clickable-text"><a ng-click="openProfile(user)">View Details</a></span>
-                        </td>
-                    </tr>
-                </table>
-                <div>
-                    <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getUsers(currentPage)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
-                </div>
-            </div>
-
-          
-
         </div>
+
+
+
     </div>
 </div>

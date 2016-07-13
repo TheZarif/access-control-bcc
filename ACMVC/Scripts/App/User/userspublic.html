@@ -1,36 +1,22 @@
 ﻿<hr />
-<div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-primary" id="">
-            <div class="panel-heading">
-                <h3 class="panel-title">User Admin Page</h3>
-                <input class="search-bar" placeholder="Search by email or number" ng-model="search" /><i class="glyphicon glyphicon-search" ng-click="searchItems()"></i>
+<div ng-controller="userPublicCtrl">
+    <div class="container">
+        <h3>All Employees</h3>
+        <div id="user-thumbnails">
 
-            </div>
+            <div ng-repeat="designation in designations">
+                <h4>{{designation.Name}}</h4>
 
-            <div class="panel-body">
-                <table class="table table-striped table-bordered table-condensed table-hover">
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Designation</th>
-                        <th><!--View Details--></th>
-                    </tr>
+                
+                    <div class="panel panel-default col-md-3 user-thumbnail" ng-repeat="user in designation.AspNetUsers">
+                        <div class="panel-body">
+                            <div><strong>{{user.FullName}}</strong></div>
+                            <div>Phone: {{user.PhoneNumber}}</div>
+                            <div>Email: {{user.Email}}</div>
+                            <a class="btn btn-info col-md-12" ng-href="#/appointments/{{user.Id}}" >Get Appointment</a>
+                        </div>
+                    </div>
 
-                    <tr ng-repeat="user in users">
-                        <td><img src="{{user.ProfilePicUrl}}" alt="image" width="20px"/></td>
-                        <td><span>{{user.FullName}}</span></td>
-                        <td><span>{{user.Email}}</span></td>
-                        <td><span>{{user.PhoneNumber}}</span></td>
-                        <td><span>{{user.Designation}}</span></td>
-                        <td><span class="clickable-text"><a ng-href="#/users/{{user.Id}}">View Details</a></span></td>
-                    </tr>
-                </table>
-                <div>
-                    <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getUsers(currentPage)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
-                </div>
             </div>
 
         </div>

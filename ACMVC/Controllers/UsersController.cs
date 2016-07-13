@@ -17,8 +17,22 @@ namespace ACMVC.Controllers
     {
         private TestEntities db = new TestEntities();
 
-        public JsonResult GetAll(int? page, string search)
+        public JsonResult GetAll(int? page, string search, string selectedFilter)
         {
+            var filter = false;
+            var isEmployee = false;
+
+            switch (selectedFilter)
+            {
+                case "employee":
+                    isEmployee = true;
+                    filter = true;
+                    break;
+                case "visitor":
+                    filter = true;
+                    break;
+            }
+
             List<AspNetUser> users;
             if (!string.IsNullOrEmpty(search))
             {
@@ -29,6 +43,12 @@ namespace ACMVC.Controllers
             {
                 users = db.AspNetUsers.ToList();
             }
+
+            if (filter)
+            {
+                users = users.Where(p => p.IsEmployee == isEmployee).ToList();
+            }
+
             var pager = new Pager(users.Count(), page);
             
             var viewModel = new UserViewModel()
@@ -39,28 +59,38 @@ namespace ACMVC.Controllers
                     Email  = x.Email,
                     PhoneNumber = x.PhoneNumber,
                     FullName = x.FullName,
-                    Designation = new Designation() {Name = x.Designation.Name},
                     DeskFloor = x.DeskFloor,
+                    IsEmployee = x.IsEmployee,
                     IsVerified = x.IsVerified,
                     UserName = x.UserName,
-                    AspNetRoles = x.AspNetRoles.Select(p => new AspNetRole()
-                    {
-                        Id = p.Id,
-                        Name = p.Name
-                    }).ToList(),
-                    EmployeeAccessZoneMaps =  x.EmployeeAccessZoneMaps.Select(p=> new EmployeeAccessZoneMap()
-                    {
-                        AccessZone = new AccessZone()
-                        {
-                            Id = p.AccessZone.Id,
-                            Name = p.AccessZone.Name,
-                            Description = p.AccessZone.Description
-                        }
-                    }).ToList()
-                }),
+                    AspNetRoles = x.AspNetRoles.Select(p => new AspNetRole() { Id = p.Id, Name = p.Name }).ToList()
+                }).ToList(),
                 Pager = pager
             };
             return Json(viewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetByDesignation()
+        {
+            List<Designation> designations = db.Designations.OrderByDescending(x => x.Order).ToList();
+            List<AspNetUser> users;
+
+            designations = designations.Select(x => new Designation()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                AspNetUsers = x.AspNetUsers.Select( u => new AspNetUser()
+                {
+                    Id = u.Id,
+                    FullName = u.FullName,
+                    PhoneNumber = u.PhoneNumber,
+                    Email = u.Email, 
+                    ProfilePicUrl = u.ProfilePicUrl
+                }).ToList()
+            }).ToList();
+            
+            
+            return Json(designations, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -108,7 +138,7 @@ namespace ACMVC.Controllers
         {
             if (!string.IsNullOrEmpty(searchModel))
             {
-                var results = db.AspNetUsers.Where(p => (p.Email.Contains(searchModel) || p.FullName.Contains(searchModel) || p.PhoneNumber.Contains(searchModel) || p.Designation.Name.Contains(searchModel))).Take(5);
+                var results = db.AspNetUsers.Where(p => p.Email.Contains(searchModel) || p.FullName.Contains(searchModel) || p.PhoneNumber.Contains(searchModel) ).Take(5);
                 if (results != null)
                 {
                     return Json(
@@ -117,7 +147,7 @@ namespace ACMVC.Controllers
                         Email = x.Email,
                         PhoneNumber = x.PhoneNumber,
                         UserName = x.UserName,
-                        Designation = new Designation() {Name = x.Designation.Name},
+                        Designation = new {Name = x.Designation.Name},
                         FullName = x.FullName,
                         DisplayName = "[" + x.FullName + "] [" + x.Email + "] [" + x.Designation.Name + "]"
                     }), JsonRequestBehavior.AllowGet);
@@ -163,6 +193,23 @@ namespace ACMVC.Controllers
             var User = db.AspNetUsers.First(p => p.Id == user.Id);
             var Role = db.AspNetRoles.First(p => p.Id == role.Id);
             User.AspNetRoles.Remove(Role);
+            if (db.SaveChanges() > 0)
+            {
+                return Json("");
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json("Something went wrong");
+            }
+        }
+
+        [HttpPost]
+        public JsonResult EditType(AspNetUser user, bool isEmployee)
+        {
+            var User = db.AspNetUsers.First(p => p.Id == user.Id);
+            User.IsEmployee = isEmployee;
+
             if (db.SaveChanges() > 0)
             {
                 return Json("");
@@ -282,7 +329,7 @@ namespace ACMVC.Controllers
 //                User.EmployeeAccessZoneMaps.Add();
                 User.IsEmployee = aspNetUser.IsEmployee;
                 User.EmployeeId = aspNetUser.EmployeeId;
-                User.DesignationId = aspNetUser.DesignationId;
+                User.DesignationId = aspNetUser.Designation.Id;
                 User.RoomNo = aspNetUser.RoomNo;
                 User.WorkDivision = aspNetUser.WorkDivision;
                 User.SummaryNote = aspNetUser.SummaryNote;

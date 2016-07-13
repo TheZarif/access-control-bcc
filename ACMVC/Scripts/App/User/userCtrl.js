@@ -18,14 +18,16 @@
         $scope.currentPage = 0;
         // $scope.addMode = false;
         // $scope.newUser = {};
-        var editMode = false;
+        $scope.selectedFilter = "";
+        $scope.filterUserType = [
+            { value: false, name: "Visitor" },
+            { value: true, name: "Employee" }
+        ];
 
-        $scope.searchItems = function () {
-            $scope.getUser(1, $scope.search);
-        }
+       
 
-        $scope.getUser = function(page, search) {
-            userFactory.getUser(page, search).success(function(data) {
+        $scope.getUser = function(page) {
+            userFactory.getUser(page, $scope.search, $scope.selectedFilter).success(function(data) {
                 $scope.users = data.Users;
                 $scope.totalPages = data.Pager.TotalPages;
                 $scope.totalItems = data.Pager.TotalItems;
@@ -71,12 +73,23 @@
             });
         };
 
+        $scope.saveUserType = function(user, isEmployee) {
+            console.log(user, isEmployee);
+            userFactory.editType(user, isEmployee).success(function() {
+                user.editUserType = false;
+            }); 
+        }
+
         $scope.toggleAddRoleMode = function(user) {
             user.addRoleMode = !user.addRoleMode;
         };
 
         $scope.toggleResetPassword = function(user) {
             user.editPassword = !user.editPassword;
+        }
+
+        $scope.toggleEditUserType = function (user) {
+            user.editUserType = !user.editUserType;
         }
 
         $scope.toggleEditMode = function (item) {

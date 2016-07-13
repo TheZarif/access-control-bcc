@@ -3,6 +3,12 @@
 
     app.directive('search', search);
 
+//    $scope.searchConfig = {
+//        method: $scope.getCards,
+//        placeholder: "Search Card by number",
+//        model: ""
+//    }
+
     function search(){
         return {
             restrict: 'E',

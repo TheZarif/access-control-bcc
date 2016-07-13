@@ -6,10 +6,11 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="">Meeting with</label>
                     <div class="col-md-4">
-                        <input id="" name=""
+                        <input id="" name="" ng-hide="fixedUser"
                                ng-model="newAppointment.U"
                                uib-typeahead="user as user.DisplayName for user in users"
                                type="text" placeholder="Enter name of person you wish to meet" class="form-control input-md" required="">
+                        <label class="control-label" for=""><span ng-show="fixedUser"><strong>{{newAppointment.U.FullName}}</strong></span></label>
                     </div>
                 </div>
 

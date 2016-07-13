@@ -17,7 +17,24 @@
         <div ng-include="'/Scripts/App/Appointment/appointmentdetails.html'"
              ng-show="expandMode"></div>
         <br/>
-        All Appointments
+
+
+        <h4>Appointments</h4>
+        <div class="col-md-6">
+            <search config="searchConfig"></search><br />
+        </div>
+        <div class="col-md-6">
+            Filter status:
+            <div class="btn-group" uib-dropdown keyboard-nav>
+                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-default" uib-dropdown-toggle>
+                    {{selectedFilter}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                    <li ng-repeat="status in appointmentStatuses" role="menuitem"><a ng-click="setFilterStatus(status)">{{status}}</a></li>
+                </ul>
+            </div>
+        </div>
+
 
         <table class="table table-bordered table-responsive">
             <tr>
@@ -35,7 +52,7 @@
                 <td>{{appointment.AspNetUserBy.Email}}, {{appointment.AspNetUserBy.Phone}}, {{appointment.AspNetUserBy.Designation}}<br/></td>
                 <td>{{appointment.Purpose}}</td>
                 <td>{{appointment.AppointmentStatu.Name}}</td>
-                <td>{{appointment.Time | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+                <td>{{getDate(appointment.Time) | date:"MM/dd/yyyy h:mma"}}</td>
                 <td class="clickable" ng-click="expand(appointment)">View</td>
             </tr>
             </table>
