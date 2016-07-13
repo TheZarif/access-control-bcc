@@ -37,6 +37,9 @@
             findUser: function (searchString) {
                 return $http.post(baseUrl + "users/SearchUser", { "searchModel": searchString });
             },
+            findVisitor: function (searchString) {
+                return $http.post(baseUrl + "users/SearchVisitor", { "searchModel": searchString });
+            },
             resetPassword: function (user, password) {
                 return $http.post(baseUrl + "manage/ResetPassword", { "user": user, "password": password });
             },

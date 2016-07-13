@@ -1,7 +1,6 @@
 ﻿
 
 
-<hr />
 <div class="container editmode" ng-if="editMode">
 
     <span class="btn btn-default" ng-click="toggleEditMode()" ng-show="editMode"><i class="glyphicon glyphicon-backward"></i> Cancel changes</span><br /><br />
@@ -147,81 +146,85 @@
 
 
 <div class="container viewMode" ng-hide="editMode">
-    <h3>Profile Completed: </h3>
-    <uib-progressbar animate="false" value="percentComplete" type="success"><b>{{percentComplete}}%</b></uib-progressbar>
-    <span ng-if="percentComplete<70" class="red">This profile is not sufficiently edited. You cannot make an appointment until you edit your profile and add in more information.</span>
-    <h3>Profile: </h3>
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{user.FullName || user.Email}}</h3>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-3 col-lg-3 " align="center">
-                        <img alt="User Pic" src="{{user.ProfilePicUrl}}" class="img-circle img-responsive">
-                    </div>
+
+
+    <div ng-if="!viewMode">
+        <h3>Profile Completed: </h3>
+        <uib-progressbar animate="false" value="percentComplete" type="success"><b>{{percentComplete}}%</b></uib-progressbar>
+        <span ng-if="percentComplete<70" class="red">This profile is not sufficiently edited. You cannot make an appointment until you edit your profile and add in more information.</span>
+    </div>
+    <br/>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{user.FullName || user.Email}}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center">
+                    <img alt="User Pic" src="{{user.ProfilePicUrl}}" class="img-circle img-responsive">
+                </div>
 
 
 
-                    <div class="col-md-9 col-lg-9">
-                        <div ng-show="user.IsEmployee">
-                            <h4>Employee Id: {{user.EmployeeId}}</h4>
-                            <h4>Designation: {{user.Designation.Name}}</h4>
-
-                        </div>
-                        <table class="table table-user-information">
-                            <tbody>
-                                <tr>
-                                    <td>Username:</td>
-                                    <td>{{user.UserName}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Email:</td>
-                                    <td>{{user.Email}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Gender:</td>
-                                    <td>{{user.Gender || default}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Phone:</td>
-                                    <td>{{user.PhoneNumber || default}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Blood Group:</td>
-                                    <td>{{user.BloodGroup || default}}</td>
-                                </tr>
-                                <tr>
-                                    <td>NID:</td>
-                                    <td>{{user.NId || default}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Present Address:</td>
-                                    <td>{{user.PresentAddress || default}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Permanent Address:</td>
-                                    <td>{{user.PermanentAddress || default}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Profession:</td>
-                                    <td>{{user.Profession || default}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
+                <div class="col-md-9 col-lg-9">
+                    <div ng-show="user.IsEmployee">
+                        <h4>Employee Id: {{user.EmployeeId}}</h4>
+                        <h4>Designation: {{user.Designation.Name}}</h4>
 
                     </div>
+                    <table class="table table-user-information">
+                        <tbody>
+                            <tr>
+                                <td>Username:</td>
+                                <td>{{user.UserName}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td>{{user.Email}}</td>
+                            </tr>
+                            <tr>
+                                <td>Gender:</td>
+                                <td>{{user.Gender || default}}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone:</td>
+                                <td>{{user.PhoneNumber || default}}</td>
+                            </tr>
+                            <tr>
+                                <td>Blood Group:</td>
+                                <td>{{user.BloodGroup || default}}</td>
+                            </tr>
+                            <tr>
+                                <td>NID:</td>
+                                <td>{{user.NId || default}}</td>
+                            </tr>
+                            <tr>
+                                <td>Present Address:</td>
+                                <td>{{user.PresentAddress || default}}</td>
+                            </tr>
+                            <tr>
+                                <td>Permanent Address:</td>
+                                <td>{{user.PermanentAddress || default}}</td>
+                            </tr>
+                            <tr>
+                                <td>Profession:</td>
+                                <td>{{user.Profession || default}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
                 </div>
             </div>
-            <div class="panel-footer" ng-hide="viewMode">
-                <a ng-href="#/addappointment/{{user.Id}}" type="button" class="btn btn-sm btn-primary">Make Appointment <i class="glyphicon glyphicon-envelope"></i></a>
-
-                <span class="pull-right" ng-if="isSelf() || userData.isAdmin">
-                    <a ng-click="toggleEditMode()" ng-hide="editMode" type="button" class="btn btn-sm btn-warning">Edit <i class="glyphicon glyphicon-edit"></i></a>
-                    <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-                </span>
-            </div>
-
         </div>
+        <div class="panel-footer" ng-hide="viewMode">
+            <a ng-href="#/addappointment/{{user.Id}}" type="button" class="btn btn-sm btn-primary">Make Appointment <i class="glyphicon glyphicon-envelope"></i></a>
+
+            <span class="pull-right" ng-if="isSelf() || userData.isAdmin">
+                <a ng-click="toggleEditMode()" ng-hide="editMode" type="button" class="btn btn-sm btn-warning">Edit <i class="glyphicon glyphicon-edit"></i></a>
+                <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+            </span>
+        </div>
+
+    </div>
 </div>

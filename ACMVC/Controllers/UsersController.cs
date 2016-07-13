@@ -157,18 +157,40 @@ namespace ACMVC.Controllers
             return Json("Could not find object");
         }
 
-//        public JsonResult GetAll()
-//        {
-//            var users = db.AspNetUsers.ToList();
-//            return Json(
-//                users.Select(x => new {
-//                    Id = x.Id,
-//                    Email = x.Email,
-//                    Name = x.Email,
-//                    Role = "Admin",
-//                    Phone = x.PhoneNumber
-//                }), JsonRequestBehavior.AllowGet);
-//        }
+        [HttpPost]
+        public JsonResult SearchVisitor(String searchModel)
+        {
+            if (!string.IsNullOrEmpty(searchModel))
+            {
+                var results = db.AspNetUsers.Where(p => p.IsEmployee == false && (p.Email.Contains(searchModel) || p.FullName.Contains(searchModel) || p.PhoneNumber.Contains(searchModel))).Take(5);
+                if (results.Any())
+                {
+                    return Json(
+                        results.Select(x => new {
+                            Id = x.Id,
+                            Email = x.Email,
+                            PhoneNumber = x.PhoneNumber,
+                            FullName = x.FullName,
+                            DisplayName = "[" + x.FullName + "] [" + x.Email + "] [" + x.PhoneNumber+ "]"
+                        }), JsonRequestBehavior.AllowGet);
+                }
+            }
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json("Could not find object");
+        }
+
+        //        public JsonResult GetAll()
+        //        {
+        //            var users = db.AspNetUsers.ToList();
+        //            return Json(
+        //                users.Select(x => new {
+        //                    Id = x.Id,
+        //                    Email = x.Email,
+        //                    Name = x.Email,
+        //                    Role = "Admin",
+        //                    Phone = x.PhoneNumber
+        //                }), JsonRequestBehavior.AllowGet);
+        //        }
 
         [HttpPost]
         public JsonResult AddRole(AspNetUser user, AspNetRole role)

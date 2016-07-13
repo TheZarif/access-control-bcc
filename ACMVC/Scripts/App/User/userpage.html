@@ -3,7 +3,8 @@
     <h3>Users</h3>
 
     <div class="query-params">
-        <input class=" search-bar" placeholder="Search by email or number" ng-model="search"/>
+        Search:
+        <input type="text" class="input-md" placeholder="Name or number" ng-model="search"/>
         Filter:
         <select ng-model="selectedFilter">
             <option value="visitor">Visitor</option>
@@ -11,6 +12,8 @@
         </select>
         <span class="btn btn-primary" ng-click="getUser()">Search <i class="glyphicon glyphicon-search"></i></span>
     </div>
+
+    <br/>
 
 
     <div class="panel panel-primary" id="">
