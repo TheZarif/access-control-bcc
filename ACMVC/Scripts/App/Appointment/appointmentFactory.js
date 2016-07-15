@@ -26,6 +26,9 @@
             },
             getDetails: function(id) {
                 return $http.get(baseUrl + "appointments/details/" + id);
+            },
+            getAppointmentsForDay: function(userId) {
+                return $http.get(baseUrl + "appointments/getForDay?userId=" + userId);
             }
         };
     }

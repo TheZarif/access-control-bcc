@@ -240,6 +240,50 @@ namespace ACMVC.Controllers
             }
         }
 
+        [HttpGet]
+        public JsonResult GetForDay(string userId)
+        {
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var today = DateTime.Today;
+                var tomorrow = DateTime.Today.AddDays(1);
+                var appointments = db.Appointments.Where(x => x.AspNetUserBy.Id == userId).ToList();
+                appointments = appointments.Where(x => x.Time >= today && x.Time < tomorrow).ToList();
+
+                return Json(appointments.Select(x => new Appointment()
+                {
+                    Id = x.Id,
+                    Purpose = x.Purpose,
+                    Remarks = x.Remarks,
+                    RequestDetails = x.RequestDetails,
+                    Time = x.Time,
+                    UserTo = x.UserTo,
+                    UserBy = x.UserBy,
+                    AppointmentStatusId = x.AppointmentStatusId,
+                    AppointmentStatu = new AppointmentStatu()
+                    {
+                        Id = x.AppointmentStatu.Id,
+                        Name = x.AppointmentStatu.Name
+                    },
+                    AspNetUserBy = new AspNetUser()
+                    {
+                        Id = x.AspNetUserBy.Id,
+                        UserName = x.AspNetUserBy.UserName,
+                        Email = x.AspNetUserBy.Email
+                    },
+                    AspNetUserTo = new AspNetUser()
+                    {
+                        Id = x.AspNetUserTo.Id,
+                        UserName = x.AspNetUserTo.UserName,
+                        Email = x.AspNetUserTo.Email
+                    }
+                }), JsonRequestBehavior.AllowGet);
+            }
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json("");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -138,7 +138,7 @@ namespace ACMVC.Controllers
         {
             if (!string.IsNullOrEmpty(searchModel))
             {
-                var results = db.AspNetUsers.Where(p => p.Email.Contains(searchModel) || p.FullName.Contains(searchModel) || p.PhoneNumber.Contains(searchModel) ).Take(5);
+                var results = db.AspNetUsers.Where(p => (p.IsEmployee.HasValue && p.IsEmployee.Value) && (p.Email.Contains(searchModel) || p.FullName.Contains(searchModel) || p.PhoneNumber.Contains(searchModel) )).Take(5);
                 if (results != null)
                 {
                     return Json(
@@ -162,7 +162,7 @@ namespace ACMVC.Controllers
         {
             if (!string.IsNullOrEmpty(searchModel))
             {
-                var results = db.AspNetUsers.Where(p => p.IsEmployee == false && (p.Email.Contains(searchModel) || p.FullName.Contains(searchModel) || p.PhoneNumber.Contains(searchModel))).Take(5);
+                var results = db.AspNetUsers.Where(p => (!p.IsEmployee.HasValue || !p.IsEmployee.Value) && (p.Email.Contains(searchModel) || p.FullName.Contains(searchModel) || p.PhoneNumber.Contains(searchModel))).Take(5);
                 if (results.Any())
                 {
                     return Json(

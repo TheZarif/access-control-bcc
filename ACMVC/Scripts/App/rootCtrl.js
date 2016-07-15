@@ -3,9 +3,9 @@
 
     app.controller('rootCtrl', rootCtrl);
 
-    rootCtrl.$inject = ['$scope', '$http']
+    rootCtrl.$inject = ['$scope', '$http', '$window']
 
-    function rootCtrl($scope, $http) {
+    function rootCtrl($scope, $http, $window) {
 
         $scope.dummy = "Hellow dummy";
         $scope.userData = {};
@@ -37,7 +37,8 @@
             }
             console.log(data);
         }).error(function(err, status) {
-            alert("Not logged in with status:", status);
+//            alert("Not logged in with status:", status);
+            $window.location.href = baseUrl + 'Account/Login';
         });
 
 

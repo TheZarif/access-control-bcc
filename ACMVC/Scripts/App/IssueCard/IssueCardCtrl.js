@@ -3,51 +3,56 @@
 
     app.controller('issueCardCtrl', issueCardCtrl);
 
-    issueCardCtrl.$inject = ['$scope', "cardFactory", "userFactory", 'notificationService'];
+    issueCardCtrl.$inject = ['$scope', "cardFactory", "userFactory", "appointmentFactory", 'notificationService'];
 
-    function issueCardCtrl($scope, cardFactory, userFactory, notificationService) {
+    function issueCardCtrl($scope, cardFactory, userFactory, appointmentFactory, notificationService) {
         $scope.newIssueCard = {};
         $scope.cards = {};
         $scope.users = {};
+        $scope.appointments = {};
         $scope.userLoaded = false;
+        $scope.selectedUser = null;
+        $scope.selectedAppointments = [];
 
 
-        $scope.issueCard = function(object) {
-            notificationService.displaySuccess("Card Issued");
-            object = null;
-            $scope.newIssueCard = {};
-        }
-        
-        $scope.$watch("newIssueCard.CardNumber", function (newVal, oldVal) {
-            cardFactory.getCardByNumber(newVal)
+        $scope.$watch("selectedUser", function (newVal, oldVal) {
+            if ($scope.selectedUser.Id) { $scope.getAppointments() };
+
+            userFactory.findVisitor(newVal)
                 .success(function (data) {
-                    $scope.cards = data;
+                    $scope.users = data;
                 }).error(function (err) {
                     console.log(err);
                 });
         });
 
-        $scope.loadUser = function (searchUser) {
-            userFactory.findUser(searchUser).success(function(data) {
-                $scope.users = data;
-                $scope.userLoaded = true;
-            }).error(function (err) {
-                notificationService.displayError("Something went wrong");
+        $scope.issueCard = function (object) {
+            notificationService.displaySuccess("Card Issued");
+            $scope.newIssueCard = {};
+        }
+
+        $scope.getAppointments = function () {
+            var userId = $scope.selectedUser.Id;
+            appointmentFactory.getAppointmentsForDay(userId).success(function (data) {
+                $scope.appointments = data;
+            }).error(function(err) {
                 console.log(err);
             });
         }
 
-        $scope.selectUser = function(user) {
-            $scope.userSelected = true;
-            $scope.user = user;
+        $scope.selectAppointment = function(appointment) {
+            $scope.selectedAppointments.push(appointment);
+            appointment.isApproved = true;
         }
-        
 
-        $scope.searchConfigUser = {
-            method: $scope.loadUser,
-            placeholder: "Search User here",
-            model: $scope.dummy1,
-            noPaginate: true
+        $scope.removeAppointment = function (appointment) {
+            helperLib.deleteItem(appointment, $scope.selectedAppointments);
+            appointment.isApproved = false;
         }
+
+        $scope.issueCard = function() {
+            
+        }
+       
     }
-})(angular.module('accessControl')); 
+})(angular.module('accessControl'));

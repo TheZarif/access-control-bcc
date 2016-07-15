@@ -20,7 +20,7 @@ namespace ACMVC.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-
+        [AllowAnonymous]
         public JsonResult checkIfLoggedIn()
         {
             if (User.Identity.IsAuthenticated)

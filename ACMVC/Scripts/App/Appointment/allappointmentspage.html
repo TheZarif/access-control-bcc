@@ -1,9 +1,9 @@
 ﻿<hr />
 <div class="row">
     <div class="col-md-8">
-<!--        <span class="btn btn-default" ng-click="toggleAddMode()"><span class="glyphicon glyphicon-plus"></span> Make Appointment</span>-->
-<!--        <div ng-include="'/Scripts/App/Appointment/newappointmentpage.html'"-->
-<!--             ng-show="addMode"></div>-->
+        <!--        <span class="btn btn-default" ng-click="toggleAddMode()"><span class="glyphicon glyphicon-plus"></span> Make Appointment</span>-->
+        <!--        <div ng-include="'/Scripts/App/Appointment/newappointmentpage.html'"-->
+        <!--             ng-show="addMode"></div>-->
 
         <uib-accordion close-others="oneAtATime">
             <uib-accordion-group is-open="status.open" panel-class="panel-success">
@@ -13,51 +13,56 @@
                 <div ng-include="'/Scripts/App/Appointment/newappointmentpage.html'"></div>
             </uib-accordion-group>
         </uib-accordion>
-        <br/>
+        <br />
         <div ng-include="'/Scripts/App/Appointment/appointmentdetails.html'"
              ng-show="expandMode"></div>
-        <br/>
+        <br />
 
 
         <h4>Appointments</h4>
-        <div class="col-md-6">
-            <search config="searchConfig"></search><br />
-        </div>
-        <div class="col-md-6">
-            Filter status:
-            <div class="btn-group" uib-dropdown keyboard-nav>
-                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-default" uib-dropdown-toggle>
-                    {{selectedFilter}} <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                    <li ng-repeat="status in appointmentStatuses" role="menuitem"><a ng-click="setFilterStatus(status)">{{status}}</a></li>
-                </ul>
+
+        <div ng-if="appointments.length > 0">
+            <div class="col-md-6">
+                <search config="searchConfig"></search><br />
+            </div>
+            <div class="col-md-6">
+                Filter status:
+                <div class="btn-group" uib-dropdown keyboard-nav>
+                    <button id="simple-btn-keyboard-nav" type="button" class="btn btn-default" uib-dropdown-toggle>
+                        {{selectedFilter}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                        <li ng-repeat="status in appointmentStatuses" role="menuitem"><a ng-click="setFilterStatus(status)">{{status}}</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <table class="table table-bordered table-responsive">
+                <tr>
+                    <td>Id</td>
+                    <td>To</td>
+                    <td>By</td>
+                    <td>Purpose</td>
+                    <td>Status</td>
+                    <td>Time</td>
+                    <td></td>
+                </tr>
+                <tr ng-repeat="appointment in appointments">
+                    <td>{{appointment.Id}}</td>
+                    <td>{{appointment.AspNetUserTo.Email}}, {{appointment.AspNetUserTo.Phone}}, {{appointment.AspNetUserTo.Designation}}<br/></td>
+                    <td>{{appointment.AspNetUserBy.Email}}, {{appointment.AspNetUserBy.Phone}}, {{appointment.AspNetUserBy.Designation}}<br/></td>
+                    <td>{{appointment.Purpose}}</td>
+                    <td>{{appointment.AppointmentStatu.Name}}</td>
+                    <td>{{getDate(appointment.Time) | date:"dd/MM/yyyy h:mma"}}</td>
+                    <td class="clickable" ng-click="expand(appointment)">View</td>
+                </tr>
+            </table>
+            <div>
+                <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getAppointment(currentPage)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
             </div>
         </div>
+        <div ng-hide="appointments.length > 0">No appointments to show</div>
 
-
-        <table class="table table-bordered table-responsive">
-            <tr>
-                <td>Id</td>
-                <td>To</td>
-                <td>By</td>
-                <td>Purpose</td>
-                <td>Status</td>
-                <td>Time</td>
-                <td></td>
-            </tr>
-            <tr ng-repeat="appointment in appointments">
-                <td>{{appointment.Id}}</td>
-                <td>{{appointment.AspNetUserTo.Email}}, {{appointment.AspNetUserTo.Phone}}, {{appointment.AspNetUserTo.Designation}}<br/></td>
-                <td>{{appointment.AspNetUserBy.Email}}, {{appointment.AspNetUserBy.Phone}}, {{appointment.AspNetUserBy.Designation}}<br/></td>
-                <td>{{appointment.Purpose}}</td>
-                <td>{{appointment.AppointmentStatu.Name}}</td>
-                <td>{{getDate(appointment.Time) | date:"MM/dd/yyyy h:mma"}}</td>
-                <td class="clickable" ng-click="expand(appointment)">View</td>
-            </tr>
-            </table>
-        <div>
-            <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getAppointment(currentPage)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
-        </div>
-</div>
+        
+    </div>
 </div>
