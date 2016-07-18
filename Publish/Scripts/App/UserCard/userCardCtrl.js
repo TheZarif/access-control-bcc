@@ -20,17 +20,6 @@
             console.log(err);
         });
 
-        $scope.$watch("newUserCard.Email", function (newVal, oldVal) {
-            console.log("Watch UserID: ", $scope.newUserCard.UserId);
-            console.log("Watch val", newVal);
-            userFactory.findUser(newVal)
-                .success(function (data) {
-                    $scope.users = data;
-                }).error(function (err) {
-                    console.log(err);
-                });
-        });
-
         $scope.$watch("newUserCard.CardNumber", function (newVal, oldVal) {
             console.log("Watch CardId: ", $scope.newUserCard.CardId);
             console.log("Watch val", newVal);
@@ -59,17 +48,15 @@
         };
 
         $scope.addUserCard = function () {
-            if ($scope.cards.length != 0 && $scope.users.length != 0) {
-                var index = $scope.findElement($scope.users, "Email", $scope.newUserCard.Email);
-                $scope.newUserCard.UserId = $scope.users[index].Id;
-
-                index = $scope.findElement($scope.cards, "Number", $scope.newUserCard.CardNumber);
+            if ($scope.cards.length != 0) {
+                var index = $scope.findElement($scope.cards, "Number", $scope.newUserCard.CardNumber);
                 $scope.newUserCard.CardId = $scope.cards[index].Id;
 
                 console.log("NewUserCard", $scope.newUserCard);
             } else {
                 console.log("Invalid Model");
             }
+            $scope.newUserCard.UserId = $scope.newUserCard.U.Id;
             userCardFactory.addUserCard($scope.newUserCard)
                 .success(function(data) {
                     $scope.userCards.push(data);

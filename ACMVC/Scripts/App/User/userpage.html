@@ -26,6 +26,7 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Roles</th>
+                    <th>AccessZones</th>
                     <th>User Type</th>
                     <th><!--Reset password--></th>
                     <th><!--View details--></th>
@@ -53,6 +54,22 @@
 
                             <span class="btn btn-success" ng-click="addRole(user, newRole)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
                             <span class="btn btn-danger" ng-click="toggleAddRoleMode(user)"><i class="glyphicon glyphicon-remove"></i></span>
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-repeat="zoneMap in user.EmployeeAccessZoneMaps">
+                            <span class="label label-default">
+                                {{zoneMap.AccessZone.Name}}
+                                <span class="glyphicon glyphicon-remove" ng-click="removeAccessZone(user, zoneMap)"></span>
+                            </span>,
+                        </span>
+                        <a ng-click="toggleAddAccessZoneMode(user)" ng-show="!user.addAccessZoneMode" class="clickable-text">Add</a>
+                        <span ng-show="user.addAccessZoneMode == true">
+                            <select ng-model="newZone"
+                                    ng-options="zone as zone.Name for zone in zones"></select>
+
+                            <span class="btn btn-success" ng-click="addAccessZone(user, newZone)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+                            <span class="btn btn-danger" ng-click="toggleAddAccessZoneMode(user)"><i class="glyphicon glyphicon-remove"></i></span>
                         </span>
                     </td>
                     <td>

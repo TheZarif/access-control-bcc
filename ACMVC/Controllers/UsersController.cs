@@ -62,6 +62,15 @@ namespace ACMVC.Controllers
                     DeskFloor = x.DeskFloor,
                     IsEmployee = x.IsEmployee,
                     IsVerified = x.IsVerified,
+                    EmployeeAccessZoneMaps = x.EmployeeAccessZoneMaps.Select(m => new EmployeeAccessZoneMap
+                    {
+                        Id = m.Id, UserId = m.UserId,
+                        AccessZone = new AccessZone
+                        {
+                            Id = m.AccessZoneId,
+                            Name = m.AccessZone.Name
+                        }
+                    }).ToList(),
                     UserName = x.UserName,
                     AspNetRoles = x.AspNetRoles.Select(p => new AspNetRole() { Id = p.Id, Name = p.Name }).ToList()
                 }).ToList(),
@@ -92,46 +101,46 @@ namespace ACMVC.Controllers
             
             return Json(designations, JsonRequestBehavior.AllowGet);
         }
-
-        [HttpPost]
-        public JsonResult AddAccessZone(String userId, AccessZone accessZone)
-        {
-            if (userId != null && accessZone != null)
-            {
-                var user = db.AspNetUsers.Find(userId);
-                if (user != null)
-                {
-                    user.EmployeeAccessZoneMaps.Add(new EmployeeAccessZoneMap() { UserId = userId, AccessZone = accessZone });
-                    if (db.SaveChanges() > 0)
-                    {
-                        return Json("");
-                    }
-                }
-            }
-
-            Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            return Json("Could not find object");
-        }
-
-        [HttpPost]
-        public JsonResult RemoveAccessZone(String userId, AccessZone accessZone)
-        {
-            if (userId != null && accessZone != null)
-            {
-                var user = db.AspNetUsers.Find(userId);
-                if (user != null)
-                {
-                    user.EmployeeAccessZoneMaps.Add(new EmployeeAccessZoneMap() { UserId = userId, AccessZone = accessZone });
-                    if (db.SaveChanges() > 0)
-                    {
-                        return Json("");
-                    }
-                }
-            }
-
-            Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            return Json("Could not find object");
-        }
+//
+//        [HttpPost]
+//        public JsonResult AddAccessZone(String userId, AccessZone accessZone)
+//        {
+//            if (userId != null && accessZone != null)
+//            {
+//                var user = db.AspNetUsers.Find(userId);
+//                if (user != null)
+//                {
+//                    user.EmployeeAccessZoneMaps.Add(new EmployeeAccessZoneMap() { UserId = userId, AccessZone = accessZone });
+//                    if (db.SaveChanges() > 0)
+//                    {
+//                        return Json("");
+//                    }
+//                }
+//            }
+//
+//            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+//            return Json("Could not find object");
+//        }
+//
+//        [HttpPost]
+//        public JsonResult RemoveAccessZone(String userId, AccessZone accessZone)
+//        {
+//            if (userId != null && accessZone != null)
+//            {
+//                var user = db.AspNetUsers.Find(userId);
+//                if (user != null)
+//                {
+//                    user.EmployeeAccessZoneMaps.Add(new EmployeeAccessZoneMap() { UserId = userId, AccessZone = accessZone });
+//                    if (db.SaveChanges() > 0)
+//                    {
+//                        return Json("");
+//                    }
+//                }
+//            }
+//
+//            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+//            return Json("Could not find object");
+//        }
 
         [HttpPost]
         public JsonResult SearchUser(String searchModel)
@@ -448,6 +457,51 @@ namespace ACMVC.Controllers
 
             return Json(percent, JsonRequestBehavior.AllowGet);
 
+        }
+
+        [HttpPost]
+        public JsonResult AddAccessZone(AspNetUser user, AccessZone accessZone)
+        {
+            if (user != null && accessZone != null)
+            {
+
+                db.EmployeeAccessZoneMaps.Add(new EmployeeAccessZoneMap()
+                {
+                    AccessZoneId = accessZone.Id,
+                    UserId = user.Id
+                });
+
+                if (db.SaveChanges() > 0)
+                {
+                    return Json("Successfully added");
+                }
+            }
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json("");
+        }
+
+        [HttpPost]
+        public JsonResult RemoveAccessZone(AspNetUser user, AccessZone accessZone)
+        {
+            if (user != null && accessZone != null)
+            {
+                var item = db.EmployeeAccessZoneMaps.First(x => x.AccessZoneId == accessZone.Id && x.UserId == user.Id);
+                db.EmployeeAccessZoneMaps.Remove(item);
+
+                if (db.SaveChanges() > 0)
+                {
+                    return Json("Successfully removed");
+                }
+            }
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json("");
+        }
+
+        [HttpPost]
+        public JsonResult GetAccessZones(AspNetUser user)
+        {
+            var accessZones = user.EmployeeAccessZoneMaps;
+            return Json("");
         }
 
         protected override void Dispose(bool disposing)

@@ -7,7 +7,7 @@
             </div>
 
             <div class="panel-body">
-                <table class="table table-striped table-bordered table-condensed table-hover">
+                <table class="table table-striped table-bordered table-condensed  .table-responsive table-hover">
                     <tr>
                         <th style="width: 100px;">
                             <div class="btn-toolbar"><span class="btn btn-primary" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-plus"></i></span></div>
@@ -30,13 +30,19 @@
                                 </div>
                             </div>
                         </td>
-                        <td><input ng-model="newDevice.Name" /></td>
-                        <td><input ng-model="newDevice.IP" /></td>
-                        <td><input ng-model="newDevice.Port" /></td>
-                        <td><input ng-model="newDevice.DeviceType" /></td>
-                        <td><input ng-model="newDevice.DeviceSDK" /></td>
-                        <td><input ng-model="newDevice.DUser" /></td>
-                        <td><input ng-model="newDevice.DPass" /></td>
+                        <td><input ng-model="newDevice.Name" size="10"/></td>
+                        <td><input ng-model="newDevice.IP" size="10"/></td>
+                        <td><input ng-model="newDevice.Port" size="10"/></td>
+                        <td>
+                            <select ng-model="newDevice.DeviceTypeId" >
+                                <option value="1">Door</option>
+                                <option value="2">FlapGate</option>
+                                <option value="3">Vehicle Control</option>
+                            </select>
+                        </td>
+                        <td><input ng-model="newDevice.DeviceSDK" size="10"/></td>
+                        <td><input ng-model="newDevice.DUser" size="10"/></td>
+                        <td><input ng-model="newDevice.DPass" size="10"/></td>
                         <td>
                             <select ng-model="newDevice.AccessZoneId"
                                     ng-options="zone.Id as zone.Name for zone in zones"></select>
@@ -59,37 +65,40 @@
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.Name}}</span>
-                            <input ng-model="device.Name" ng-show="device.editMode == true" />
+                            <input ng-model="device.Name" ng-show="device.editMode == true" size="10"/>
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.IP}}</span>
-                            <input ng-model="device.IP" ng-show="device.editMode == true" />
+                            <input ng-model="device.IP" ng-show="device.editMode == true" size="10"/>
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.Port}}</span>
-                            <input ng-model="device.Port" ng-show="device.editMode == true" />
+                            <input ng-model="device.Port" ng-show="device.editMode == true" size="10"/>
                         </td>
                         <td>
-                            <span ng-show="device.editMode == null || device.editMode == false">{{device.DeviceType}}</span>
-                            <input ng-model="device.DeviceType" ng-show="device.editMode == true" />
+                            <span ng-show="device.editMode == null || device.editMode == false">{{device.DeviceType.Name}}</span>
+
+                            <select ng-show="device.editMode == true" ng-model="device.DeviceTypeId"
+                                    ng-options="DeviceType.Id as DeviceType.Name for DeviceType in DeviceTypes"></select>
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.DeviceSDK}}</span>
-                            <input ng-model="device.DeviceSDK" ng-show="device.editMode == true" />
+                            <input ng-model="device.DeviceSDK" ng-show="device.editMode == true" size="10"/>
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.DUser}}</span>
-                            <input ng-model="device.DUser" ng-show="device.editMode == true" />
+                            <input ng-model="device.DUser" ng-show="device.editMode == true" size="10"/>
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.DPass}}</span>
-                            <input ng-model="device.DPass" ng-show="device.editMode == true" />
+                            <input ng-model="device.DPass" ng-show="device.editMode == true" size="10"/>
                         </td>
                         <td>
-                            <span ng-show="device.editMode == null || device.editMode == false">{{device.AccessZoneName}}</span>
+                            <span ng-show="device.editMode == null || device.editMode == false">{{device.AccessZone.Name}}</span>
                             <select ng-show="device.editMode == true"
-                                    ng-model="newDevice.AccessZoneName"
-                                    ng-options="zone.Id as zone.Name for zone in zones"></select>
+                                    ng-model="device.AccessZoneId"
+                                    ng-options="zone.Id as zone.Name for zone in zones">
+                            </select>
                         </td>
                     </tr>
                 </table>

@@ -1,22 +1,36 @@
 ﻿(function (app) {
-    'use strict';
+    "use strict";
 
-    app.controller('roleCtrl', roleCtrl);
+    app.controller("vehicleCtrl", vehicleCtrl);
 
-    roleCtrl.$inject = ['$scope', 'roleFactory', 'notificationService'];
+    vehicleCtrl.$inject = ["$scope", "vehicleFactory", "notificationService"];
 
-    function roleCtrl($scope, roleFactory, notificationService) {
-        $scope.roles = [];
+    function vehicleCtrl($scope, vehicleFactory, notificationService) {
+        $scope.vehicles = [];
+        $scope.search = "";
         $scope.addMode = false;
-        $scope.newRole = {};
+        $scope.newVehicle = {};
         var editMode = false;
 
-        roleFactory.getRole().success(function (data) {
-            $scope.roles = data;
-        }).error(function (err) {
-            notificationService.displayError("Could not load data");
-            console.log(err);
-        });
+        $scope.totalPages = 0;
+        $scope.currentPage = 0;
+
+        $scope.searchItems = function() {
+            $scope.getVehicle(1, $scope.search);
+        }
+
+
+        $scope.getVehicle = function (page, search) {
+            vehicleFactory.getVehicle(page, search).success(function(data) {
+                $scope.vehicles = data.Vehicles;
+                $scope.totalPages = data.Pager.TotalPages;
+                $scope.totalItems = data.Pager.TotalItems;
+                $scope.currentPage = data.Pager.CurrentPage;
+            });
+        }
+
+        $scope.getVehicle(1);
+
 
         $scope.toggleAddMode = function () {
             $scope.addMode = !$scope.addMode;
@@ -26,23 +40,24 @@
             item.editMode = !item.editMode;
         };
 
-        $scope.addRole = function () {
-            roleFactory.addRole($scope.newRole)
-                .success(function (data) {
-                    $scope.roles.push(data);
-                    $scope.newRole = {};
+        $scope.addVehicle = function () {
+            vehicleFactory.addVehicle($scope.newVehicle)
+                .success(function(data) {
+                    $scope.vehicles.push(data);
+                    $scope.newVehicle = {};
                     $scope.toggleAddMode();
+                    notificationService.displaySuccess("Added");
                 })
-                .error(function (err) {
+                .error(function(err) {
                     notificationService.displayError("Could not add data");
                     console.log(err);
-                })
+                });
         };
 
-        $scope.deleteRole = function (role) {
-            roleFactory.deleteRole(role)
+        $scope.deleteVehicle = function (vehicle) {
+            vehicleFactory.deleteVehicle(vehicle)
                 .success(function (data) {
-                    helperLib.deleteItem(role, $scope.roles);
+                    helperLib.deleteItem(vehicle, $scope.vehicles);
                 })
                 .error(function (err) {
                     notificationService.displayError("Could not delete data");
@@ -50,10 +65,10 @@
                 })
         };
 
-        $scope.updateRole = function (role) {
-            roleFactory.updateRole(role)
+        $scope.updateVehicle = function (vehicle) {
+            vehicleFactory.updateVehicle(vehicle)
                 .success(function (data) {
-                    role.editMode = false;
+                    vehicle.editMode = false;
                 })
                 .error(function (err) {
                     notificationService.displayError("Could not update data");

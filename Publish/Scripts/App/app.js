@@ -1,15 +1,14 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('accessControl', ['common.core', 'common.ui', 'ui.bootstrap'])
+    angular.module('accessControl', ['common.core', 'common.ui', 'ngAnimate', 'ui.bootstrap', 'ngFileUpload'])
         .config(config);
 
     config.$inject = ['$routeProvider'];
     function config($routeProvider) {
         $routeProvider
             .when("/", {
-                templateUrl: "scripts/App/Status/index.html",
-                controller: "statusCtrl"
+                templateUrl: "scripts/App/Home/homepage.html"
             })
             .when("/status", {
                 templateUrl: "scripts/App/Status/index.html",
@@ -47,10 +46,38 @@
                 templateUrl: "scripts/App/User/userpage.html",
                 controller: "userCtrl"
             })
+            .when("/users", {
+                templateUrl: "scripts/App/User/userspublic.html",
+                controller: "userCtrl"
+            })
+            .when("/users/:id", {
+                templateUrl: "scripts/App/User/userdetails.html",
+                controller: "userDetailsCtrl"
+            })
             .when("/vehicle", {
                 templateUrl: "scripts/App/Vehicle/vehiclepage.html",
                 controller: "vehicleCtrl"
             })
+            .when("/appointments/:userId?", {
+                templateUrl: "scripts/App/Appointment/allappointmentspage.html",
+                controller: "appointmentCtrl"
+            })
+            .when("/appointments/add", {
+                templateUrl: "scripts/App/Appointment/newappointmentpage.html",
+                controller: "appointmentCtrl"
+            })
+            .when("/addappointment/:userId", {
+                templateUrl: "scripts/App/Appointment/newappointmentpage.html",
+                controller: "appointmentCtrl"
+            })
+            .when("/issuecard", {
+                templateUrl: "scripts/App/IssueCard/issuecard.html"
+            })
+            .when("/official", {
+                templateUrl: "scripts/App/User/userspublic.html",
+                controller: "userPublicCtrl"
+            })
+
             /*.when("/customers/register", {
                 templateUrl: "scripts/spa/customers/register.html",
                 controller: "customersRegCtrl"

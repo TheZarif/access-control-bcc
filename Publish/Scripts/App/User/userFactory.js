@@ -7,31 +7,77 @@
 
     function userFactory($http) {
         return {
-            getUser: function () {
-                return $http.get(baseUrl + "users/getall");
+            getUser: function (page, search, selectedFilter) {
+                console.log(selectedFilter);
+                if (!page) page = 1;
+                if (!search) search = "";
+                if (!selectedFilter) selectedFilter = "";
+                return $http.get(baseUrl + "users/getall?page=" + page + "&search=" + search + "&selectedFilter=" + selectedFilter);
+            },
+            getUserByDesignation: function() {
+                return $http.get(baseUrl + "users/GetByDesignation");
             },
             addUser: function (user) {
                 console.log("Method not implemented");
-                return $http.post(baseUrl + "users/create", user);
+                return $http.post(baseUrl + "users/crrreat", user);
             },
             deleteUser: function (user) {
                 return $http.post(baseUrl + "users/delete/" + user.Id);
             },
             updateUser: function (user) {
+                return $http.post(baseUrl + "users/UpdateUser/" + user.Id, user);
+            },
+            updateUserOfficial: function (user) {
                 console.log("User: ", user);
-                return $http.post(baseUrl + "users/edit/" + user.Id, user);
+                return $http.post(baseUrl + "users/UpdateUserOfficial/", user);
             },
-            findUser: function (email, phone) {
-                return $http.post(baseUrl + "users/SearchUser",
-                    {
-                        "searchModel": {
-                            Email: email,
-                            Phone: phone
-                        }
-                    });
+            getUserDetails: function(id) {
+                return $http.get(baseUrl + "users/Details/" + id);
             },
-            changePassword: function (user) {
-                return $http.post(baseUrl + "users/ResetPassword", user);
+            findUser: function (searchString) {
+                return $http.post(baseUrl + "users/SearchUser", { "searchModel": searchString });
+            },
+            findVisitor: function (searchString) {
+                return $http.post(baseUrl + "users/SearchVisitor", { "searchModel": searchString });
+            },
+            resetPassword: function (user, password) {
+                return $http.post(baseUrl + "manage/ResetPassword", { "user": user, "password": password });
+            },
+            addRole: function(user, role) {
+                return $http.post(baseUrl + "users/addRole",
+                {
+                    "user": user,
+                    "role": role
+                });
+            },
+            removeRole: function (user, role) {
+                return $http.post(baseUrl + "users/removeRole",
+                {
+                    "user": user,
+                    "role": role
+                });
+            },
+            addAccessZone: function(user, accessZone) {
+                return $http.post(baseUrl + "users/AddAccessZone", { "user": user, "accessZone": accessZone });
+            },
+            removeAccessZone: function(user, accessZone) {
+                return $http.post(baseUrl + "users/RemoveAccessZone", { "user": user, "accessZone": accessZone });
+            },
+            getAccessZones: function(user) {
+                return $http.post(baseUrl + "users/GetAccessZones", user);
+            },
+            editType: function (user, type) {
+                return $http.post(baseUrl + "users/EditType",
+                {
+                    "user": user,
+                    "isEmployee": type
+                });
+            },
+            getLoginDetails: function() {
+                return $http.post(baseUrl + "manage/GetLoginDetails");
+            },
+            getProfileCompletion: function(id) {
+                return $http.get(baseUrl + "Users/ProfileCompletionPercent?userId=" + id);
             }
         };
     }

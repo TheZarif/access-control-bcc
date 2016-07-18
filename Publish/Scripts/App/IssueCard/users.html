@@ -1,0 +1,17 @@
+﻿<div class="panel-body">
+    <table class="table table-striped table-bordered table-condensed table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th><!--Select--></th>
+        </tr>
+
+        <tr ng-repeat="user in users">
+            <td><span>{{user.FullName}}</span></td>
+            <td><span>{{user.Email}}</span></td>
+            <td><span>{{user.PhoneNumber}}</span></td>
+            <td><span class="clickable-text"><a ng-click="selectUser(user)">Select</a></span></td>
+        </tr>
+    </table>
+</div>

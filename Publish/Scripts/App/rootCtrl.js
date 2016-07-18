@@ -3,10 +3,11 @@
 
     app.controller('rootCtrl', rootCtrl);
 
-    rootCtrl.$inject = ['$scope', '$http']
+    rootCtrl.$inject = ['$scope', '$http', '$window']
 
-    function rootCtrl($scope, $http) {
+    function rootCtrl($scope, $http, $window) {
 
+        $scope.dummy = "Hellow dummy";
         $scope.userData = {};
         $scope.userData.isLoggedIn = false;
 
@@ -22,12 +23,25 @@
 
         }
 
-        $http.get(baseUrl + "Account/checkifloggedin").success(function(data){
-            $scope.userData.userName = data;
+        $http.get(baseUrl + "Account/checkifloggedin").success(function(data) {
+            console.log("IsloggedIn", data);
+            $scope.userData = data;
             $scope.userData.isLoggedIn = true;
-        }).error(function () {
-            alert("Not logged in");
-        })
+            for (var i = 0; i < data.Roles.length; i++) {
+                if (data.Roles[i].Name === "Admin") {
+                    $scope.userData.isAdmin = true;
+                }
+                if (data.Roles[i].Name === "Employee") {
+                    $scope.userData.isEmployee = true;
+                }
+            }
+            console.log(data);
+        }).error(function(err, status) {
+//            alert("Not logged in with status:", status);
+            $window.location.href = baseUrl + 'Account/Login';
+        });
+
+
     }
 
 })(angular.module('accessControl'));

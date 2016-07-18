@@ -57,6 +57,15 @@
                     "role": role
                 });
             },
+            addAccessZone: function(user, accessZone) {
+                return $http.post(baseUrl + "users/AddAccessZone", { "user": user, "accessZone": accessZone });
+            },
+            removeAccessZone: function(user, accessZone) {
+                return $http.post(baseUrl + "users/RemoveAccessZone", { "user": user, "accessZone": accessZone });
+            },
+            getAccessZones: function(user) {
+                return $http.post(baseUrl + "users/GetAccessZones", user);
+            },
             editType: function (user, type) {
                 return $http.post(baseUrl + "users/EditType",
                 {

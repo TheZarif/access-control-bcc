@@ -7,8 +7,10 @@
 
     function cardFactory($http) {
         return {
-            getCard: function () {
-                return $http.get(baseUrl + "cardinfoes/getall");
+            getCard: function (page, search, statusId) {
+                if (!page) page = 1;
+                if (!search) search = "";
+                return $http.get(baseUrl + "cardinfoes/getall?page=" + page + "&search=" + search + "&statusId=" + statusId);
             },
             addCard: function (card) {
                 return $http.post(baseUrl + "cardinfoes/create", card);

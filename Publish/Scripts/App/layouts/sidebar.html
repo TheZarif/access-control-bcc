@@ -1,19 +1,38 @@
 ﻿<div id="sidebar" class="sidebar-offcanvas" >
-    <div class="col-md-12">
-        <h3></h3>
+    <div class="col-md-12" ng-show="userData.isAdmin">
+        <h3>Admin Panel</h3>
         <ul class="nav nav-pills nav-stacked">
             <li class="nav-divider"></li>
-            <li class=""><a ng-href="#/">Admin Panel<i class="fa fa-home fa-fw pull-right"></i></a></li>
-            <li class="nav-divider"></li>
-            <li class=""><a ng-href="#/status">Status<i class="fa fa-home fa-fw pull-right"></i></a></li>
+<!--            <li><a ng-href="#/role/">Roles<i class="fa fa-users fa-fw pull-right"></i></a></li>-->
+<!--            <li class=""><a ng-href="#/status">Status<i class="fa fa-home fa-fw pull-right"></i></a></li>-->
             <li><a ng-href="#/card/">Cards<i class="fa fa-users fa-fw pull-right"></i></a></li>
-            <li><a ng-href="#/role/">Roles<i class="fa fa-users fa-fw pull-right"></i></a></li>
             <li><a ng-href="#/zone/">Access Zones<i class="fa fa-users fa-fw pull-right"></i></a></li>
             <li><a ng-href="#/device/">Devices<i class="fa fa-users fa-fw pull-right"></i></a></li>
             <li><a ng-href="#/cardlog/">Card Logs<i class="fa fa-users fa-fw pull-right"></i></a></li>
             <li><a ng-href="#/usercard/">User Card<i class="fa fa-users fa-fw pull-right"></i></a></li>
             <li><a ng-href="#/devicecard/">Device Card<i class="fa fa-users fa-fw pull-right"></i></a></li>
             <li><a ng-href="#/user/">Users<i class="fa fa-users fa-fw pull-right"></i></a></li>
+            <li><a ng-href="#/vehicle/">Vehicle<i class="fa fa-users fa-fw pull-right"></i></a></li>
+            <li class="nav-divider"></li>
+        </ul>
+    </div>
+    <div class="col-md-12" ng-show="userData.isAdmin">
+        <h3>Official</h3>
+        <ul class="nav nav-pills nav-stacked">
+            <li class="nav-divider"></li>
+            
+            <li><a ng-href="#/issuecard">Issue Card<i class="fa fa-users fa-fw pull-right"></i></a></li>
+            <li class="nav-divider"></li>
+        </ul>
+    </div>
+    <div class="col-md-12">
+        <h3>Visitor Menu</h3>
+        <ul class="nav nav-pills nav-stacked">
+            <li class="nav-divider"></li>
+            <li><a ng-href="#/">Home<i class="fa fa-users fa-fw pull-right"></i></a></li>
+            <li><a ng-href="#/appointments/">Appointment<i class="fa fa-users fa-fw pull-right"></i></a></li>
+            <li><a ng-href="#/official/">Official<i class="fa fa-users fa-fw pull-right"></i></a></li>
+            <li class="nav-divider"></li>
         </ul>
     </div>
 </div>

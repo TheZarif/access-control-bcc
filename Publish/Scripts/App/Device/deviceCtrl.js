@@ -11,6 +11,20 @@
         $scope.newDevice = {};
         $scope.addMode = false;
         var editMode = false;
+        $scope.DeviceTypes = [
+           {
+               Id: 1,
+               Name: "Door"
+           },
+           {
+               Id: 2,
+               Name: "Flapgate"
+           },
+           {
+               Id: 3,
+               Name: "Vehicle Control"
+           }
+        ];
 
         deviceFactory.getDevice().success(function (data) {
             $scope.devices = data;

@@ -3,7 +3,9 @@
     <div class="col-md-8">
         <div class="panel panel-primary" id="">
             <div class="panel-heading">
-                <h3 class="panel-title">Role Admin Page</h3>
+                <h3 class="panel-title">Vehicle Admin Page</h3>
+                <input class="search-bar" placeholder="Search by vehicle number or owner" ng-model="search"/><i class="glyphicon glyphicon-search" ng-click="searchItems()"></i>
+                
             </div>
 
             <div class="panel-body">
@@ -12,42 +14,86 @@
                         <th style="width: 100px;">
                             <div class="btn-toolbar"><span class="btn btn-primary" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-plus"></i></span></div>
                         </th>
-                        <th>Name</th>
+                        <th>Vehicle No.</th>
+                        <th>Owner Name</th>
+                        <th>Owner address</th>
+                        <th>Driver Name</th>
+                        <th>Driver Details</th>
+                        <th>License No.</th>
                     </tr>
                     <tr ng-show="addMode">
                         <td>
                             <div class="btn-toolbar">
                                 <div class="btn-group">
-                                    <span class="btn btn-success" ng-click="addRole()"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+                                    <span class="btn btn-success" ng-click="addVehicle()"><i class="glyphicon glyphicon-floppy-disk"></i></span>
                                     <span class="btn btn-danger" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-remove"></i></span>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <input ng-model="newRole.Name" />
+                            <input ng-model="newVehicle.VehicleNo" />
+                        </td>
+                        <td>
+                            <input ng-model="newVehicle.OwnerName" />
+                        </td>
+                        <td>
+                            <input ng-model="newVehicle.OwnerAddress" />
+                        </td>
+                        <td>
+                            <input ng-model="newVehicle.DriverName" />
+                        </td>
+                        <td>
+                            <input ng-model="newVehicle.DriverDetails" />
+                        </td>
+                        <td>
+                            <input ng-model="newVehicle.LicenseNo" />
                         </td>
                     </tr>
-                    <tr ng-repeat="role in roles">
+                    <tr ng-repeat="vehicle in vehicles">
                         <td>
-                            <div class="btn-toolbar" ng-show="role.editMode == null || role.editMode == false">
+                            <div class="btn-toolbar" ng-show="vehicle.editMode == null || vehicle.editMode == false">
                                 <div class="btn-group">
-                                    <span class="btn btn-primary" ng-click="toggleEditMode(role)"><i class="glyphicon glyphicon-pencil"></i></span>
-                                    <span class="btn btn-danger" ng-click="deleteRole(role)"><i class="glyphicon glyphicon-trash"></i></span>
+                                    <span class="btn btn-primary" ng-click="toggleEditMode(vehicle)"><i class="glyphicon glyphicon-pencil"></i></span>
+                                    <span class="btn btn-danger" ng-click="deleteVehicle(vehicle)"><i class="glyphicon glyphicon-trash"></i></span>
                                 </div>
                             </div>
-                            <div class="btn-toolbar" ng-show="role.editMode == true">
+                            <div class="btn-toolbar" ng-show="vehicle.editMode == true">
                                 <div class="btn-group">
-                                    <span class="btn btn-success" ng-click="updateRole(role)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
-                                    <span class="btn btn-danger" ng-click="toggleEditMode(role)"><i class="glyphicon glyphicon-remove"></i></span>
+                                    <span class="btn btn-success" ng-click="updateVehicle(vehicle)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+                                    <span class="btn btn-danger" ng-click="toggleEditMode(vehicle)"><i class="glyphicon glyphicon-remove"></i></span>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <span ng-show="role.editMode == null || role.editMode == false">{{role.Name}}</span>
-                            <input ng-model="role.Name" ng-show="role.editMode == true" />
+                            <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.VehicleNo}}</span>
+                            <input ng-model="vehicle.VehicleNo" ng-show="vehicle.editMode == true" />
+                        </td>
+                        <td>
+                            <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.OwnerName}}</span>
+                            <input ng-model="vehicle.OwnerName" ng-show="vehicle.editMode == true" />
+                        </td>
+                        <td>
+                            <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.OwnerAddress}}</span>
+                            <input ng-model="vehicle.OwnerAddress" ng-show="vehicle.editMode == true" />
+                        </td>
+                        <td>
+                            <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.DriverName}}</span>
+                            <input ng-model="vehicle.DriverName" ng-show="vehicle.editMode == true" />
+                        </td>
+                        <td>
+                            <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.DriverDetails}}</span>
+                            <input ng-model="vehicle.DriverDetails" ng-show="vehicle.editMode == true" />
+                        </td>
+                        <td>
+                            <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.LicenseNo}}</span>
+                            <input ng-model="vehicle.LicenseNo" ng-show="vehicle.editMode == true" />
                         </td>
                     </tr>
                 </table>
+                <div>
+                    <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getVehicle(currentPage)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                </div>
+
             </div>
 
         </div>

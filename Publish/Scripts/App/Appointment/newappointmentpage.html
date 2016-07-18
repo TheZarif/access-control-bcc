@@ -1,0 +1,60 @@
+﻿
+
+<form class="form-horizontal" novalidate>
+            <fieldset>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="">Meeting with</label>
+                    <div class="col-md-4">
+                        <input id="" name="" ng-hide="fixedUser"
+                               ng-model="newAppointment.U"
+                               uib-typeahead="user as user.DisplayName for user in users"
+                               type="text" placeholder="Enter name of person you wish to meet" class="form-control input-md" required="">
+                        <label class="control-label" for=""><span ng-show="fixedUser"><strong>{{newAppointment.U.FullName}}</strong></span></label>
+                    </div>
+                </div>
+
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="textarea">Purpose of visit</label>
+                    <div class="col-md-4">
+                        <textarea class="form-control" ng-model="newAppointment.Purpose" id="textarea" name="textarea"></textarea>
+                    </div>
+                </div>
+
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="textarea">Request details</label>
+                    <div class="col-md-4">
+                        <textarea class="form-control" ng-model="newAppointment.RequestDetails" id="textarea" name="textarea">Enter time and date you wish to make the appointment</textarea>
+                    </div>
+                </div>
+
+                <!-- Date -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="textarea">Date</label>
+                    <div style="display: inline-block; min-height: 290px;">
+                        <em>{{newAppointment.Time | date:'fullDate' }}</em>
+                        <uib-datepicker ng-model="newAppointment.Time" class="well well-sm"></uib-datepicker>
+                    </div>
+                    <!--<input type="datetime-local" ng-model="newAppointment.Time"/>-->
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="">Time</label>
+                    <input type="number" ng-model="newAppointment.hours" ng-change="setHour()" min="0" max="23" ng-disabled="newAppointment.Time==null"/> hours 
+                    <input type="number" ng-model="newAppointment.minutes" ng-change="setMin()" min="0" max="59" ng-disabled="newAppointment.Time==null"/> minutes
+                </div>
+
+
+                <!-- Button (Double) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="submit-button"></label>
+                    <div class="col-md-8">
+                        <button id="submit-button" name="submit-button" class="btn btn-success" ng-click="addAppointment()">Submit</button>
+                        <button id="cancel-button" name="cancel-button" class="btn btn-danger" ng-click="toggleAddMode()">Cancel</button>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>

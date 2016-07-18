@@ -3,9 +3,9 @@
 
     app.controller('userCtrl', userCtrl);
 
-    userCtrl.$inject = ['$scope', 'userFactory', 'roleFactory', "$uibModal", 'notificationService'];
+    userCtrl.$inject = ['$scope', 'userFactory', 'roleFactory', 'zoneFactory', "$uibModal", 'notificationService'];
 
-    function userCtrl($scope, userFactory, roleFactory, $uibModal, notificationService) {
+    function userCtrl($scope, userFactory, roleFactory, zoneFactory, $uibModal, notificationService) {
 
       
         $scope.searchItems = function() {
@@ -14,11 +14,11 @@
         $scope.search = "";
         $scope.users = [];
         $scope.roles = [];
+        $scope.zones = [];
         $scope.totalPages = 0;
         $scope.currentPage = 0;
-        // $scope.addMode = false;
-        // $scope.newUser = {};
         $scope.selectedFilter = "";
+
         $scope.filterUserType = [
             { value: false, name: "Visitor" },
             { value: true, name: "Employee" }
@@ -43,6 +43,10 @@
             console.log(err);
         });
 
+        zoneFactory.getZone().success(function(data) {
+            $scope.zones = data;
+        });
+
         $scope.addRole = function (user, role) {
             userFactory.addRole(user, role).success(function() {
                 notificationService.displaySuccess("Success");
@@ -58,6 +62,26 @@
                 notificationService.displaySuccess("Success");
                 helperLib.deleteItem(role, user.AspNetRoles);
             }).error(function(err) {
+                notificationService.displayError("Something went wrong");
+                console.log(err);
+            });
+        };
+
+        $scope.addAccessZone = function (user, accessZone) {
+            userFactory.addAccessZone(user, accessZone).success(function () {
+                notificationService.displaySuccess("Success");
+                user.EmployeeAccessZoneMaps.push({"AccessZone": accessZone});
+                $scope.addAccessZoneMode = false;
+            }).error(function (err) {
+                notificationService.displayError("Something went wrong");
+                console.log(err);
+            });
+        };
+        $scope.removeAccessZone = function (user, zoneMap) {
+            userFactory.removeAccessZone(user, zoneMap.AccessZone).success(function () {
+                notificationService.displaySuccess("Success");
+                helperLib.deleteItem(zoneMap, user);
+            }).error(function (err) {
                 notificationService.displayError("Something went wrong");
                 console.log(err);
             });
@@ -82,6 +106,10 @@
 
         $scope.toggleAddRoleMode = function(user) {
             user.addRoleMode = !user.addRoleMode;
+        };
+
+        $scope.toggleAddAccessZoneMode = function (user) {
+            user.addAccessZoneMode = !user.addAccessZoneMode;
         };
 
         $scope.toggleResetPassword = function(user) {
@@ -121,13 +149,17 @@
         $scope.openProfile = function (user) {
             $scope.selectedUser = user;
             var modalInstance = $uibModal.open({
-                templateUrl: "scripts/App/User/usermodaltemplate.html"
+                templateUrl: "scripts/App/User/usermodaltemplate.html",
+                controller: ['$scope', '$uibModal', 'items', function($scope, $uibModal, items) {
+                    $scope.selectedUser = items.selectedUser;
+                    $scope.loggedInUser = items.loggedInUser;
+                }],
 //                size: size,
-//                resolve: {
-//                    items: function () {
-//                        return $scope.items;
-//                    }
-//                }
+                resolve: {
+                    items: function() {
+                        return { "selectedUser": $scope.selectedUser, "loggedInUser": $scope.loggedInUser };
+                    }
+                }
             });
         }
 

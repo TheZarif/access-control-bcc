@@ -18,7 +18,7 @@ namespace ACMVC.Controllers
         {
             var accessZone = db.AccessZones.ToList();
             return Json(
-                accessZone.Select(x => new {
+                accessZone.Select(x => new AccessZone{
                     Id = x.Id,
                     Name = x.Name,
                     Floor = x.Floor,
