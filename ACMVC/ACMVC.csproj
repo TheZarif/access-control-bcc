@@ -369,8 +369,6 @@
     <Content Include="Scripts\App\User\fileUploadCtrl.js" />
     <Content Include="Scripts\App\User\userCtrl.js" />
     <Content Include="Scripts\App\User\userdetails-employee.html" />
-    <Content Include="Scripts\App\User\userdetails.html" />
-    <Content Include="Scripts\App\User\userDetailsCtrl.js" />
     <Content Include="Scripts\App\User\userDetailsDirective.js" />
     <Content Include="Scripts\App\User\userFactory.js" />
     <Content Include="Scripts\App\User\usermodaltemplate.html" />
