@@ -6,14 +6,21 @@
     issueCardCtrl.$inject = ['$scope', "cardFactory", "userFactory", "appointmentFactory", 'notificationService'];
 
     function issueCardCtrl($scope, cardFactory, userFactory, appointmentFactory, notificationService) {
-        $scope.newIssueCard = {};
-        $scope.cards = {};
-        $scope.users = {};
-        $scope.appointments = {};
-        $scope.userLoaded = false;
-        $scope.selectedUser = null;
-        $scope.selectedAppointments = [];
 
+
+        function init() {
+            $scope.newIssueCard = {};
+            $scope.cards = {};
+            $scope.users = {};
+            $scope.appointments = {};
+            $scope.userLoaded = false;
+            $scope.selectedUser = { DisplayName: "" };
+            $scope.selectedAppointments = [];
+            $scope.selectedCard = {};
+        }
+
+        init();
+        
 
         $scope.$watch("selectedUser", function (newVal, oldVal) {
             if ($scope.selectedUser.Id) { $scope.getAppointments() };
@@ -26,21 +33,29 @@
                 });
         });
 
-        $scope.issueCard = function (object) {
+        $scope.$watch("selectedCard.cardIdNumber", function (newVal) {
+            cardFactory.getCardNumberAutocomplete(newVal).then(function (data) {
+                $scope.cards = data.data;
+            }, function (err) {
+                console.log(err);
+            });
+        }, true);
+
+        $scope.issueCard = function () {
             notificationService.displaySuccess("Card Issued");
-            $scope.newIssueCard = {};
+            init();
         }
 
         $scope.getAppointments = function () {
             var userId = $scope.selectedUser.Id;
             appointmentFactory.getAppointmentsForDay(userId).success(function (data) {
                 $scope.appointments = data;
-            }).error(function(err) {
+            }).error(function (err) {
                 console.log(err);
             });
         }
 
-        $scope.selectAppointment = function(appointment) {
+        $scope.selectAppointment = function (appointment) {
             $scope.selectedAppointments.push(appointment);
             appointment.isApproved = true;
         }
@@ -50,9 +65,6 @@
             appointment.isApproved = false;
         }
 
-        $scope.issueCard = function() {
-            
-        }
-       
+
     }
 })(angular.module('accessControl'));

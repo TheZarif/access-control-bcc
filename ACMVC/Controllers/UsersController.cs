@@ -82,7 +82,6 @@ namespace ACMVC.Controllers
         public JsonResult GetByDesignation()
         {
             List<Designation> designations = db.Designations.OrderByDescending(x => x.Order).ToList();
-            List<AspNetUser> users;
 
             designations = designations.Select(x => new Designation()
             {
@@ -501,6 +500,20 @@ namespace ACMVC.Controllers
         public JsonResult GetAccessZones(AspNetUser user)
         {
             var accessZones = user.EmployeeAccessZoneMaps;
+            return Json("");
+        }
+
+        [HttpPost]
+        public JsonResult VerifyUser(AspNetUser user)
+        {
+            var dbUser = db.AspNetUsers.Find(user.Id);
+            if (dbUser == null)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json("No such user exists");
+            }
+            dbUser.IsVerified = 1;
+            db.SaveChanges();
             return Json("");
         }
 

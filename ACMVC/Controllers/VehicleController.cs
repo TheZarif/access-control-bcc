@@ -15,12 +15,6 @@ namespace ACMVC.Controllers
     {
         private TestEntities db = new TestEntities();
 
-        // GET: Vehicle
-        public ActionResult Index()
-        {
-            return View(db.VehicleInfoes.ToList());
-        }
-
         public JsonResult GetAll(int? page, string search)
         {
             List<VehicleInfo> vehicles;

@@ -1,22 +1,30 @@
-﻿<hr/>
-<div class="container">
+﻿<hr />
+<div class="container col-md-12">
     <h3>Last 5 appointments</h3>
-    <table class="table table-bordered table-responsive" ng-if="appointments.length > 0">
-        <tr>
-            <td>Id</td>
-            <td>To</td>
-            <td>By</td>
-            <td>Status</td>
-        </tr>
-        <tr ng-repeat="appointment in appointments | limitTo:5">
-            <td>{{appointment.Id}}</td>
-            <td>{{appointment.AspNetUserTo.Email}}, {{appointment.AspNetUserTo.Designation}}<br/></td>
-            <td>{{appointment.AspNetUserBy.Email}}, {{appointment.AspNetUserBy.Designation}}<br/></td>
-            <td>{{appointment.AppointmentStatu.Name}}</td>
-        </tr>
-        <tr ng-if="appointments">
-            <td colspan="4" class="text-center"><a ng-href="#/appointments">Show all</a></td>
-        </tr>
-    </table>
+
+    <div class="alert-info" ng-if="appointments.length==0">
+        <i class="glyphicon glyphicon-info-sign"></i> No appointments to show today
+    </div>
+    <div ng-repeat="appointment in appointments | limitTo:5" class="appointment-item panel panel-default">
+        <div class="panel-body">
+            <div>Appointment Id: {{appointment.Id}}</div>
+            <div class="col-md-3 col-lg-3" align="center">
+                <img alt="User Pic" src="{{appointment.AspNetUserTo.ImageUrl}}" class="img-circle img-responsive">
+            </div>
+            <div>TO: {{appointment.AspNetUserTo.FullName}}</div>
+            <div>BY: {{appointment.AspNetUserBy.FullName}}</div>
+            <div>Purpose: {{appointment.Purpose}}</div>
+            <div>Status: {{appointment.AppointmentStatu.Name}}</div>
+            <div>{{getDate(appointment.Time) | date:"MM/dd/yyyy h:mma"}}</div>
+            <div>
+                <button id="button1id" name="button1id" class="btn btn-success" ng-hide="appointment.isApproved" ng-click="selectAppointment(appointment)">Approve</button>
+                <button id="button2id" name="button2id" class="btn btn-danger" ng-show="appointment.isApproved" ng-click="removeAppointment(appointment)">Reject</button>
+            </div>
+        </div>
+    </div>
+    <div ng-if="appointments">
+        <td colspan="4" class="text-center"><a ng-href="#/appointments">Show all</a></td>
+    </div>
+
     <div ng-hide="appointments.length > 0"> No appointments to show</div>
 </div>

@@ -154,6 +154,8 @@
           <Property Name="LicenseNo" Type="varchar" MaxLength="50" />
           <Property Name="IsDelete" Type="varchar" MaxLength="10" />
           <Property Name="Status" Type="varchar" MaxLength="10" />
+          <Property Name="TagNumber" Type="nchar" MaxLength="50" />
+          <Property Name="AccessType" Type="int" />
         </EntityType>
         <EntityType Name="Appointment">
           <Key>
@@ -928,6 +930,8 @@
           <Property Name="LicenseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsDelete" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TagNumber" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="AccessType" Type="Int32" />
         </EntityType>
         <EntityType Name="Appointment">
           <Key>
@@ -1184,6 +1188,8 @@
           <EntitySetMapping Name="VehicleInfoes">
             <EntityTypeMapping TypeName="TestModel.VehicleInfo">
               <MappingFragment StoreEntitySet="VehicleInfo">
+                <ScalarProperty Name="AccessType" ColumnName="AccessType" />
+                <ScalarProperty Name="TagNumber" ColumnName="TagNumber" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="LicenseNo" ColumnName="LicenseNo" />

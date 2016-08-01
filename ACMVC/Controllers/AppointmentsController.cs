@@ -56,13 +56,16 @@ namespace ACMVC.Controllers
                     {
                         Id = x.AspNetUserBy.Id,
                         UserName = x.AspNetUserBy.UserName,
-                        Email = x.AspNetUserBy.Email
+                        Email = x.AspNetUserBy.Email,
+                        FullName = x.AspNetUserBy.FullName
                     },
                     AspNetUserTo = new AspNetUser()
                     {
                         Id = x.AspNetUserTo.Id,
                         UserName = x.AspNetUserTo.UserName,
-                        Email = x.AspNetUserTo.Email
+                        Email = x.AspNetUserTo.Email,
+                        FullName = x.AspNetUserTo.FullName
+
                     }
                 }),
                 Pager = pager

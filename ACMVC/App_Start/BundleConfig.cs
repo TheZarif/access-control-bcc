@@ -47,7 +47,8 @@ namespace ACMVC
                        "~/Scripts/App/Role/*.js",
                        "~/Scripts/App/IssueCard/*.js",
                        "~/Scripts/App/Designation/*.js",
-                       "~/Scripts/App/Home/*.js"
+                       "~/Scripts/App/Home/*.js",
+                       "~/Scripts/App/Shared/*.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

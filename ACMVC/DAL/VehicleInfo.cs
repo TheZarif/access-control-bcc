@@ -24,5 +24,7 @@ namespace ACMVC.DAL
         public string LicenseNo { get; set; }
         public string IsDelete { get; set; }
         public string Status { get; set; }
+        public string TagNumber { get; set; }
+        public Nullable<int> AccessType { get; set; }
     }
 }

@@ -22,8 +22,10 @@
                 return $http.post(baseUrl + "cardinfoes/edit/" + card.Id, card);
             },
             getCardByNumber: function (number) {
-                console.log("cardFactory", number);
                 return $http.post(baseUrl + "cardinfoes/getall", {"Number": number});
+            },
+            getCardNumberAutocomplete: function(number) {
+                return $http.get(baseUrl + "cardinfoes/GetAutoComplete?idNumber=" + number);
             }
         };
     }

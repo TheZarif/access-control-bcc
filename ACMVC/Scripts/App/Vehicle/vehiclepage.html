@@ -4,7 +4,7 @@
         <div class="panel panel-primary" id="">
             <div class="panel-heading">
                 <h3 class="panel-title">Vehicle Admin Page</h3>
-                <input class="search-bar" placeholder="Search by vehicle number or owner" ng-model="search"/><i class="glyphicon glyphicon-search" ng-click="searchItems()"></i>
+                <input type="text" class="form-control" class="search-bar" placeholder="Search by vehicle number or owner" ng-model="search"/><i class="glyphicon glyphicon-search" ng-click="searchItems()"></i>
                 
             </div>
 
@@ -15,6 +15,7 @@
                             <div class="btn-toolbar"><span class="btn btn-primary" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-plus"></i></span></div>
                         </th>
                         <th>Vehicle No.</th>
+                        <th>RFID Tag</th>
                         <th>Owner Name</th>
                         <th>Owner address</th>
                         <th>Driver Name</th>
@@ -31,22 +32,25 @@
                             </div>
                         </td>
                         <td>
-                            <input ng-model="newVehicle.VehicleNo" />
+                            <input type="text" class="form-control" ng-model="newVehicle.VehicleNo"/>
                         </td>
                         <td>
-                            <input ng-model="newVehicle.OwnerName" />
+                            <input type="text" class="form-control" ng-model="newVehicle.TagNumber" />
                         </td>
                         <td>
-                            <input ng-model="newVehicle.OwnerAddress" />
+                            <input type="text" class="form-control" ng-model="newVehicle.OwnerName" />
                         </td>
                         <td>
-                            <input ng-model="newVehicle.DriverName" />
+                            <input type="text" class="form-control" ng-model="newVehicle.OwnerAddress" />
                         </td>
                         <td>
-                            <input ng-model="newVehicle.DriverDetails" />
+                            <input type="text" class="form-control" ng-model="newVehicle.DriverName" />
                         </td>
                         <td>
-                            <input ng-model="newVehicle.LicenseNo" />
+                            <input type="text" class="form-control" ng-model="newVehicle.DriverDetails" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" ng-model="newVehicle.LicenseNo" />
                         </td>
                     </tr>
                     <tr ng-repeat="vehicle in vehicles">
@@ -66,27 +70,31 @@
                         </td>
                         <td>
                             <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.VehicleNo}}</span>
-                            <input ng-model="vehicle.VehicleNo" ng-show="vehicle.editMode == true" />
+                            <input type="text" class="form-control" ng-model="vehicle.VehicleNo" ng-show="vehicle.editMode == true"/>
+                        </td>
+                        <td>
+                            <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.TagNumber}}</span>
+                            <input type="text" class="form-control" ng-model="vehicle.TagNumber" ng-show="vehicle.editMode == true" />
                         </td>
                         <td>
                             <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.OwnerName}}</span>
-                            <input ng-model="vehicle.OwnerName" ng-show="vehicle.editMode == true" />
+                            <input type="text" class="form-control" ng-model="vehicle.OwnerName" ng-show="vehicle.editMode == true" />
                         </td>
                         <td>
                             <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.OwnerAddress}}</span>
-                            <input ng-model="vehicle.OwnerAddress" ng-show="vehicle.editMode == true" />
+                            <input type="text" class="form-control" ng-model="vehicle.OwnerAddress" ng-show="vehicle.editMode == true" />
                         </td>
                         <td>
                             <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.DriverName}}</span>
-                            <input ng-model="vehicle.DriverName" ng-show="vehicle.editMode == true" />
+                            <input type="text" class="form-control" ng-model="vehicle.DriverName" ng-show="vehicle.editMode == true" />
                         </td>
                         <td>
                             <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.DriverDetails}}</span>
-                            <input ng-model="vehicle.DriverDetails" ng-show="vehicle.editMode == true" />
+                            <input type="text" class="form-control" ng-model="vehicle.DriverDetails" ng-show="vehicle.editMode == true" />
                         </td>
                         <td>
                             <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.LicenseNo}}</span>
-                            <input ng-model="vehicle.LicenseNo" ng-show="vehicle.editMode == true" />
+                            <input type="text" class="form-control" ng-model="vehicle.LicenseNo" ng-show="vehicle.editMode == true" />
                         </td>
                     </tr>
                 </table>

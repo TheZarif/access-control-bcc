@@ -219,7 +219,9 @@
         </div>
         <div class="panel-footer" ng-hide="viewMode">
             <a ng-show="user.IsEmployee" ng-href="#/addappointment/{{user.Id}}" type="button" class="btn btn-sm btn-primary">Make Appointment <i class="glyphicon glyphicon-envelope"></i></a>
-            .
+            <span class="btn btn-primary" ng-if="user.IsVerified !== 1" ng-click="verifyUser()">Mark user verified</span>
+            <span class="text-info" ng-if="user.IsVerified === 1">Verified <i class="glyphicon glyphicon-check"></i> </span>
+            <span class="text-info" ng-if="user.IsEmployee">Employee <i class="glyphicon glyphicon-info-sign"></i> </span>
             <span class="pull-right" ng-if="isSelf() || userData.isAdmin">
                 <a ng-click="toggleEditMode()" ng-hide="editMode" type="button" class="btn btn-sm btn-warning">Edit <i class="glyphicon glyphicon-edit"></i></a>
                 <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>

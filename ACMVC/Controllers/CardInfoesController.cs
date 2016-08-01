@@ -120,6 +120,13 @@ namespace ACMVC.Controllers
             return Json("");
         }
 
+        [HttpGet]
+        public JsonResult GetAutoComplete(string idNumber)
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+            return Json(db.CardInfoes.Where(c => c.IdNumber.Contains(idNumber)).Take(7).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -360,6 +360,7 @@
     <Content Include="Scripts\App\Role\roleFactory.js" />
     <Content Include="Scripts\App\Role\rolePage.html" />
     <Content Include="Scripts\App\rootCtrl.js" />
+    <Content Include="Scripts\App\Shared\authorizationFactory.js" />
     <Content Include="Scripts\App\Status\index.html" />
     <Content Include="Scripts\App\Status\statusCtrl.js" />
     <Content Include="Scripts\App\Status\statusFactory.js" />

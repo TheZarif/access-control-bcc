@@ -72,6 +72,14 @@
                         });
                 };
 
+                $scope.verifyUser = function() {
+                    userFactory.verifyUser($scope.user).success(function() {
+                        $scope.user.IsVerified = 1;
+                    }).error(function(err) {
+                        notificationService.displayError(err);
+                    });
+                }
+
                 $scope.updateOfficial = function () {
                     userFactory.updateUserOfficial($scope.tempUser)
                         .success(function (data) {

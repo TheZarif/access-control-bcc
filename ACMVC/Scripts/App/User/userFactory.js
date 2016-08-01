@@ -78,6 +78,9 @@
             },
             getProfileCompletion: function(id) {
                 return $http.get(baseUrl + "Users/ProfileCompletionPercent?userId=" + id);
+            },
+            verifyUser: function(user) {
+                return $http.post(baseUrl + "Users/VerifyUser", user);
             }
         };
     }

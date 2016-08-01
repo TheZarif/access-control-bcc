@@ -4,52 +4,58 @@
 
     <h3> Issue Card </h3>
 
-    <div class="row container">
-        <div class="col-md-2"><strong>Visitor Name:</strong></div>
-        <input id="" name=""
-               ng-model="selectedUser"
-               uib-typeahead="user as user.DisplayName for user in users"
-               type="text" placeholder="Enter name of person you wish to meet" class="form-control input-md" required="">
-    </div>
 
-    <div ng-if="selectedUser && selectedUser.Id">
 
-        <div class="col-md-8 ">
-            <div user-profile="" user-info="selectedUser" self="userData" view-mode="true"></div>
+    <form role="issueCardForm">
+        <div class="col-md-12">
+            <label for="visitorName">Visitor Name</label>
+            <input class="form-control" type="text" id="visitorName"
+                   ng-model="selectedUser"
+                   uib-typeahead="user as user.DisplayName for user in users"
+                   type="text" placeholder="Name of visitor" class="form-control input-md" required="">
+        </div>
 
-            <div class="form-group">
-                <label class="col-md-2 control-label" for="textinput">Card Number</label>
-                <div class="col-md-6">
-                    <input type="text" placeholder="xxxxxxxxxxx" class="form-control input-md" ng-model="cardIdNumber">
 
+        <div ng-if="selectedUser && selectedUser.Id">
+            <div class="row container">
+                <div class="col-md-8">
+                    <div user-profile="" user-info="selectedUser" self="userData" view-mode="true"></div>
                 </div>
+
+                <div class="col-md-4">
+                    <h4>Appointments Today</h4>
+                    <div class="alert-info" ng-if="appointments.length==0">
+                        <i class="glyphicon glyphicon-info-sign"></i> No appointments to show today
+                    </div>
+                    <div ng-repeat="appointment in appointments" class="appointment-item panel panel-default">
+                        <div class="panel-body">
+                            <div>Appointment Id: {{appointment.Id}}</div>
+                            <div>
+                                <img ng-src="appointment.AspNetUserTo.ImageUrl"/>
+                            </div>
+                            <div>TO: {{appointment.AspNetUserTo.FullName}}, {{appointment.AspNetUserTo.Designation}}</div>
+                            <div>Purpose: {{appointment.Purpose}}</div>
+                            <div>Status: {{appointment.AppointmentStatu.Name}}</div>
+                            <div>{{getDate(appointment.Time) | date:"MM/dd/yyyy h:mma"}}</div>
+                            <button id="button1id" name="button1id" class="btn btn-success" ng-hide="appointment.isApproved" ng-click="selectAppointment(appointment)">Approve</button>
+                            <button id="button2id" name="button2id" class="btn btn-danger" ng-show="appointment.isApproved" ng-click="removeAppointment(appointment)">Reject</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="col-md-8 control-label" for="cardNumber">Card Number</label>
+                <input ng-model="selectedCard.cardIdNumber" id="cardNumber"
+                       uib-typeahead="card.IdNumber for card in cards"
+                       type="text" placeholder="card number" class="form-control input-md" required="">
+            </div>
+
+            <div class="col-md-6">
+                <span class="btn btn-default col-md-4" ng-click="issueCard()">Issue Card</span>
             </div>
         </div>
-
-        <div class="col-md-4">
-            <h4>Appointments Today</h4>
-            <div ng-repeat="appointment in appointments" class="appointment-item panel panel-default">
-                <div>Appointment Id: {{appointment.Id}}</div>
-                <div>
-                    <img ng-src="appointment.AspNetUserTo.ImageUrl" />
-                </div>
-                <div>TO: {{appointment.AspNetUserTo.FullName}}, {{appointment.AspNetUserTo.Designation}}</div>
-                <div>Purpose: {{appointment.Purpose}}</div>
-                <div>Status: {{appointment.AppointmentStatu.Name}}</div>
-                <div>{{getDate(appointment.Time) | date:"MM/dd/yyyy h:mma"}}</div>
-                <button id="button1id" name="button1id" class="btn btn-success" ng-hide="appointment.isApproved" ng-click="selectAppointment(appointment)">Approve</button>
-                <button id="button2id" name="button2id" class="btn btn-danger" ng-show="appointment.isApproved" ng-click="removeAppointment(appointment)">Reject</button>
-
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <h4>Last 5 Logs</h4>
-        </div>
-
-        <div>
-            <span class="btn btn-default" ng-click="issueCard()">Issue Card</span>
-        </div>
-    </div>
-
+    </form>
 </div>

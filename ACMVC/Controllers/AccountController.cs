@@ -27,12 +27,16 @@ namespace ACMVC.Controllers
             {
                 var Username = User.Identity.Name;
                 var id = User.Identity.GetUserId();
-                var roles = new TestEntities().AspNetUsers.Find(id).AspNetRoles.Select(x => new AspNetRole()
+                var db = new TestEntities();;
+               
+                var user = db.AspNetUsers.Find(id);
+                var roles = user.AspNetRoles.Select(x => new AspNetRole()
                 {
                     Id = x.Id,
                     Name = x.Name
                 });
-                return Json(new {Id = id, UserName = Username, Roles = roles}, JsonRequestBehavior.AllowGet);
+                var isEmployee = user.IsEmployee;
+                return Json(new {Id = id, UserName = Username, Roles = roles, IsEmployee = isEmployee}, JsonRequestBehavior.AllowGet);
             }
             else
             {
