@@ -40,5 +40,6 @@ namespace ACMVC.DAL
         public virtual DbSet<AppointmentStatu> AppointmentStatus { get; set; }
         public virtual DbSet<DeviceType> DeviceTypes { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
+        public virtual DbSet<VehicleLog> VehicleLogs { get; set; }
     }
 }

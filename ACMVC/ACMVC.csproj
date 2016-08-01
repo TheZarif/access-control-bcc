@@ -190,6 +190,7 @@
     <Compile Include="Controllers\UserCardMapsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
+    <Compile Include="Controllers\VehicleLogsController.cs" />
     <Compile Include="Controllers\ZonesController.cs" />
     <Compile Include="DAL\AccessZone.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
@@ -249,6 +250,9 @@
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\VehicleInfo.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\VehicleLog.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -377,6 +381,9 @@
     <Content Include="Scripts\App\User\userprofile.html" />
     <Content Include="Scripts\App\User\userPublicCtrl.js" />
     <Content Include="Scripts\App\User\userspublic.html" />
+    <Content Include="Scripts\App\VehicleLogs\VehicleLogCtrl.js" />
+    <Content Include="Scripts\App\VehicleLogs\VehicleLogFactory.js" />
+    <Content Include="Scripts\App\VehicleLogs\vehiclelogs.html" />
     <Content Include="Scripts\App\Vehicle\vehicleCtrl.js" />
     <Content Include="Scripts\App\Vehicle\vehicleFactory.js" />
     <Content Include="Scripts\App\Vehicle\vehiclepage.html" />
@@ -1220,6 +1227,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="UploadedFiles\" />
     <Folder Include="Views\Roles\" />
+    <Folder Include="Views\VehicleLogs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

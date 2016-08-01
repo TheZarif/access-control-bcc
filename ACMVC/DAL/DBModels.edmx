@@ -157,6 +157,16 @@
           <Property Name="TagNumber" Type="nchar" MaxLength="50" />
           <Property Name="AccessType" Type="int" />
         </EntityType>
+        <EntityType Name="VehicleLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehicleId" Type="int" Nullable="false" />
+          <Property Name="IsEntry" Type="bit" Nullable="false" />
+          <Property Name="TagNumber" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Appointment">
           <Key>
             <PropertyRef Name="Id" />
@@ -437,6 +447,7 @@
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCardMap" EntityType="Self.UserCardMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehicleInfo" EntityType="Self.VehicleInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleLog" EntityType="Self.VehicleLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="lmxacdb" store:Type="Tables" />
           <EntitySet Name="AppointmentStatus" EntityType="Self.AppointmentStatus" Schema="lmxacdb" store:Type="Tables" />
           <EntitySet Name="Designation" EntityType="Self.Designation" Schema="lmxacdb" store:Type="Tables" />
@@ -915,6 +926,7 @@
             <End Role="Designation" EntitySet="Designations" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="VehicleLogs" EntityType="TestModel.VehicleLog" />
         </EntityContainer>
         <EntityType Name="VehicleInfo">
           <Key>
@@ -1034,6 +1046,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="VehicleLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleId" Type="Int32" Nullable="false" />
+          <Property Name="IsEntry" Type="Boolean" Nullable="false" />
+          <Property Name="TagNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1238,6 +1260,17 @@
               <MappingFragment StoreEntitySet="Designation">
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleLogs">
+            <EntityTypeMapping TypeName="TestModel.VehicleLog">
+              <MappingFragment StoreEntitySet="VehicleLog">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="TagNumber" ColumnName="TagNumber" />
+                <ScalarProperty Name="IsEntry" ColumnName="IsEntry" />
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

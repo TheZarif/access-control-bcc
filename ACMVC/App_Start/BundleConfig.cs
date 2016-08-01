@@ -48,6 +48,7 @@ namespace ACMVC
                        "~/Scripts/App/IssueCard/*.js",
                        "~/Scripts/App/Designation/*.js",
                        "~/Scripts/App/Home/*.js",
+                       "~/Scripts/App/VehicleLogs/*.js",
                        "~/Scripts/App/Shared/*.js"
                 ));
 

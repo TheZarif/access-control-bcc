@@ -58,6 +58,10 @@
                 templateUrl: "scripts/App/Vehicle/vehiclepage.html",
                 controller: "vehicleCtrl"
             })
+            .when("/vehicleLogs", {
+                templateUrl: "scripts/App/VehicleLogs/vehiclelogs.html",
+                controller: "vehicleLogCtrl"
+            })
             .when("/appointments/:userId?", {
                 templateUrl: "scripts/App/Appointment/allappointmentspage.html",
                 controller: "appointmentCtrl"
