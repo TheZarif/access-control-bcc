@@ -24,7 +24,7 @@
                             <label class="col-md-4 control-label" for="filebutton">Upload Photo</label>
                             <div class="col-md-4">
                                 <!-- <input id="filebutton" name="filebutton" class="input-file" type="file">-->
-                                <button type="file" ngf-select="uploadFiles($file, $invalidFiles, user.Id)"
+                                <button type="file" class="btn btn-primary" ngf-select="uploadFiles($file, $invalidFiles, user.Id)"
                                         accept="image/*" ngf-max-height="1000" n gf-max-size="1MB">
                                     Select File
                                 </button>
@@ -44,25 +44,25 @@
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="textinput">Username</label>
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <input id="textinput" ng-model="user.UserName" type="text" placeholder="Name" class="form-control input-md">
-                                <span class="help-block">Edit phone number</span>
+                                <span class="help-block">Edit Username</span>
                             </div>
                         </div>
 
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="textinput">Full Name</label>
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <input id="textinput" ng-model="user.FullName" type="text" placeholder="Name" class="form-control input-md">
-                                <span class="help-block">Edit phone number</span>
+                                <span class="help-block">Edit Full Name</span>
                             </div>
                         </div>
 
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="textinput">Phone</label>
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <input id="textinput" ng-model="user.PhoneNumber" type="text" placeholder="+8801xxxxxxxxx" class="form-control input-md">
                                 <span class="help-block">Edit phone number</span>
                             </div>
@@ -71,7 +71,7 @@
                         <!-- Select Basic -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="gender">Gender</label>
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <select id="gender" class="form-control" ng-model="user.Gender">
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
@@ -82,7 +82,7 @@
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="bloodgroup">Blood Group</label>
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <input id="bloodgroup" ng-model="user.BloodGroup" type="text" placeholder="B+/A/A-/,,," class="form-control input-md">
                                 <span class="help-block">Enter your blood group</span>
                             </div>
@@ -91,7 +91,7 @@
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="nidinpud">NID</label>
-                            <div class="col-md-4">
+                            <div class="col-md-8">
                                 <input id="nidinpud" ng-model="user.NId" type="text" placeholder="xxxxxxxxxxxxxxxxxxxx" class="form-control input-md">
                                 <span class="help-block">Enter your National Id</span>
                             </div>
@@ -118,7 +118,7 @@
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="professioninput">Profession</label>
-                            <div class="col-md-5">
+                            <div class="col-md-8">
                                 <input id="professioninput" ng-model="user.Profession" type="text" placeholder="Professor at Dhaka University" class="form-control input-md">
                                 <span class="help-block">Enter your profession and place of work</span>
                             </div>
@@ -218,7 +218,7 @@
             </div>
         </div>
         <div class="panel-footer" ng-hide="viewMode">
-            <a ng-show="user.IsEmployee" ng-href="#/addappointment/{{user.Id}}" type="button" class="btn btn-sm btn-primary">Make Appointment <i class="glyphicon glyphicon-envelope"></i></a>
+            <a ng-show="user.IsEmployee" ng-href="#/addappointment/{{user.Id}}" type="button" class="btn btn-sm btn-primary"> Make Appointment &nbsp;<i class="glyphicon glyphicon-envelope"></i></a>
             <span class="btn btn-primary" ng-if="user.IsVerified !== 1" ng-click="verifyUser()">Mark user verified</span>
             <span class="text-info" ng-if="user.IsVerified === 1">Verified <i class="glyphicon glyphicon-check"></i> </span>
             <span class="text-info" ng-if="user.IsEmployee">Employee <i class="glyphicon glyphicon-info-sign"></i> </span>

@@ -1,24 +1,37 @@
-﻿<hr />
+﻿
 <div ng-controller="userPublicCtrl">
-    <div class="container">
-        <h3>All Employees</h3>
-        <div id="user-thumbnails">
+    <div class="col-md-10">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-list"></span> &nbsp; All Employees
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <div id="user-thumbnails">
 
-            <div ng-repeat="designation in designations">
-                <h4>{{designation.Name}}</h4>
+                        <div ng-repeat="designation in designations">
+                           
+                            <div class="col-md-6">
+                                <div class="panel panel-info user-thumbnail" ng-repeat="user in designation.AspNetUsers">
+                                    <h4 style="text-align: center;">{{designation.Name}}</h4>
+                                    <div class="panel-body">
+                                        <div><strong>{{user.FullName}}</strong></div>
+                                        <div>Phone: {{user.PhoneNumber}}</div>
+                                        <div>Email: {{user.Email}}</div>
+                                        <a class="btn btn-info pull-right" ng-href="#/appointments/{{user.Id}}">Get Appointment</a>
+                                    </div>
 
-                
-                    <div class="panel panel-default col-md-3 user-thumbnail" ng-repeat="user in designation.AspNetUsers">
-                        <div class="panel-body">
-                            <div><strong>{{user.FullName}}</strong></div>
-                            <div>Phone: {{user.PhoneNumber}}</div>
-                            <div>Email: {{user.Email}}</div>
-                            <a class="btn btn-info col-md-12" ng-href="#/appointments/{{user.Id}}" >Get Appointment</a>
+                                </div>
+                            </div>
+                            
+
                         </div>
+
                     </div>
+                </div>
+
 
             </div>
-
         </div>
     </div>
 </div>

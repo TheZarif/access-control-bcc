@@ -1,9 +1,10 @@
-﻿<hr />
-<div class="row">
+﻿
+<div class="row toppadding">
     <div class="col-md-8">
         <div class="panel panel-primary" id="">
             <div class="panel-heading">
-                <h3 class="panel-title">Device Admin Page</h3>
+                <span class="glyphicon glyphicon-briefcase"></span>&nbsp; Device Admin Page
+                
             </div>
 
             <div class="panel-body">
@@ -30,22 +31,22 @@
                                 </div>
                             </div>
                         </td>
-                        <td><input ng-model="newDevice.Name" size="10"/></td>
-                        <td><input ng-model="newDevice.IP" size="10"/></td>
-                        <td><input ng-model="newDevice.Port" size="10"/></td>
+                        <td><input ng-model="newDevice.Name" size="10" class="form-control"/></td>
+                        <td><input ng-model="newDevice.IP" size="10" class="form-control" /></td>
+                        <td><input ng-model="newDevice.Port" size="10" class="form-control" /></td>
                         <td>
-                            <select ng-model="newDevice.DeviceTypeId" >
+                            <select ng-model="newDevice.DeviceTypeId" class="form-control">
                                 <option value="1">Door</option>
                                 <option value="2">FlapGate</option>
                                 <option value="3">Vehicle Control</option>
                             </select>
                         </td>
-                        <td><input ng-model="newDevice.DeviceSDK" size="10"/></td>
-                        <td><input ng-model="newDevice.DUser" size="10"/></td>
-                        <td><input ng-model="newDevice.DPass" size="10"/></td>
+                        <td><input ng-model="newDevice.DeviceSDK" size="10" class="form-control" /></td>
+                        <td><input ng-model="newDevice.DUser" size="10" class="form-control" /></td>
+                        <td><input ng-model="newDevice.DPass" size="10" class="form-control" /></td>
                         <td>
                             <select ng-model="newDevice.AccessZoneId"
-                                    ng-options="zone.Id as zone.Name for zone in zones"></select>
+                                    ng-options="zone.Id as zone.Name for zone in zones" class="form-control"></select>
                         </td>
                     </tr>
                     <tr ng-repeat="device in devices">
@@ -65,40 +66,39 @@
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.Name}}</span>
-                            <input ng-model="device.Name" ng-show="device.editMode == true" size="10"/>
+                            <input ng-model="device.Name" class="form-control" ng-show="device.editMode == true" size="10" />
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.IP}}</span>
-                            <input ng-model="device.IP" ng-show="device.editMode == true" size="10"/>
+                            <input ng-model="device.IP" class="form-control" ng-show="device.editMode == true" size="10" />
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.Port}}</span>
-                            <input ng-model="device.Port" ng-show="device.editMode == true" size="10"/>
+                            <input ng-model="device.Port" class="form-control" ng-show="device.editMode == true" size="10" />
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.DeviceType.Name}}</span>
 
                             <select ng-show="device.editMode == true" ng-model="device.DeviceTypeId"
-                                    ng-options="DeviceType.Id as DeviceType.Name for DeviceType in DeviceTypes"></select>
+                                    ng-options="DeviceType.Id as DeviceType.Name for DeviceType in DeviceTypes" class="form-control"></select>
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.DeviceSDK}}</span>
-                            <input ng-model="device.DeviceSDK" ng-show="device.editMode == true" size="10"/>
+                            <input ng-model="device.DeviceSDK" class="form-control"  ng-show="device.editMode == true" size="10" />
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.DUser}}</span>
-                            <input ng-model="device.DUser" ng-show="device.editMode == true" size="10"/>
+                            <input ng-model="device.DUser" class="form-control"  ng-show="device.editMode == true" size="10" />
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.DPass}}</span>
-                            <input ng-model="device.DPass" ng-show="device.editMode == true" size="10"/>
+                            <input ng-model="device.DPass" class="form-control" ng-show="device.editMode == true" size="10" />
                         </td>
                         <td>
                             <span ng-show="device.editMode == null || device.editMode == false">{{device.AccessZone.Name}}</span>
                             <select ng-show="device.editMode == true"
                                     ng-model="device.AccessZoneId"
-                                    ng-options="zone.Id as zone.Name for zone in zones">
-                            </select>
+                                    ng-options="zone.Id as zone.Name for zone in zones" class="form-control"></select>
                         </td>
                     </tr>
                 </table>

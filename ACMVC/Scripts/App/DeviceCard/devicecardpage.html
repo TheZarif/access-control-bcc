@@ -1,9 +1,9 @@
-﻿<hr />
-<div class="row">
+﻿
+<div class="row toppadding">
     <div class="col-md-8">
         <div class="panel panel-primary" id="">
             <div class="panel-heading">
-                <h3 class="panel-title">Device Card Admin Page</h3>
+                <span class="glyphicon glyphicon-stop"></span>&nbsp; Device Card Admin Page
             </div>
             <div class="panel-body">
                 <table class="table table-striped table-bordered table-condensed table-hover">
@@ -25,14 +25,14 @@
                             </div>
                         </td>
                         <td>
-                            <input type="text" ng-model="newDeviceCard.DeviceName" placeholder="Device Name" uib-typeahead="device.Name for device in devices | filter:$viewValue:startsWith" class="form-control">
+                            <input type="text" class="form-control" ng-model="newDeviceCard.DeviceName" placeholder="Device Name" uib-typeahead="device.Name for device in devices | filter:$viewValue:startsWith" class="form-control">
                         </td>
                         <td>
-                            <input type="text" ng-model="newDeviceCard.CardNumber" placeholder="Card Number" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith" class="form-control">
+                            <input type="text" class="form-control" ng-model="newDeviceCard.CardNumber" placeholder="Card Number" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith" class="form-control">
                         </td>
                         <td>
                             <select ng-model="newDeviceCard.StatusId"
-                                    ng-options="status.Id as status.Type for status in statuses"></select>
+                                    ng-options="status.Id as status.Type for status in statuses" class="form-control"></select>
                         </td>
                     </tr>
                     <tr ng-repeat="deviceCard in deviceCards">
@@ -53,18 +53,18 @@
                         <td>
                             <span ng-show="deviceCard.editMode == null || deviceCard.editMode == false">{{deviceCard.DeviceName}}</span>
                             <input type="text" ng-model="deviceCard.DeviceName" placeholder="Device Name" uib-typeahead="device.Name for device in devices | filter:$viewValue:startsWith"
-                                   class="form-control" ng-show="deviceCard.editMode == true">
+                                   class="form-control" ng-show="deviceCard.editMode == true" class="form-control">
                         </td>
                         <td>
                             <span ng-show="deviceCard.editMode == null || deviceCard.editMode == false">{{deviceCard.CardNumber}}</span>
                             <input type="text" ng-model="deviceCard.CardNumber" placeholder="Card Number" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith"
-                                   class="form-control" ng-show="deviceCard.editMode == true">
+                                   class="form-control" ng-show="deviceCard.editMode == true" class="form-control">
                         </td>
                         <td>
                             <span ng-show="deviceCard.editMode == null || deviceCard.editMode == false">{{deviceCard.StatusType}}</span>
                             <select ng-show="deviceCard.editMode == true"
                                     ng-model="deviceCard.StatusId"
-                                    ng-options="status.Id as status.Type for status in statuses"></select>
+                                    ng-options="status.Id as status.Type for status in statuses" class="form-control"></select>
                         </td>
                     </tr>
                 </table>

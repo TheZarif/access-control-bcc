@@ -1,9 +1,10 @@
-﻿<hr />
-<div class="row">
+﻿
+<div class="row toppadding">
     <div class="col-md-8">
         <div class="panel panel-primary" id="">
             <div class="panel-heading">
-                <h3 class="panel-title">Zone Admin Page</h3>
+                <span class="glyphicon glyphicon-tower"></span> &nbsp; Zone Admin Page
+                
             </div>
 
             <div class="panel-body">
@@ -26,13 +27,13 @@
                             </div>
                         </td>
                         <td>
-                            <input ng-model="newZone.Name" />
+                            <input ng-model="newZone.Name" class="form-control"/>
                         </td>
                         <td>
-                            <input ng-model="newZone.Floor" />
+                            <input ng-model="newZone.Floor" class="form-control" />
                         </td>
                         <td>
-                            <input ng-model="newZone.Description" />
+                            <input ng-model="newZone.Description" class="form-control" />
                         </td>
                     </tr>
                     <tr ng-repeat="zone in zones">
@@ -52,15 +53,15 @@
                         </td>
                         <td>
                             <span ng-show="zone.editMode == null || zone.editMode == false">{{zone.Name}}</span>
-                            <input ng-model="zone.Name" ng-show="zone.editMode == true" />
+                            <input ng-model="zone.Name" class="form-control" ng-show="zone.editMode == true" />
                         </td>
                         <td>
                             <span ng-show="zone.editMode == null || zone.editMode == false">{{zone.Floor}}</span>
-                            <input ng-model="zone.Floor" ng-show="zone.editMode == true" />
+                            <input ng-model="zone.Floor" class="form-control" ng-show="zone.editMode == true" />
                         </td>
                         <td>
                             <span ng-show="zone.editMode == null || zone.editMode == false">{{zone.Description}}</span>
-                            <input ng-model="zone.Description" ng-show="zone.editMode == true" />
+                            <input ng-model="zone.Description" class="form-control" ng-show="zone.editMode == true" />
                         </td>
                     </tr>
                 </table>

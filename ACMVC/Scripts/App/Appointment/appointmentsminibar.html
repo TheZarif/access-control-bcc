@@ -1,30 +1,41 @@
-﻿<hr />
+﻿
 <div class="container col-md-12">
-    <h3>Last 5 appointments</h3>
-
-    <div class="alert-info" ng-if="appointments.length==0">
-        <i class="glyphicon glyphicon-info-sign"></i> No appointments to show today
-    </div>
-    <div ng-repeat="appointment in appointments | limitTo:5" class="appointment-item panel panel-default">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-send"></span>&nbsp; Last 5 appointments
+        </div>
         <div class="panel-body">
-            <div>Appointment Id: {{appointment.Id}}</div>
-            <div class="col-md-3 col-lg-3" align="center">
-                <img alt="User Pic" src="{{appointment.AspNetUserTo.ImageUrl}}" class="img-circle img-responsive">
+            <div class="alert-info" ng-if="appointments.length==0">
+                <i class="glyphicon glyphicon-info-sign"></i> No appointments to show today
             </div>
-            <div>TO: {{appointment.AspNetUserTo.FullName}}</div>
-            <div>BY: {{appointment.AspNetUserBy.FullName}}</div>
-            <div>Purpose: {{appointment.Purpose}}</div>
-            <div>Status: {{appointment.AppointmentStatu.Name}}</div>
-            <div>{{getDate(appointment.Time) | date:"MM/dd/yyyy h:mma"}}</div>
-            <div>
-                <button id="button1id" name="button1id" class="btn btn-success" ng-hide="appointment.isApproved" ng-click="selectAppointment(appointment)">Approve</button>
-                <button id="button2id" name="button2id" class="btn btn-danger" ng-show="appointment.isApproved" ng-click="removeAppointment(appointment)">Reject</button>
+            <div ng-repeat="appointment in appointments | limitTo:5" class="appointment-item panel panel-default">
+                <div class="panel-body">
+                    <div><b>Appointment Id:</b> {{appointment.Id}}</div>
+                    <br/>
+                    <div class="col-md-3 col-lg-3" align="center">
+                        <img alt="User Pic" src="{{appointment.AspNetUserTo.ImageUrl}}" class="img-circle img-responsive">
+                    </div>
+                    <div class="col-md-offset-2">TO: {{appointment.AspNetUserTo.FullName}}</div>
+                    <div class="col-md-offset-2">BY: {{appointment.AspNetUserBy.FullName}}</div>
+                    <div class="col-md-offset-2">Purpose: {{appointment.Purpose}}</div>
+                    <div class="col-md-offset-3">Status: {{appointment.AppointmentStatu.Name}}</div>
+                    <div class="col-md-offset-2">{{getDate(appointment.Time) | date:"MM/dd/yyyy h:mma"}}</div>
+                    <br />
+                    <div class="">
+                        <button id="button1id" name="button1id" class="btn btn-success" ng-hide="appointment.isApproved" ng-click="selectAppointment(appointment)">Approve</button>
+                        <button id="button2id" name="button2id" class="btn btn-danger" ng-show="appointment.isApproved" ng-click="removeAppointment(appointment)">Reject</button>
+                    </div>
+                </div>
             </div>
+            <div ng-if="appointments">
+                <td colspan="4" class="text-center"><a ng-href="#/appointments">Show all</a></td>
+            </div>
+
+            <div ng-hide="appointments.length > 0"> No appointments to show</div>
         </div>
     </div>
-    <div ng-if="appointments">
-        <td colspan="4" class="text-center"><a ng-href="#/appointments">Show all</a></td>
-    </div>
 
-    <div ng-hide="appointments.length > 0"> No appointments to show</div>
+    <h3></h3>
+
+
 </div>

@@ -3,7 +3,7 @@
     <div class="col-md-8">
         <div class="panel panel-primary" id="">
             <div class="panel-heading">
-                <h3 class="panel-title">User Card Admin Page</h3>
+               <span class="glyphicon glyphicon-credit-card"></span>&nbsp; User Card Admin Page
             </div>
             <div class="panel-body">
                 <table class="table table-striped table-bordered table-condensed table-hover">
@@ -30,14 +30,14 @@
                             <user-auto-suggest user="newUserCard.U" placeholder="'Enter user to assign card'"></user-auto-suggest>
                         </td>
                         <td>
-                            <input type="text" ng-model="newUserCard.CardNumber" placeholder="Card Number" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith" class="form-control">
+                            <input type="text" class="form-control" ng-model="newUserCard.CardNumber" placeholder="Card Number" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith" class="form-control">
                         </td>
                         <td>
                             <select ng-model="newUserCard.StatusId"
-                                    ng-options="status.Id as status.Type for status in statuses"></select>
+                                    ng-options="status.Id as status.Type for status in statuses" class="form-control"></select>
                         </td>
                         <td>
-                            <input type="text" ng-model="newUserCard.Notes" placeholder="Notes"/>
+                            <input type="text" ng-model="newUserCard.Notes" placeholder="Notes" class="form-control" />
                         </td>
                     </tr>
                     <tr ng-repeat="userCard in userCards">
@@ -57,23 +57,23 @@
                         </td>
                         <td>
                             <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.Email}}</span>
-                            <input type="text" ng-model="userCard.Email" placeholder="Card Number" uib-typeahead="user.Email for user in users | filter:$viewValue:startsWith" 
-                                   class="form-control" ng-show="userCard.editMode == true">
+                            <input type="text" ng-model="userCard.Email" placeholder="Card Number" uib-typeahead="user.Email for user in users | filter:$viewValue:startsWith"
+                                   class="form-control" ng-show="userCard.editMode == true" class="form-control">
                         </td>
                         <td>
                             <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.CardNumber}}</span>
-                            <input type="text" ng-model="userCard.CardNumber" placeholder="User Name" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith" 
-                                   class="form-control" ng-show="userCard.editMode == true">
+                            <input type="text" ng-model="userCard.CardNumber" placeholder="User Name" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith"
+                                   class="form-control" ng-show="userCard.editMode == true" class="form-control">
                         </td>
                         <td>
                             <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.StatusType}}</span>
                             <select ng-show="userCard.editMode == true"
                                     ng-model="userCard.StatusId"
-                                    ng-options="status.Id as status.Type for status in statuses"></select>
+                                    ng-options="status.Id as status.Type for status in statuses" class="form-control"></select>
                         </td>
                         <td>
                             <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.Notes}}</span>
-                            <input type="text" ng-model="newUserCard.Notes" placeholder="Notes" ng-show="userCard.editMode==true"/>
+                            <input type="text" ng-model="newUserCard.Notes" placeholder="Notes" ng-show="userCard.editMode==true" class="form-control" />
                         </td>
                     </tr>
                 </table>
