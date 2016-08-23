@@ -83,7 +83,12 @@ namespace ACMVC.Controllers
             {
                 db.CardInfoes.Add(cardInfo);
                 db.SaveChanges();
-                return Json(cardInfo);
+
+                db.Configuration.LazyLoadingEnabled = false;
+                db.Configuration.ProxyCreationEnabled = false;
+
+                var dbCard = db.CardInfoes.Find(cardInfo.Id);
+                return Json(dbCard);
             }
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -99,6 +104,7 @@ namespace ACMVC.Controllers
             {
                 db.Entry(cardInfo).State = EntityState.Modified;
                 db.SaveChanges();
+                db.Configuration.LazyLoadingEnabled = false;
                 return Json(cardInfo);
             }
             Response.StatusCode = (int)HttpStatusCode.BadRequest;

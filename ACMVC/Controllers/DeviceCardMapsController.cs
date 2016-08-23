@@ -22,10 +22,10 @@ namespace ACMVC.Controllers
                 deviceCardMaps.Select(x=> new
                 {
                     Id = x.Id,
-                    DeviceId = x.DeviceId,
+                    DeviceId = x.DeviceId, 
                     DeviceName = x.Device.Name,
                     CardId = x.CardId,
-                    CardNumber = x.CardInfo.Number,
+                    CardIdNumber = x.CardInfo.IdNumber,
                     StatusId = x.StatusId,
                     StatusType = x.Status.Type,
                     AssignTime = x.AssignTime,

@@ -10,10 +10,7 @@
         $scope.statuses = []
         $scope.addMode = false;
         $scope.newCard = {};
-        var editMode = false;
-
-       
-
+        
         $scope.totalPages = 0;
         $scope.currentPage = 0;
 
@@ -23,8 +20,6 @@
         }
 
         $scope.filterStatus = $scope.defaultFilter;
-
-       
 
         $scope.getCards = function (page, search, statusId) {
             cardFactory.getCard(page, search, statusId).success(function (data) {

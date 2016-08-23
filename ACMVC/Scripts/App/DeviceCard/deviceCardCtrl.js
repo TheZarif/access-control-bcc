@@ -34,8 +34,8 @@
             console.log(err);
         });
 
-        $scope.$watch("newDeviceCard.CardNumber", function (newVal, oldVal) {
-            cardFactory.getCardByNumber(newVal)
+        $scope.$watch("newDeviceCard.CardIdNumber", function (newVal, oldVal) {
+            cardFactory.getCardNumberAutocomplete(newVal)
                 .success(function (data) {
                     $scope.cards = data;
                 }).error(function (err) {
@@ -56,7 +56,7 @@
                 var index = $scope.findElement($scope.devices, "Name", $scope.newDeviceCard.DeviceName);
                 $scope.newDeviceCard.DeviceId = $scope.devices[index].Id;
 
-                index = $scope.findElement($scope.cards, "Number", $scope.newDeviceCard.CardNumber);
+                index = $scope.findElement($scope.cards, "IdNumber", $scope.newDeviceCard.CardIdNumber);
                 $scope.newDeviceCard.CardId = $scope.cards[index].Id;
 
                 console.log("NewDeviceCard", $scope.newDeviceCard);

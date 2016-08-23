@@ -13,6 +13,7 @@
                         </th>
                         <th>Device</th>
                         <th>Card</th>
+                        <th>AssignTime</th>
                         <th>Status</th>
                     </tr>
                     <tr ng-show="addMode">
@@ -25,11 +26,15 @@
                             </div>
                         </td>
                         <td>
-                            <input type="text" class="form-control" ng-model="newDeviceCard.DeviceName" placeholder="Device Name" uib-typeahead="device.Name for device in devices | filter:$viewValue:startsWith" class="form-control">
+                            <input type="text" class="form-control" ng-model="newDeviceCard.DeviceName" placeholder="Device Name" uib-typeahead="device.Name for device in devices | filter:$viewValue:startsWith" >
                         </td>
                         <td>
-                            <input type="text" class="form-control" ng-model="newDeviceCard.CardNumber" placeholder="Card Number" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith" class="form-control">
+                            <input type="text" class="form-control" ng-model="newDeviceCard.CardIdNumber" placeholder="Card Number" uib-typeahead="card.IdNumber for card in cards | filter:$viewValue:startsWith" >
                         </td>
+                        <td>
+                            <input type="datetime" class="form-control" ng-model="newDeviceCard.AssignTime" placeholder="Assign Time"/>
+                        </td>
+                        
                         <td>
                             <select ng-model="newDeviceCard.StatusId"
                                     ng-options="status.Id as status.Type for status in statuses" class="form-control"></select>
@@ -56,9 +61,13 @@
                                    class="form-control" ng-show="deviceCard.editMode == true" class="form-control">
                         </td>
                         <td>
-                            <span ng-show="deviceCard.editMode == null || deviceCard.editMode == false">{{deviceCard.CardNumber}}</span>
-                            <input type="text" ng-model="deviceCard.CardNumber" placeholder="Card Number" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith"
+                            <span ng-show="deviceCard.editMode == null || deviceCard.editMode == false">{{deviceCard.CardIdNumber}}</span>
+                            <input type="text" ng-model="deviceCard.CardIdNumber" placeholder="Card Number" uib-typeahead="card.IdNumber for card in cards | filter:$viewValue:startsWith"
                                    class="form-control" ng-show="deviceCard.editMode == true" class="form-control">
+                        </td>
+                        <td>
+                            <span ng-show="deviceCard.editMode == null || deviceCard.editMode == false">{{deviceCard.AssignTime}}</span>
+                            <input type="datetime" ng-model="deviceCard.AssignTime" placeholder="Card Number" ng-show="deviceCard.editMode == true" class="form-control">
                         </td>
                         <td>
                             <span ng-show="deviceCard.editMode == null || deviceCard.editMode == false">{{deviceCard.StatusType}}</span>

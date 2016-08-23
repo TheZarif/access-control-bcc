@@ -10,34 +10,60 @@
         $scope.users = [];
         $scope.cards = [];
         $scope.statuses = [];
-        
+        $scope.search = "";
+
         $scope.addMode = false;
         $scope.newUserCard = {};
 
-        statusFactory.getStatus().success(function(data) {
+        statusFactory.getStatus().success(function (data) {
             $scope.statuses = data;
-        }).error(function(err) {
+        }).error(function (err) {
             console.log(err);
         });
 
-        $scope.$watch("newUserCard.CardNumber", function (newVal, oldVal) {
-            console.log("Watch CardId: ", $scope.newUserCard.CardId);
-            console.log("Watch val", newVal);
-            cardFactory.getCardByNumber(newVal)
-                .success(function(data) {
-                    $scope.cards = data;
-                }).error(function(err) {
+        function onUserChange(newVal) {
+            userFactory.findUser(newVal)
+                .success(function (data) {
+                    $scope.users = data;
+                }).error(function (err) {
                     console.log(err);
                 });
-        });
+        };
 
-        userCardFactory.getUserCard().success(function (data) {
-            $scope.userCards = data;
-        }).error(function (err) {
-            notificationService.displayError("Could not load data");
-            console.log(err);
-        });
-        
+        function onCardChange(newVal) {
+            cardFactory.getCardNumberAutocomplete(newVal)
+            .success(function (data) {
+                $scope.cards = data;
+            }).error(function (err) {
+                console.log(err);
+            });
+        }
+
+        $scope.$watch("newUserCard.UserEmail", onUserChange, true);
+        $scope.$watch("newUserCard.CardIdNumber", onCardChange, true);
+
+
+        $scope.searchItems = function () {
+            $scope.getUserCards(1, $scope.search);
+        }
+
+        $scope.getUserCards = function (page, search) {
+            userCardFactory.getUserCard(page, search).success(function (data) {
+                $scope.userCards = data.Items;
+                $scope.totalPages = data.Pager.TotalPages;
+                $scope.totalItems = data.Pager.TotalItems;
+                $scope.currentPage = data.Pager.CurrentPage;
+            }).error(function (err) {
+                notificationService.displayError("Could not load data");
+                console.log(err);
+            });
+        }
+
+        function init() {
+            $scope.getUserCards(1);
+        }
+
+        init();
 
         $scope.toggleAddMode = function () {
             $scope.addMode = !$scope.addMode;
@@ -47,29 +73,29 @@
             item.editMode = !item.editMode;
         };
 
-        $scope.addUserCard = function () {
-            if ($scope.cards.length != 0) {
-                var index = $scope.findElement($scope.cards, "Number", $scope.newUserCard.CardNumber);
-                $scope.newUserCard.CardId = $scope.cards[index].Id;
+        $scope.allowAddUserCard = function () {
+            console.log("wat", $scope.newUserCard.selectedCard && $scope.newUserCard.selectedCard.Id && 1 == 1);
+            return $scope.newUserCard.selectedCard && $scope.newUserCard.selectedCard.Id;
+        }
 
-                console.log("NewUserCard", $scope.newUserCard);
-            } else {
-                console.log("Invalid Model");
-            }
-            $scope.newUserCard.UserId = $scope.newUserCard.U.Id;
+        var addUserCard = function () {
+//            if ($scope.cards.length != 0) {
+//                var index = findElement($scope.cards, "IdNumber", $scope.newUserCard.CardNumber);
+//                $scope.newUserCard.CardId = $scope.cards[index].Id;
+//            }
             userCardFactory.addUserCard($scope.newUserCard)
-                .success(function(data) {
+                .success(function (data) {
                     $scope.userCards.push(data);
                     $scope.newUserCard = {};
                     $scope.toggleAddMode();
+                    init();
                 })
-                .error(function(err) {
-                    notificationService.displayError("Could not add data");
-                    console.log(err);
+                .error(function (err) {
+                    notificationService.displayError(err);
                 });
         };
 
-        $scope.deleteUserCard = function (userCard) {
+        var deleteUserCard = function (userCard) {
             userCardFactory.deleteUserCard(userCard)
                 .success(function (data) {
                     helperLib.deleteItem(userCard, $scope.userCards);
@@ -80,30 +106,23 @@
                 })
         };
 
-        $scope.updateUserCard = function (userCard) {
-            console.log("Update", userCard);
-            if ($scope.cards.length != 0 && $scope.users.length != 0) {
-                var index = $scope.findElement($scope.users, "Email", $scope.newUserCard.Email);
-                $scope.newUserCard.UserId = $scope.users[index].Id;
+        var updateUserCard = function (userCard) {
 
-                index = $scope.findElement($scope.cards, "Number", $scope.newUserCard.CardNumber);
-                $scope.newUserCard.CardId = $scope.cards[index].Id;
-
-                console.log("NewUserCard", userCard);
-            } else {
-                console.log("Invalid Model");
-            }
             userCardFactory.updateUserCard(userCard)
-                .success(function(data) {
-                    userCard.editMode = false;
+                .success(function (data) {
+                    init();
                 })
-                .error(function(err) {
+                .error(function (err) {
                     notificationService.displayError("Could not update data");
                     console.log(err);
                 });
         };
 
-        $scope.findElement = function(array, column, data) {
+        $scope.updateUserCard = updateUserCard;
+        $scope.deleteUserCard = deleteUserCard;
+        $scope.addUserCard = addUserCard;
+
+        var findElement = function (array, column, data) {
             for (var i = 0; i < array.length; i++) {
                 if (array[i][column] == data) {
                     return i;

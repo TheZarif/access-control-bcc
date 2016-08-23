@@ -7,8 +7,10 @@
 
     function userCardFactory($http) {
         return {
-            getUserCard: function () {
-                return $http.get(baseUrl + "userCards/getall");
+            getUserCard: function (page, search) {
+                page = page ? page : 1;
+                search = search ? search : "";
+                return $http.get(baseUrl + "userCards/getall?page=" + page + "&search=" + search);
             },
             addUserCard: function (userCard) {
                 return $http.post(baseUrl + "userCards/create", userCard);

@@ -1,6 +1,4 @@
 ﻿
-
-
 <div class="container editmode" ng-if="editMode">
 
     <span class="btn btn-default" ng-click="toggleEditMode()" ng-show="editMode"><i class="glyphicon glyphicon-backward"></i> Cancel changes</span><br /><br />
@@ -142,9 +140,6 @@
     </uib-accordion>
 </div>
 
-
-
-
 <div class="container viewMode" ng-hide="editMode">
 
 
@@ -210,21 +205,23 @@
                                 <td>Profession:</td>
                                 <td>{{user.Profession || default}}</td>
                             </tr>
-                        </tbody>
+                        </tbody>    
                     </table>
 
 
                 </div>
             </div>
         </div>
-        <div class="panel-footer" ng-hide="viewMode">
-            <a ng-show="user.IsEmployee" ng-href="#/addappointment/{{user.Id}}" type="button" class="btn btn-sm btn-primary"> Make Appointment &nbsp;<i class="glyphicon glyphicon-envelope"></i></a>
-            <span class="btn btn-primary" ng-if="user.IsVerified !== 1" ng-click="verifyUser()">Mark user verified</span>
-            <span class="text-info" ng-if="user.IsVerified === 1">Verified <i class="glyphicon glyphicon-check"></i> </span>
+        <div class="panel-footer">
+            <a ng-show="user.IsEmployee && !viewMode" ng-href="#/addappointment/{{user.Id}}" type="button" class="btn btn-sm btn-primary"> Make Appointment &nbsp;<i class="glyphicon glyphicon-envelope"></i></a>
+            <span  ng-if="user.IsVerified !== 1" ng-click="verifyUser(1)" class="btn btn-primary">Mark user verified</span>
+            <span ng-if="user.IsVerified === 1">
+                <span class="text-info">User is Verified <i class="glyphicon glyphicon-check"></i> </span>
+                <a ng-click="verifyUser(0)" class="btn btn-default">Unverify user</a>
+            </span>
             <span class="text-info" ng-if="user.IsEmployee">Employee <i class="glyphicon glyphicon-info-sign"></i> </span>
             <span class="pull-right" ng-if="isSelf() || userData.isAdmin">
                 <a ng-click="toggleEditMode()" ng-hide="editMode" type="button" class="btn btn-sm btn-warning">Edit <i class="glyphicon glyphicon-edit"></i></a>
-                <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
             </span>
         </div>
 

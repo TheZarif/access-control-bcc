@@ -20,24 +20,25 @@
                         <td>
                             <div class="btn-toolbar">
                                 <div class="btn-group">
-                                    <span class="btn btn-success" ng-click="addUserCard()"><i class="glyphicon glyphicon-floppy-disk"></i></span>
+                                    <span class="btn btn-success" ng-click="addUserCard()" ><i class="glyphicon glyphicon-floppy-disk"></i></span>
                                     <span class="btn btn-danger" ng-click="toggleAddMode()"><i class="glyphicon glyphicon-remove"></i></span>
                                 </div>
                             </div>
                         </td>
                         <td>
-<!--                            <input type="text" ng-model="newUserCard.Email" placeholder="User Name" uib-typeahead="user.Email for user in users | filter:$viewValue:startsWith" class="form-control">-->
-                            <user-auto-suggest user="newUserCard.U" placeholder="'Enter user to assign card'"></user-auto-suggest>
+                             <input type="text" ng-model="newUserCard.UserEmail" placeholder="User Email" uib-typeahead="user.Email for user in users | filter:$viewValue:startsWith" class="form-control">
+<!--                            <user-auto-suggest user="newUserCard.U" placeholder="'Enter user to assign card'"></user-auto-suggest>-->
                         </td>
                         <td>
-                            <input type="text" class="form-control" ng-model="newUserCard.CardNumber" placeholder="Card Number" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith" class="form-control">
+                            <input type="text" class="form-control" ng-model="newUserCard.CardIdNumber" placeholder="Card Number"
+                                   uib-typeahead="card.IdNumber for card in cards | filter:$viewValue:startsWith" class="form-control">
                         </td>
                         <td>
                             <select ng-model="newUserCard.StatusId"
                                     ng-options="status.Id as status.Type for status in statuses" class="form-control"></select>
                         </td>
                         <td>
-                            <input type="text" ng-model="newUserCard.Notes" placeholder="Notes" class="form-control" />
+                            <input type="text" ng-model="newUserCard.Notes" placeholder="Notes" class="form-control"/>
                         </td>
                     </tr>
                     <tr ng-repeat="userCard in userCards">
@@ -56,27 +57,32 @@
                             </div>
                         </td>
                         <td>
-                            <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.Email}}</span>
-                            <input type="text" ng-model="userCard.Email" placeholder="Card Number" uib-typeahead="user.Email for user in users | filter:$viewValue:startsWith"
-                                   class="form-control" ng-show="userCard.editMode == true" class="form-control">
+                            <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.UserEmail}}</span>
+<!--                            <input type="text" ng-model="userCard.AspNetUser.Email" placeholder="User Name" uib-typeahead="user.Email for user in users | filter:$viewValue:startsWith"-->
+                            <!-- class="form-control" ng-show="userCard.editMode == true" class="form-control">-->
+                            <input type="email" ng-model="userCard.UserEmail" class="form-control" ng-show="userCard.editMode == true"/>
                         </td>
                         <td>
-                            <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.CardNumber}}</span>
-                            <input type="text" ng-model="userCard.CardNumber" placeholder="User Name" uib-typeahead="card.Number for card in cards | filter:$viewValue:startsWith"
-                                   class="form-control" ng-show="userCard.editMode == true" class="form-control">
+                            <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.CardIdNumber}}</span>
+<!--                            <input type="text" ng-model="userCard.CardInfo.IdNumber" placeholder="Card Number" uib-typeahead="card.IdNumber for card in cards | filter:$viewValue:startsWith"-->
+<!--                                   class="form-control" ng-show="userCard.editMode == true" class="form-control">-->
+                            <input type="text" ng-model="userCard.CardIdNumber" class="form-control" ng-show="userCard.editMode == true" />
                         </td>
                         <td>
-                            <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.StatusType}}</span>
+                            <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.Status.Type}}</span>
                             <select ng-show="userCard.editMode == true"
                                     ng-model="userCard.StatusId"
                                     ng-options="status.Id as status.Type for status in statuses" class="form-control"></select>
                         </td>
                         <td>
                             <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.Notes}}</span>
-                            <input type="text" ng-model="newUserCard.Notes" placeholder="Notes" ng-show="userCard.editMode==true" class="form-control" />
+                            <input type="text" ng-model="newUserCard.Notes" placeholder="Notes" ng-show="userCard.editMode==true" class="form-control"/>
                         </td>
                     </tr>
                 </table>
+                <div>
+                    <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" ng-click="getUserCards(currentPage, search)" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                </div>
             </div>
 
         </div>

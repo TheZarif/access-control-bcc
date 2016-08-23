@@ -72,10 +72,13 @@
                         });
                 };
 
-                $scope.verifyUser = function() {
+                $scope.verifyUser = function (val) {
+                    var oldVal = $scope.user.IsVerified;
+                    $scope.user.IsVerified = val;
                     userFactory.verifyUser($scope.user).success(function() {
-                        $scope.user.IsVerified = 1;
-                    }).error(function(err) {
+                        $scope.user.IsVerified = val;
+                    }).error(function (err) {
+                        $scope.user.IsVerified = oldVal;
                         notificationService.displayError(err);
                     });
                 }

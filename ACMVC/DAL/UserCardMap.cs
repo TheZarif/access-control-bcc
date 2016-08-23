@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ACMVC.DAL
 {
     using System;
@@ -25,5 +27,10 @@ namespace ACMVC.DAL
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual CardInfo CardInfo { get; set; }
         public virtual Status Status { get; set; }
+
+        [NotMapped]
+        public string UserEmail { get; set; }
+        [NotMapped]
+        public string CardIdNumber { get; set; }
     }
 }
