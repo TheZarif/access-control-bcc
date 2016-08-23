@@ -1,11 +1,11 @@
 ﻿
-<div class="row toppadding">
-    <div class="col-md-8">
+
+    <div class="col-md-10 container toppadding">
         <div class="panel panel-primary" id="">
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-list"></span>&nbsp; CardLog Admin Page
             </div>
-            
+
             <div class="col-md-12">
                 <b>Date From:</b>
                 <div style="display:inline-block; min-height:290px;">
@@ -19,8 +19,8 @@
                 <br />
                 <br />
                 <button class="btn btn-primary" ng-click="searchLogs()">Search</button>
-                
-                
+
+
             </div>
 
             <div class="panel-body">
@@ -30,7 +30,7 @@
                         <th>Device</th>
                         <th>Time</th>
                     </tr>
-                    
+
                     <tr ng-repeat="cardLog in cardLogs">
                         <td><span>{{cardLog.CardInfo.IdNumber}}</span></td>
                         <td><span>{{cardLog.Device.Name}}</span></td>
@@ -41,4 +41,3 @@
 
         </div>
     </div>
-</div>
