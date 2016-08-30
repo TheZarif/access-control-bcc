@@ -4,7 +4,7 @@
         <div class="panel-heading">
             <span class="glyphicon glyphicon-send"></span>&nbsp; Last 5 appointments
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="height:558px;overflow-x: auto;">
             <div class="alert-info" ng-if="appointments.length==0">
                 <i class="glyphicon glyphicon-info-sign"></i> No appointments to show today
             </div>
@@ -38,9 +38,12 @@
 
             </div>
         </div>
-        <div ng-if="appointments">
-            <td colspan="4" class="text-center"><a ng-href="#/appointments">Show all</a></td>
+        <div ng-if="appointments" class="box-footer text-center">
+            <a class="uppercase" ng-href="#/appointments">Show All</a>
         </div>
+        <!--<div >
+            <td colspan="4" class="text-center"><a class="btn btn-info pull-left" ng-href="#/appointments">Show all</a></td>
+        </div>-->
 
         <div ng-hide="appointments.length > 0"> No appointments to show</div>
     </div>
