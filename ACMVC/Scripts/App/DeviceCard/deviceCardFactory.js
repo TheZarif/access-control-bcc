@@ -7,8 +7,10 @@
 
     function deviceCardFactory($http) {
         return {
-            getDeviceCard: function () {
-                return $http.get(baseUrl + "deviceCardMaps/getall");
+            getDeviceCard: function (page, search) {
+                if (!page) page = 1;
+                if (!search) search = "";
+                return $http.get(baseUrl + "deviceCardMaps/getall?page=" + page + "&search=" + search);
             },
             addDeviceCard: function (deviceCard) {
                 return $http.post(baseUrl + "deviceCardMaps/create", deviceCard);

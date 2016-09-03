@@ -53,6 +53,10 @@
                         list.splice(index, 1);
                     }
                 }
+            },
+            serverDateToJS: function(serverDate) {
+                var temp = serverDate.replace(/[^0-9 +]/g, ''); 
+                return new Date(parseInt(temp));
             }
 
 

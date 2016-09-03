@@ -14,13 +14,27 @@
 
         $scope.addMode = false;
 
-        deviceCardFactory.getDeviceCard().success(function (data) {
-            $scope.deviceCards = data;
-        }).error(function () {
-            notificationService.displayError("Could not load data");
-            console.log(err);
-        });
+        $scope.getDeviceCards = function(page, search) {
+            deviceCardFactory.getDeviceCard(page, search).success(function (data) {
+                $scope.deviceCards = data.Items;
+                $scope.totalPages = data.Pager.TotalPages;
+                $scope.totalItems = data.Pager.TotalItems;
+                $scope.currentPage = data.Pager.CurrentPage;
+                for (var i = 0; i < $scope.deviceCards.length; i++) {
+                    $scope.deviceCards[i].AssignTime = helperLib.serverDateToJS($scope.deviceCards[i].AssignTime);
+                    $scope.deviceCards[i].ExpireTime = helperLib.serverDateToJS($scope.deviceCards[i].ExpireTime);
+                };
+            }).error(function (err) {
+                notificationService.displayError("Could not load data");
+                console.log(err);
+            });
+        }
 
+        function init() {
+            $scope.getDeviceCards(1);
+        };
+        init();
+        
         deviceFactory.getDevice().success(function (data) {
             $scope.devices = data;
         }).error(function (err) {
@@ -49,6 +63,11 @@
 
         $scope.toggleEditMode = function (item) {
             item.editMode = !item.editMode;
+            if (!item.editMode) {
+                item = item.orignal;
+            } else {
+                item.orignal = angular.copy(item);
+            }
         };
 
         $scope.addDeviceCard = function () {
@@ -58,8 +77,6 @@
 
                 index = $scope.findElement($scope.cards, "IdNumber", $scope.newDeviceCard.CardIdNumber);
                 $scope.newDeviceCard.CardId = $scope.cards[index].Id;
-
-                console.log("NewDeviceCard", $scope.newDeviceCard);
             } else {
                 console.log("Invalid Model");
             }
@@ -69,9 +86,7 @@
                     $scope.deviceCards.push(data);
                     $scope.newDeviceCard = {};
                     $scope.toggleAddMode();
-                    data.DeviceName = $scope.getDeviceName(data.DeviceId);
-                    data.CardNumber = $scope.cards[$scope.findElement($scope.cards, "Id", data.CardId)].Number;
-                    data.StatusType = $scope.statuses[$scope.findElement($scope.statuses, "Id", data.StatusId)].Type;
+                    init();
                 })
                 .error(function(err) {
                     notificationService.displayError("Could not add data");
@@ -92,14 +107,13 @@
 
         $scope.updateDeviceCard = function (deviceCard) {
             deviceCardFactory.updateDeviceCard(deviceCard)
-                .success(function (data) {
-                    deviceCard.editMode = false;
-                    deviceCard.DeviceName = $scope.getDeviceName(deviceCard.AccessDeviceId);
+                .success(function(data) {
+                    init();
                 })
-                .error(function (err) {
+                .error(function(err) {
                     notificationService.displayError("Could not update data");
-                    console.log(err)
-                })
+                    console.log(err);
+                });
         };
 
         $scope.getDeviceName = function (id) {
