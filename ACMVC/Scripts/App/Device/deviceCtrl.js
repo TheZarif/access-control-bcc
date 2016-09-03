@@ -11,27 +11,22 @@
         $scope.newDevice = {};
         $scope.addMode = false;
         var editMode = false;
-        $scope.DeviceTypes = [
-           {
-               Id: 1,
-               Name: "Door"
-           },
-           {
-               Id: 2,
-               Name: "Flapgate"
-           },
-           {
-               Id: 3,
-               Name: "Vehicle Control"
-           }
+        $scope.DeviceTypes = angular.copy(DeviceTypes);
+
+        $scope.statuses = [
+            { Id: 1, Type: "Active" },
+            { Id: 1003, Type: "Inactive" }
         ];
 
-        deviceFactory.getDevice().success(function (data) {
-            $scope.devices = data;
-        }).error(function () {
-            notificationService.displayError("Could not load data");
-            console.log(err);
-        });
+        var getDevices = function () {
+            deviceFactory.getDevice().success(function (data) {
+                $scope.devices = data;
+            }).error(function (err) {
+                notificationService.displayError("Could not load data");
+                console.log(err);
+            });
+        }
+        getDevices();
 
         zoneFactory.getZone().success(function (data) {
             $scope.zones = data;
@@ -50,16 +45,15 @@
 
         $scope.addDevice = function () {
             deviceFactory.addDevice($scope.newDevice)
-                .success(function (data) {
-                    $scope.devices.push(data);
+                .success(function () {
                     $scope.newDevice = {};
                     $scope.toggleAddMode();
-                    data.ZoneName = $scope.getZoneName(data.AccessZoneId);
+                    getDevices();
                 })
                 .error(function (err) {
-                    notificationService.displayError("Could not add data");
+                    notificationService.displayError(err);
                     console.log(err);
-                })
+                });
         };
 
         $scope.deleteDevice = function (device) {
@@ -70,28 +64,28 @@
                 .error(function (err) {
                     notificationService.displayError("Could not delete data");
                     console.log(err);
-                })
+                });
         };
 
         $scope.updateDevice = function (device) {
             deviceFactory.updateDevice(device)
-                .success(function (data) {
+                .success(function(data) {
                     device.editMode = false;
-                    device.ZoneName = $scope.getZoneName(device.AccessZoneId);
+                    getDevices();
                 })
-                .error(function (err) {
+                .error(function(err) {
                     notificationService.displayError("Could not update data");
-                    console.log(err)
-                })
+                    console.log(err);
+                });
         };
 
-        $scope.getZoneName = function (id) {
+        $scope.getZoneName = function(id) {
             for (var i = 0; i < $scope.zones.length; i++) {
                 if ($scope.zones[i].Id == id) {
                     return $scope.zones[i].Name;
                 }
             }
-        }
+        };
 
 
     }

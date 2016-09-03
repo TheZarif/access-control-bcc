@@ -7,9 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
 namespace ACMVC.DAL
 {
     using System;
@@ -21,13 +18,8 @@ namespace ACMVC.DAL
         public int DeviceId { get; set; }
         public int CardId { get; set; }
         public int StatusId { get; set; }
-        [JsonProperty]
-        [JsonConverter(typeof(IsoDateTimeConverter))]
-        public DateTime AssignTime { get; set; }
-
-        [JsonProperty]
-        [JsonConverter(typeof(IsoDateTimeConverter))]
-        public DateTime ExpireTime { get; set; }
+        public System.DateTime AssignTime { get; set; }
+        public System.DateTime ExpireTime { get; set; }
         public string Note { get; set; }
     
         public virtual CardInfo CardInfo { get; set; }

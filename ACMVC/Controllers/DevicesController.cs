@@ -29,7 +29,8 @@ namespace ACMVC.Controllers
                     DUser = x.DUser,
                     DPass = x.DPass,
                     AccessZoneId = x.AccessZoneId,
-                    AccessZone = new AccessZone() { Id = x.AccessZone.Id,  Name = x.AccessZone.Name}
+                    AccessZone = new AccessZone() { Id = x.AccessZone.Id,  Name = x.AccessZone.Name},
+                    StatusId = x.StatusId
                 }), JsonRequestBehavior.AllowGet);
         }
 
@@ -59,7 +60,8 @@ namespace ACMVC.Controllers
                         DeviceSDK = device.DeviceSDK,
                         DUser = device.DUser,
                         DPass = device.DPass,
-                        AccessZone = new AccessZone() { Id = device.AccessZone.Id, Name = device.AccessZone.Name }
+                        AccessZone = new AccessZone() { Id = device.AccessZone.Id, Name = device.AccessZone.Name },
+                        StatusId = device.StatusId
                     }, JsonRequestBehavior.AllowGet);
         }
 
@@ -71,7 +73,9 @@ namespace ACMVC.Controllers
             {
                 db.Devices.Add(device);
                 db.SaveChanges();
-                return Json(device);
+                db.Configuration.LazyLoadingEnabled = false;
+                db.Configuration.ProxyCreationEnabled = false;
+                return Json("");
             }
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -82,10 +86,22 @@ namespace ACMVC.Controllers
         [HttpPost]        
         public JsonResult Edit(Device device)
         {
+            var dbDevice = db.Devices.Find(device.Id);
+            dbDevice.AccessZoneId = device.AccessZoneId;
+            dbDevice.DPass = device.DPass;
+            dbDevice.DUser = device.DUser;
+            dbDevice.DeviceSDK = device.DeviceSDK;
+            dbDevice.DeviceTypeId = device.DeviceTypeId;
+            dbDevice.IP = device.IP;
+            dbDevice.Name = device.Name;
+            dbDevice.StatusId = device.StatusId;
+            dbDevice.Port = device.Port;
+            
             if (ModelState.IsValid)
             {
-                db.Entry(device).State = EntityState.Modified;
                 db.SaveChanges();
+                db.Configuration.LazyLoadingEnabled = false;
+                db.Configuration.ProxyCreationEnabled = false;
                 return Json(device);
             }
             Response.StatusCode = (int)HttpStatusCode.BadRequest;

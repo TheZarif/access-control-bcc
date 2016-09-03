@@ -30,6 +30,7 @@ namespace ACMVC.DAL
         public string DPass { get; set; }
         public int AccessZoneId { get; set; }
         public int DeviceTypeId { get; set; }
+        public Nullable<int> StatusId { get; set; }
     
         public virtual AccessZone AccessZone { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -37,5 +38,8 @@ namespace ACMVC.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeviceCardMap> DeviceCardMaps { get; set; }
         public virtual DeviceType DeviceType { get; set; }
+        public virtual Device Device1 { get; set; }
+        public virtual Device Device2 { get; set; }
+        public virtual Status Status { get; set; }
     }
 }

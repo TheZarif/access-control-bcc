@@ -21,6 +21,7 @@
                         <th>DUser</th>
                         <th>DPass</th>
                         <th>AccessZone</th>
+                        <th>Status</th>
                     </tr>
                     <tr ng-show="addMode">
                         <td>
@@ -47,6 +48,10 @@
                         <td>
                             <select ng-model="newDevice.AccessZoneId"
                                     ng-options="zone.Id as zone.Name for zone in zones" class="form-control"></select>
+                        </td>
+                        <td>
+                            <select ng-model="newDevice.StatusId"
+                                    ng-options="status.Id as status.Type for status in statuses" class="form-control"></select>
                         </td>
                     </tr>
                     <tr ng-repeat="device in devices">
@@ -99,6 +104,12 @@
                             <select ng-show="device.editMode == true"
                                     ng-model="device.AccessZoneId"
                                     ng-options="zone.Id as zone.Name for zone in zones" class="form-control"></select>
+                        </td>
+                        <td>
+                            <span ng-show="device.editMode == null || device.editMode == false">{{device.StatusId | statusString}}</span>
+                            <select ng-show="device.editMode == true"
+                                    ng-model="device.StatusId"
+                                    ng-options="status.Id as status.Type for status in statuses" class="form-control"></select>
                         </td>
                     </tr>
                 </table>

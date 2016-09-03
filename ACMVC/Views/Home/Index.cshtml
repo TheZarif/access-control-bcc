@@ -52,13 +52,25 @@
                     if (index > -1) {
                         list.splice(index, 1);
                     }
+                },
+                serverDateToJS: function(serverDate) {
+                    var temp = serverDate.replace(/[^0-9 +]/g, '');
+                    return new Date(parseInt(temp));
                 }
-            },
-            serverDateToJS: function(serverDate) {
-                var temp = serverDate.replace(/[^0-9 +]/g, ''); 
-                return new Date(parseInt(temp));
             }
 
+            var Statuses = [
+                { Id: 1, Type: "Active" },
+                { Id: 2, Type: "Disabled" },
+                { Id: 3, Type: "Pending" },
+                { Id: 1003, Type: "Inactive" }
+            ];
+
+            var DeviceTypes = [
+                { Id: 1, Name: "Door" },
+                { Id: 2, Name: "Flap Gate" },
+                { Id: 3, Name: "Vehicle Control" }
+            ];
 
         </script>
 

@@ -8,5 +8,18 @@
         }
     });
 
+    app.filter("statusString", function () {
+        return function (statusId) {
+            var statuses = angular.copy(Statuses);
+            var id = parseInt(statusId);
+            for (var i = 0; i < statuses.length; i++) {
+                if (id === statuses[i].Id) {
+                    return statuses[i].Type;
+                }
+            }
+            return "N/A";
+        }
+    });
+
 
 })(angular.module('accessControl'));

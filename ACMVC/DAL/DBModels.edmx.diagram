@@ -39,6 +39,8 @@
         <EntityTypeShape EntityType="TestModel.Designation" Width="1.5" PointX="9.375" PointY="0.875" />
         <AssociationConnector Association="TestModel.FK_AspNetUsers_Designation" />
         <EntityTypeShape EntityType="TestModel.VehicleLog" Width="1.5" PointX="9.375" PointY="8.75" />
+        <AssociationConnector Association="TestModel.FK_Device_Device" />
+        <AssociationConnector Association="TestModel.FK_Device_Status" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -20,6 +20,7 @@ namespace ACMVC.DAL
             this.CardInfoes = new HashSet<CardInfo>();
             this.DeviceCardMaps = new HashSet<DeviceCardMap>();
             this.UserCardMaps = new HashSet<UserCardMap>();
+            this.Devices = new HashSet<Device>();
         }
     
         public int Id { get; set; }
@@ -32,5 +33,7 @@ namespace ACMVC.DAL
         public virtual ICollection<DeviceCardMap> DeviceCardMaps { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserCardMap> UserCardMaps { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Device> Devices { get; set; }
     }
 }

@@ -13,6 +13,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Floor" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="CommonZone" Type="int" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -99,6 +100,7 @@
           <Property Name="DUser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DPass" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AccessZoneId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" />
         </EntityType>
         <EntityType Name="DeviceCardMap">
           <Key>
@@ -326,6 +328,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Device_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="Device1" Type="Self.Device" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Device_DeviceType">
           <End Role="DeviceType" Type="Self.DeviceType" Multiplicity="1" />
           <End Role="Device" Type="Self.Device" Multiplicity="*" />
@@ -335,6 +349,18 @@
             </Principal>
             <Dependent Role="Device">
               <PropertyRef Name="DeviceTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -492,8 +518,16 @@
             <End Role="AccessZone" EntitySet="AccessZone" />
             <End Role="Device" EntitySet="Device" />
           </AssociationSet>
+          <AssociationSet Name="FK_Device_Device" Association="Self.FK_Device_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="Device1" EntitySet="Device" />
+          </AssociationSet>
           <AssociationSet Name="FK_Device_DeviceType" Association="Self.FK_Device_DeviceType">
             <End Role="DeviceType" EntitySet="DeviceType" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_Status" Association="Self.FK_Device_Status">
+            <End Role="Status" EntitySet="Status" />
             <End Role="Device" EntitySet="Device" />
           </AssociationSet>
           <AssociationSet Name="FK_DeviceCardMap_CardInfo" Association="Self.FK_DeviceCardMap_CardInfo">
@@ -543,6 +577,7 @@
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Devices" Relationship="Self.FK_Device_AccessZone" FromRole="AccessZone" ToRole="Device" />
           <NavigationProperty Name="EmployeeAccessZoneMaps" Relationship="Self.FK_EmployeeAccessZoneMap_AccessZone" FromRole="AccessZone" ToRole="EmployeeAccessZoneMap" />
+          <Property Name="CommonZone" Type="Int32" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
@@ -638,6 +673,10 @@
           <NavigationProperty Name="DeviceCardMaps" Relationship="Self.FK_DeviceCardMap_Device" FromRole="Device" ToRole="DeviceCardMap" />
           <Property Name="DeviceTypeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DeviceType" Relationship="TestModel.FK_Device_DeviceType" FromRole="Device" ToRole="DeviceType" />
+          <Property Name="StatusId" Type="Int32" />
+          <NavigationProperty Name="Device1" Relationship="TestModel.FK_Device_Device" FromRole="Device" ToRole="Device1" />
+          <NavigationProperty Name="Device2" Relationship="TestModel.FK_Device_Device" FromRole="Device1" ToRole="Device" />
+          <NavigationProperty Name="Status" Relationship="TestModel.FK_Device_Status" FromRole="Device" ToRole="Status" />
         </EntityType>
         <EntityType Name="DeviceCardMap">
           <Key>
@@ -674,6 +713,7 @@
           <NavigationProperty Name="CardInfoes" Relationship="Self.FK_CardInfo_Status" FromRole="Status" ToRole="CardInfo" />
           <NavigationProperty Name="DeviceCardMaps" Relationship="Self.FK_DeviceCardMap_Status" FromRole="Status" ToRole="DeviceCardMap" />
           <NavigationProperty Name="UserCardMaps" Relationship="Self.FK_UserCardMap_Status" FromRole="Status" ToRole="UserCardMap" />
+          <NavigationProperty Name="Devices" Relationship="TestModel.FK_Device_Status" FromRole="Status" ToRole="Device" />
         </EntityType>
         <EntityType Name="UserCardMap">
           <Key>
@@ -927,6 +967,14 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="VehicleLogs" EntityType="TestModel.VehicleLog" />
+          <AssociationSet Name="FK_Device_Device" Association="TestModel.FK_Device_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="Device1" EntitySet="Devices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_Status" Association="TestModel.FK_Device_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Device" EntitySet="Devices" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="VehicleInfo">
           <Key>
@@ -1056,6 +1104,30 @@
           <Property Name="TagNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <Association Name="FK_Device_Device">
+          <End Type="TestModel.Device" Role="Device" Multiplicity="1" />
+          <End Type="TestModel.Device" Role="Device1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_Status">
+          <End Type="TestModel.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="TestModel.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1065,6 +1137,7 @@
           <EntitySetMapping Name="AccessZones">
             <EntityTypeMapping TypeName="TestModel.AccessZone">
               <MappingFragment StoreEntitySet="AccessZone">
+                <ScalarProperty Name="CommonZone" ColumnName="CommonZone" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Floor" ColumnName="Floor" />
@@ -1143,6 +1216,7 @@
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="TestModel.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="DeviceTypeId" ColumnName="DeviceTypeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
