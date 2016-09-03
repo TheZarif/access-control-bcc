@@ -50,16 +50,17 @@
 
         $scope.addCard = function () {
             cardFactory.addCard($scope.newCard)
-                .success(function (data) {
+                .success(function(data) {
                     $scope.cards.push(data);
                     $scope.newCard = {};
                     $scope.toggleAddMode();
-                    data.StatusType = $scope.getStatusName(data.StatusId);
+                    $scope.getCards(1);
+
                 })
-                .error(function (err) {
+                .error(function(err) {
                     notificationService.displayError("Could not add data");
                     console.log(err);
-                })
+                });
         };
 
         $scope.deleteCard = function (card) {
@@ -75,24 +76,16 @@
 
         $scope.updateCard = function (card) {
             cardFactory.updateCard(card)
-                .success(function (data) {
+                .success(function(data) {
                     card.editMode = false;
-                    card.StatusType = $scope.getStatusName(card.StatusId);
+                    $scope.getCards(1);
                 })
-                .error(function (err) {
+                .error(function(err) {
                     notificationService.displayError("Could not update data");
-                    console.log(err)
-                })
+                    console.log(err);
+                });
         };
-
-        $scope.getStatusName = function (id) {
-            for (var i = 0; i < $scope.statuses.length; i++) {
-                if ($scope.statuses[i].Id == id) {
-                    return $scope.statuses[i].Type;
-                }
-            }
-        }
-
+     
         $scope.setFilterStatus = function(data) {
             $scope.filterStatus = data;
             $scope.getCards(1, $scope.searchConfig.model, data.Id);

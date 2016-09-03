@@ -15,11 +15,11 @@
         $scope.addMode = false;
         $scope.newUserCard = {};
 
-        statusFactory.getStatus().success(function (data) {
-            $scope.statuses = data;
-        }).error(function (err) {
-            console.log(err);
-        });
+        $scope.statuses = [
+            { Id: 1, Type: "Active" },
+            { Id: 1003, Type: "Inactive" }
+        ];
+
 
         function onUserChange(newVal) {
             userFactory.findUser(newVal)
@@ -42,7 +42,6 @@
         $scope.$watch("newUserCard.UserEmail", onUserChange, true);
         $scope.$watch("newUserCard.CardIdNumber", onCardChange, true);
 
-
         $scope.searchItems = function () {
             $scope.getUserCards(1, $scope.search);
         }
@@ -53,6 +52,10 @@
                 $scope.totalPages = data.Pager.TotalPages;
                 $scope.totalItems = data.Pager.TotalItems;
                 $scope.currentPage = data.Pager.CurrentPage;
+                for (var i = 0; i < $scope.userCards.length; i++) {
+                    $scope.userCards[i].IssueDate = helperLib.serverDateToJS($scope.userCards[i].IssueDate);
+                    $scope.userCards[i].RevocationDate = helperLib.serverDateToJS($scope.userCards[i].RevocationDate);
+                }
             }).error(function (err) {
                 notificationService.displayError("Could not load data");
                 console.log(err);
@@ -61,8 +64,7 @@
 
         function init() {
             $scope.getUserCards(1);
-        }
-
+        };
         init();
 
         $scope.toggleAddMode = function () {
@@ -79,10 +81,10 @@
         }
 
         var addUserCard = function () {
-//            if ($scope.cards.length != 0) {
-//                var index = findElement($scope.cards, "IdNumber", $scope.newUserCard.CardNumber);
-//                $scope.newUserCard.CardId = $scope.cards[index].Id;
-//            }
+            //            if ($scope.cards.length != 0) {
+            //                var index = findElement($scope.cards, "IdNumber", $scope.newUserCard.CardNumber);
+            //                $scope.newUserCard.CardId = $scope.cards[index].Id;
+            //            }
             userCardFactory.addUserCard($scope.newUserCard)
                 .success(function (data) {
                     $scope.userCards.push(data);
@@ -103,7 +105,7 @@
                 .error(function (err) {
                     notificationService.displayError("Could not delete data");
                     console.log(err);
-                })
+                });
         };
 
         var updateUserCard = function (userCard) {

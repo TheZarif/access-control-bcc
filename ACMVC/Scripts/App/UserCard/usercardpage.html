@@ -14,6 +14,8 @@
                         <th>Card</th>
                         <th>Status</th>
                         <th>Notes</th>
+                        <th>Issue date</th>
+                        <th>Revocation date</th>
                     </tr>
                     <tr ng-show="addMode">
                         <td>
@@ -38,6 +40,12 @@
                         </td>
                         <td>
                             <input type="text" ng-model="newUserCard.Notes" placeholder="Notes" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="date" class="form-control" ng-model="newUserCard.IssueDate" uib-datepicker-popup placeholder="Issue date" />
+                        </td>
+                        <td>
+                            <input type="date" class="form-control" ng-model="newUserCard.RevocationDate" uib-datepicker-popup placeholder="Revocation date" />
                         </td>
                     </tr>
                     <tr ng-repeat="userCard in userCards">
@@ -68,7 +76,7 @@
                             <input type="text" ng-model="userCard.CardIdNumber" class="form-control" ng-show="userCard.editMode == true" />
                         </td>
                         <td>
-                            <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.Status.Type}}</span>
+                            <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.StatusId | statusString}}</span>
                             <select ng-show="userCard.editMode == true"
                                     ng-model="userCard.StatusId"
                                     ng-options="status.Id as status.Type for status in statuses" class="form-control"></select>
@@ -76,6 +84,14 @@
                         <td>
                             <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.Notes}}</span>
                             <input type="text" ng-model="newUserCard.Notes" placeholder="Notes" ng-show="userCard.editMode==true" class="form-control"/>
+                        </td>
+                        <td>
+                            <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.IssueDate | date:'dd/MM/yyyy'}}</span>
+                            <input type="date" ng-model="deviceCard.AssignTime" placeholder="Assign Time" ng-show="deviceCard.editMode == true" class="form-control">
+                        </td>
+                        <td>
+                            <span ng-show="userCard.editMode == null || userCard.editMode == false">{{userCard.RevocationDate | date:'dd/MM/yyyy'}}</span>
+                            <input type="date" ng-model="deviceCard.ExpireTime" placeholder="Expire Time" ng-show="deviceCard.editMode == true" class="form-control">
                         </td>
                     </tr>
                 </table>

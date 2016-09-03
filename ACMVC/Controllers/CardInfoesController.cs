@@ -102,7 +102,17 @@ namespace ACMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cardInfo).State = EntityState.Modified;
+                if (cardInfo.StatusId == 2)
+                {
+                    MakeDisabled(cardInfo);
+                }
+
+                var dbCard = db.CardInfoes.Find(cardInfo.Id);
+                dbCard.StatusId = cardInfo.StatusId;
+                dbCard.IdNumber = cardInfo.IdNumber;
+                dbCard.Number = cardInfo.Number;
+                dbCard.Notes = cardInfo.Notes;
+
                 db.SaveChanges();
                 db.Configuration.LazyLoadingEnabled = false;
                 return Json(cardInfo);
@@ -131,6 +141,20 @@ namespace ACMVC.Controllers
         {
             db.Configuration.LazyLoadingEnabled = false;
             return Json(db.CardInfoes.Where(c => c.IdNumber.Contains(idNumber)).Take(7).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        public void MakeActive(CardInfo card)
+        {
+            card.StatusId = 1;
+        }
+
+        public void MakeDisabled(CardInfo card)
+        {
+            var userCards = db.UserCardMaps.Where(uc => uc.CardId == card.Id);
+            foreach (var userCard in userCards)
+            {
+                userCard.StatusId = 1003;
+            }
         }
 
         protected override void Dispose(bool disposing)

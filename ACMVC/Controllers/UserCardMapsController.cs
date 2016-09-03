@@ -43,11 +43,8 @@ namespace ACMVC.Controllers
                     StatusId = uc.StatusId,
                     UserId = uc.UserId,
                     CardId = uc.CardId,
-                    Status = new Status
-                    {
-                        Id = uc.Status.Id,
-                        Type = uc.Status.Type
-                    },
+                    IssueDate = uc.IssueDate,
+                    RevocationDate = uc.RevocationDate,
                     AspNetUser = new AspNetUser
                     {
                         Id = uc.AspNetUser.Id,
@@ -66,20 +63,14 @@ namespace ACMVC.Controllers
             };
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
-
-
+        
         // POST: UserCardMaps/Create
         [HttpPost]
         public JsonResult Create(UserCardMap userCardMap)
         {
-            DateTime nowTime = DateTime.Now;
-            DateTime maxTime = DateTime.MaxValue;
-            userCardMap.IssueDate = nowTime;
-            userCardMap.RevocationDate = maxTime;
-
             var card = db.CardInfoes.FirstOrDefault(c => c.IdNumber.Equals(userCardMap.CardIdNumber));
             var user = db.AspNetUsers.FirstOrDefault(u => u.Email.Equals(userCardMap.UserEmail));
-
+            
             var doubleCard = db.UserCardMaps.FirstOrDefault(uc => uc.CardId == card.Id);
             if (doubleCard != null)
             {
@@ -97,20 +88,17 @@ namespace ACMVC.Controllers
                 UserId = user.Id, 
                 CardId = card.Id,
                 StatusId = userCardMap.StatusId,
-                IssueDate = nowTime,
-                RevocationDate = maxTime
+                IssueDate = userCardMap.IssueDate,
+                RevocationDate = userCardMap.RevocationDate,
+                Notes = userCardMap.Notes
             };
             db.UserCardMaps.Add(userCard);
+
+            new CardInfoesController().MakeActive(card);
             db.SaveChanges();
-            db.Configuration.LazyLoadingEnabled = false;
-            db.Configuration.ProxyCreationEnabled = false;
-            var dbUserCard = db.UserCardMaps.Find(userCard.Id);
-            return Json(dbUserCard);
+            return Json("");
         }
 
-        // POST: UserCardMaps/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public JsonResult Edit(UserCardMap userCardMap)
         {
@@ -127,6 +115,9 @@ namespace ACMVC.Controllers
             dbUserCard.CardId = card.Id;
             dbUserCard.UserId = user.Id;
             dbUserCard.StatusId = userCardMap.StatusId;
+            dbUserCard.IssueDate = userCardMap.IssueDate;
+            dbUserCard.RevocationDate = userCardMap.RevocationDate;
+            dbUserCard.Notes = userCardMap.Notes;
 
             db.SaveChanges();
             return Json(userCardMap);
