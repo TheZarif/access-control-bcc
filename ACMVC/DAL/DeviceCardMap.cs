@@ -23,11 +23,11 @@ namespace ACMVC.DAL
         public int StatusId { get; set; }
         [JsonProperty]
         [JsonConverter(typeof(IsoDateTimeConverter))]
-        public System.DateTime AssignTime { get; set; }
+        public DateTime AssignTime { get; set; }
 
         [JsonProperty]
         [JsonConverter(typeof(IsoDateTimeConverter))]
-        public System.DateTime ExpireTime { get; set; }
+        public DateTime ExpireTime { get; set; }
         public string Note { get; set; }
     
         public virtual CardInfo CardInfo { get; set; }

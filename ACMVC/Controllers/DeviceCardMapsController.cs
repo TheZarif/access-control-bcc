@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ACMVC.DAL;
+using ACMVC.Models;
+using ACMVC.Models.ViewModels;
 
 namespace ACMVC.Controllers
 {
@@ -15,48 +17,47 @@ namespace ACMVC.Controllers
         private TestEntities db = new TestEntities();
 
         // GET: DeviceCardMaps
-        public JsonResult GetAll()
+        public JsonResult GetAll(int? page, string search)
         {
-            var deviceCardMaps = db.DeviceCardMaps.ToList();
-            return Json(
-                deviceCardMaps.Select(x=> new
-                {
-                    Id = x.Id,
-                    DeviceId = x.DeviceId, 
-                    DeviceName = x.Device.Name,
-                    CardId = x.CardId,
-                    CardIdNumber = x.CardInfo.IdNumber,
-                    StatusId = x.StatusId,
-                    StatusType = x.Status.Type,
-                    AssignTime = x.AssignTime,
-                    ExpireTime = x.ExpireTime
-                }), JsonRequestBehavior.AllowGet);
+            List<DeviceCardMap> deviceCardMaps;
+            if (!string.IsNullOrEmpty(search))
+            {
+                deviceCardMaps = db.DeviceCardMaps
+                    .Where(dc => (dc.CardInfo.IdNumber.Contains(search) || dc.Device.Name.Contains(search))).ToList();
+            }
+            else
+            {
+                deviceCardMaps = db.DeviceCardMaps.ToList();
+            }
+            var pager = new Pager(deviceCardMaps.Count(), page);
+            var viewModel = new ViewModel<DeviceCardMap>
+            {
+                Items = deviceCardMaps
+                    .Select(x => new DeviceCardMap
+                    {
+                        Id = x.Id,
+                        DeviceId = x.DeviceId,
+                        Device = new Device {Id = x.DeviceId, Name = x.Device.Name},
+                        CardInfo = new CardInfo {Id = x.CardId, IdNumber = x.CardInfo.IdNumber},
+                        StatusId = x.StatusId,
+                        Status = new Status {Id = x.StatusId, Type = x.Status.Type},
+                        AssignTime = x.AssignTime,
+                        ExpireTime = x.ExpireTime
+                    })
+                    .Skip((pager.CurrentPage - 1)*pager.PageSize).Take(pager.PageSize),
+                Pager = pager
+            };
+            return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
-
-        // GET: DeviceCardMaps/Details/5
-        /*public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DeviceCardMap deviceCardMap = db.DeviceCardMaps.Find(id);
-            if (deviceCardMap == null)
-            {
-                return HttpNotFound();
-            }
-            return View(deviceCardMap);
-        }*/
-
-
+        
         // POST: DeviceCardMaps/Create
         [HttpPost]
         public JsonResult Create(DeviceCardMap deviceCardMap)
         {
-            DateTime nowTime = DateTime.Now;
-            DateTime endOfDay = DateTime.Today.AddDays(1);
-            deviceCardMap.AssignTime = nowTime;
-            deviceCardMap.ExpireTime = endOfDay;
+            if (deviceCardMap.ExpireTime == DateTime.MinValue)
+            {
+                deviceCardMap.ExpireTime = DateTime.MaxValue;
+            }
             if (ModelState.IsValid)
             {
                 db.DeviceCardMaps.Add(deviceCardMap);
@@ -67,14 +68,19 @@ namespace ACMVC.Controllers
             return Json("Invalid Model State");
         }
 
-      
+
         // POST: DeviceCardMaps/Edit/5
         [HttpPost]
         public JsonResult Edit(DeviceCardMap deviceCardMap)
         {
-            if (ModelState.IsValid)
+            var dbDeviceCard = db.DeviceCardMaps.Find(deviceCardMap.Id);
+            if (dbDeviceCard != null && ModelState.IsValid)
             {
-                db.Entry(deviceCardMap).State = EntityState.Modified;
+                dbDeviceCard.CardId = deviceCardMap.CardId;
+                dbDeviceCard.DeviceId = deviceCardMap.DeviceId;
+                dbDeviceCard.AssignTime = deviceCardMap.AssignTime;
+                dbDeviceCard.ExpireTime = deviceCardMap.ExpireTime;
+                dbDeviceCard.StatusId = deviceCardMap.StatusId;
                 db.SaveChanges();
                 return Json(deviceCardMap);
             }
