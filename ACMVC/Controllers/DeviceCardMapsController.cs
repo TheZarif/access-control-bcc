@@ -76,8 +76,6 @@ namespace ACMVC.Controllers
             var dbDeviceCard = db.DeviceCardMaps.Find(deviceCardMap.Id);
             if (dbDeviceCard != null && ModelState.IsValid)
             {
-                dbDeviceCard.CardId = deviceCardMap.CardId;
-                dbDeviceCard.DeviceId = deviceCardMap.DeviceId;
                 dbDeviceCard.AssignTime = deviceCardMap.AssignTime;
                 dbDeviceCard.ExpireTime = deviceCardMap.ExpireTime;
                 dbDeviceCard.StatusId = deviceCardMap.StatusId;
@@ -101,6 +99,21 @@ namespace ACMVC.Controllers
             db.DeviceCardMaps.Remove(deviceCardMap);
             db.SaveChanges();
             return Json("");
+        }
+
+        [HttpGet]
+        public string GetDeviceCard()
+        {
+            var str = "";
+            var deviceCards = db.DeviceCardMaps.Where(dc => dc.StatusId != 1).ToList();
+            foreach (var deviceCard in deviceCards)
+            {
+                str+= deviceCard.DeviceId + "," + deviceCard.CardInfo.Number + "," + deviceCard.AssignTime + "," + deviceCard.ExpireTime + ";";
+                deviceCard.StatusId = 1;
+            }
+            db.SaveChanges();
+
+            return str;
         }
 
         protected override void Dispose(bool disposing)

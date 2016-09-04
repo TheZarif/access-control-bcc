@@ -22,7 +22,8 @@ namespace ACMVC.Controllers
                     Id = x.Id,
                     Name = x.Name,
                     Floor = x.Floor,
-                    Description = x.Description
+                    Description = x.Description,
+                    CommonZone = x.CommonZone
                 }), JsonRequestBehavior.AllowGet);
         }
 
@@ -52,7 +53,7 @@ namespace ACMVC.Controllers
             {
                 db.AccessZones.Add(accessZone);
                 db.SaveChanges();
-                return Json(accessZone);
+                return Json("");
             }
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json("Invalid Model State");
@@ -66,7 +67,7 @@ namespace ACMVC.Controllers
             {
                 db.Entry(accessZone).State = EntityState.Modified;
                 db.SaveChanges();
-                return Json(accessZone);
+                return Json("");
             }
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
             return Json("Invalid Model State");

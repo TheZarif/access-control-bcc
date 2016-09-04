@@ -10,7 +10,7 @@
         $scope.statuses = []
         $scope.addMode = false;
         $scope.newCard = {};
-        
+
         $scope.totalPages = 0;
         $scope.currentPage = 0;
 
@@ -29,9 +29,12 @@
                 $scope.totalItems = data.Pager.TotalItems;
                 $scope.currentPage = data.Pager.CurrentPage;
 
-                statusFactory.getStatus()
-                    .success(   function (data) { $scope.statuses = data;})
-                    .error(function (err) { console.log(err);});
+                $scope.statuses = [
+                    { Id: 1, Type: "Active" },
+                    { Id: 2, Type: "Disabled" },
+                    { Id: 3, Type: "Pending" }
+                ];
+
             }).error(function () {
                 notificationService.displayError("Could not load data");
                 console.log("Could not retrieve data from server");
@@ -50,14 +53,14 @@
 
         $scope.addCard = function () {
             cardFactory.addCard($scope.newCard)
-                .success(function(data) {
+                .success(function (data) {
                     $scope.cards.push(data);
                     $scope.newCard = {};
                     $scope.toggleAddMode();
                     $scope.getCards(1);
 
                 })
-                .error(function(err) {
+                .error(function (err) {
                     notificationService.displayError("Could not add data");
                     console.log(err);
                 });
@@ -71,33 +74,33 @@
                 .error(function (err) {
                     notificationService.displayError("Could not delete data");
                     console.log(err);
-                })
+                });
         };
 
         $scope.updateCard = function (card) {
             cardFactory.updateCard(card)
-                .success(function(data) {
+                .success(function (data) {
                     card.editMode = false;
                     $scope.getCards(1);
                 })
-                .error(function(err) {
+                .error(function (err) {
                     notificationService.displayError("Could not update data");
                     console.log(err);
                 });
         };
-     
-        $scope.setFilterStatus = function(data) {
+
+        $scope.setFilterStatus = function (data) {
             $scope.filterStatus = data;
             $scope.getCards(1, $scope.searchConfig.model, data.Id);
         }
 
-         $scope.searchConfig = {
+        $scope.searchConfig = {
             method: $scope.getCards,
             placeholder: "Search Card by number",
             model: ""
-        }   
+        }
 
-       
+
     }
 
 

@@ -16,6 +16,7 @@
                         <th>Name</th>
                         <th>Floor</th>
                         <th>Description</th>
+                        <th>Common Zone</th>
                     </tr>
                     <tr ng-show="addMode">
                         <td>
@@ -33,7 +34,11 @@
                             <input ng-model="newZone.Floor" class="form-control" />
                         </td>
                         <td>
-                            <input ng-model="newZone.Description" class="form-control" />
+                            <input ng-model="newZone.Description" class="form-control"/>
+                        </td>
+                        <td>
+                            <select ng-model="newZone.CommonZone"
+                                    ng-options="zone.Id as zone.Name for zone in zonesDropdown" class="form-control"></select>
                         </td>
                     </tr>
                     <tr ng-repeat="zone in zones">
@@ -61,7 +66,13 @@
                         </td>
                         <td>
                             <span ng-show="zone.editMode == null || zone.editMode == false">{{zone.Description}}</span>
-                            <input ng-model="zone.Description" class="form-control" ng-show="zone.editMode == true" />
+                            <input ng-model="zone.Description" class="form-control" ng-show="zone.editMode == true"/>
+                        </td>
+                        <td>
+                            <span ng-show="zone.editMode == null || zone.editMode == false">{{zoneString(zone.CommonZone)}}</span>
+                            <select ng-show="zone.editMode == true"
+                                    ng-model="zone.CommonZone"
+                                    ng-options="item.Id as item.Name for item in zonesDropdown" class="form-control"></select>
                         </td>
                     </tr>
                 </table>
