@@ -105,7 +105,7 @@ namespace ACMVC.Controllers
         public string GetDeviceCard()
         {
             var str = "";
-            var deviceCards = db.DeviceCardMaps.Where(dc => dc.StatusId != 1).ToList();
+            var deviceCards = db.DeviceCardMaps.Where(dc => dc.StatusId != 1 ).ToList();
             foreach (var deviceCard in deviceCards)
             {
                 str+= deviceCard.DeviceId + "," + deviceCard.CardInfo.Number + "," + deviceCard.AssignTime + "," + deviceCard.ExpireTime + ";";
