@@ -24,7 +24,7 @@ namespace ACMVC.Controllers
             };
             db.VehicleLogs.Add(log);
             db.SaveChanges();
-            return Json("");
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
