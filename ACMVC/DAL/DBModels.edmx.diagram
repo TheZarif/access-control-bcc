@@ -12,7 +12,7 @@
         <EntityTypeShape EntityType="TestModel.CardLog" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.Device" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.DeviceCardMap" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TestModel.EmployeeAccessZoneMap" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestModel.EmployeeAccessZoneMap" Width="2.375" PointX="5.25" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.Status" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TestModel.UserCardMap" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="TestModel.FK_Device_AccessZone" ManuallyRouted="false" />
@@ -29,18 +29,18 @@
         <AssociationConnector Association="TestModel.FK_UserCardMap_Status" ManuallyRouted="false" />
         <AssociationConnector Association="TestModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TestModel.VehicleInfo" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="TestModel.Appointment" Width="1.5" PointX="5.25" PointY="13.125" />
-        <EntityTypeShape EntityType="TestModel.AppointmentStatu" Width="1.5" PointX="3" PointY="19.875" />
-        <AssociationConnector Association="TestModel.FK_Appointment_AspNetUsers" />
-        <AssociationConnector Association="TestModel.FK_Appointment_AspNetUsers1" />
-        <AssociationConnector Association="TestModel.FK_Appointment_AppointmentStatus" />
-        <EntityTypeShape EntityType="TestModel.DeviceType" Width="1.5" PointX="7.375" PointY="8.875" />
-        <AssociationConnector Association="TestModel.FK_Device_DeviceType" />
-        <EntityTypeShape EntityType="TestModel.Designation" Width="1.5" PointX="9.375" PointY="0.875" />
-        <AssociationConnector Association="TestModel.FK_AspNetUsers_Designation" />
         <EntityTypeShape EntityType="TestModel.VehicleLog" Width="1.5" PointX="9.375" PointY="8.75" />
         <AssociationConnector Association="TestModel.FK_Device_Device" />
         <AssociationConnector Association="TestModel.FK_Device_Status" />
+        <EntityTypeShape EntityType="TestModel.Appointment" Width="1.5" PointX="8.25" PointY="13.875" />
+        <AssociationConnector Association="TestModel.FK_Appointment_AspNetUsers2" />
+        <AssociationConnector Association="TestModel.FK_Appointment_AspNetUsers11" />
+        <EntityTypeShape EntityType="TestModel.AppointmentStatu" Width="1.5" PointX="10.375" PointY="3.875" />
+        <EntityTypeShape EntityType="TestModel.Designation" Width="1.5" PointX="0.75" PointY="16.125" />
+        <EntityTypeShape EntityType="TestModel.DeviceType" Width="1.5" PointX="9.375" PointY="0.875" />
+        <AssociationConnector Association="TestModel.FK_Appointment_AppointmentStatus" />
+        <AssociationConnector Association="TestModel.FK_AspNetUsers_Designation" />
+        <AssociationConnector Association="TestModel.FK_Device_DeviceType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

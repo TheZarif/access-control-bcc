@@ -15,6 +15,26 @@
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
           <Property Name="CommonZone" Type="int" />
         </EntityType>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserTo" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Purpose" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RequestDetails" Type="nvarchar" MaxLength="255" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="255" />
+          <Property Name="Time" Type="datetime" />
+          <Property Name="AppointmentStatusId" Type="int" />
+        </EntityType>
+        <EntityType Name="AppointmentStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -87,6 +107,14 @@
           <Property Name="Time" Type="datetime" Nullable="false" />
           <Property Name="DeviceId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Device">
           <Key>
             <PropertyRef Name="Id" />
@@ -113,6 +141,13 @@
           <Property Name="AssignTime" Type="datetime" Nullable="false" />
           <Property Name="ExpireTime" Type="datetime" Nullable="false" />
           <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DeviceType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeAccessZoneMap">
           <Key>
@@ -168,41 +203,6 @@
           <Property Name="IsEntry" Type="bit" Nullable="false" />
           <Property Name="TagNumber" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="Time" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Appointment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserBy" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserTo" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Purpose" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="RequestDetails" Type="nvarchar" MaxLength="255" />
-          <Property Name="Remarks" Type="nvarchar" MaxLength="255" />
-          <Property Name="Time" Type="datetime" />
-          <Property Name="AppointmentStatusId" Type="int" />
-        </EntityType>
-        <EntityType Name="AppointmentStatus">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Designation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Order" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DeviceType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Appointment_AppointmentStatus">
           <End Role="AppointmentStatus" Type="Self.AppointmentStatus" Multiplicity="0..1" />
@@ -462,22 +462,22 @@
         </Association>
         <EntityContainer Name="TestModelStoreContainer">
           <EntitySet Name="AccessZone" EntityType="Self.AccessZone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppointmentStatus" EntityType="Self.AppointmentStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardInfo" EntityType="Self.CardInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CardLog" EntityType="Self.CardLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceCardMap" EntityType="Self.DeviceCardMap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceType" EntityType="Self.DeviceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeAccessZoneMap" EntityType="Self.EmployeeAccessZoneMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCardMap" EntityType="Self.UserCardMap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehicleInfo" EntityType="Self.VehicleInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VehicleLog" EntityType="Self.VehicleLog" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="lmxacdb" store:Type="Tables" />
-          <EntitySet Name="AppointmentStatus" EntityType="Self.AppointmentStatus" Schema="lmxacdb" store:Type="Tables" />
-          <EntitySet Name="Designation" EntityType="Self.Designation" Schema="lmxacdb" store:Type="Tables" />
-          <EntitySet Name="DeviceType" EntityType="Self.DeviceType" Schema="lmxacdb" store:Type="Tables" />
           <AssociationSet Name="FK_Appointment_AppointmentStatus" Association="Self.FK_Appointment_AppointmentStatus">
             <End Role="AppointmentStatus" EntitySet="AppointmentStatus" />
             <End Role="Appointment" EntitySet="Appointment" />
@@ -624,11 +624,11 @@
           <NavigationProperty Name="EmployeeAccessZoneMaps" Relationship="Self.FK_EmployeeAccessZoneMap_AspNetUsers" FromRole="AspNetUsers" ToRole="EmployeeAccessZoneMap" />
           <NavigationProperty Name="UserCardMaps" Relationship="Self.FK_UserCardMap_AspNetUsers" FromRole="AspNetUsers" ToRole="UserCardMap" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="Appointments" Relationship="TestModel.FK_Appointment_AspNetUsers" FromRole="AspNetUser" ToRole="Appointment" />
-          <NavigationProperty Name="Appointments1" Relationship="TestModel.FK_Appointment_AspNetUsers1" FromRole="AspNetUser" ToRole="Appointment" />
           <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="IsEmployee" Type="Boolean" />
           <Property Name="DesignationId" Type="Int32" />
+          <NavigationProperty Name="Appointments2" Relationship="TestModel.FK_Appointment_AspNetUsers2" FromRole="AspNetUser" ToRole="Appointment1" />
+          <NavigationProperty Name="Appointments11" Relationship="TestModel.FK_Appointment_AspNetUsers11" FromRole="AspNetUser" ToRole="Appointment1" />
           <NavigationProperty Name="Designation" Relationship="TestModel.FK_AspNetUsers_Designation" FromRole="AspNetUser" ToRole="Designation" />
         </EntityType>
         <EntityType Name="CardInfo">
@@ -672,11 +672,11 @@
           <NavigationProperty Name="CardLogs" Relationship="Self.FK_CardLog_Device" FromRole="Device" ToRole="CardLog" />
           <NavigationProperty Name="DeviceCardMaps" Relationship="Self.FK_DeviceCardMap_Device" FromRole="Device" ToRole="DeviceCardMap" />
           <Property Name="DeviceTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DeviceType" Relationship="TestModel.FK_Device_DeviceType" FromRole="Device" ToRole="DeviceType" />
           <Property Name="StatusId" Type="Int32" />
           <NavigationProperty Name="Device1" Relationship="TestModel.FK_Device_Device" FromRole="Device" ToRole="Device1" />
           <NavigationProperty Name="Device2" Relationship="TestModel.FK_Device_Device" FromRole="Device1" ToRole="Device" />
           <NavigationProperty Name="Status" Relationship="TestModel.FK_Device_Status" FromRole="Device" ToRole="Status" />
+          <NavigationProperty Name="DeviceType" Relationship="TestModel.FK_Device_DeviceType" FromRole="Device" ToRole="DeviceType" />
         </EntityType>
         <EntityType Name="DeviceCardMap">
           <Key>
@@ -942,30 +942,6 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="VehicleInfoes" EntityType="TestModel.VehicleInfo" />
-          <EntitySet Name="Appointments" EntityType="TestModel.Appointment" />
-          <EntitySet Name="AppointmentStatus" EntityType="TestModel.AppointmentStatu" />
-          <AssociationSet Name="FK_Appointment_AspNetUsers" Association="TestModel.FK_Appointment_AspNetUsers">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Appointment" EntitySet="Appointments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Appointment_AspNetUsers1" Association="TestModel.FK_Appointment_AspNetUsers1">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Appointment" EntitySet="Appointments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Appointment_AppointmentStatus" Association="TestModel.FK_Appointment_AppointmentStatus">
-            <End Role="AppointmentStatu" EntitySet="AppointmentStatus" />
-            <End Role="Appointment" EntitySet="Appointments" />
-          </AssociationSet>
-          <EntitySet Name="DeviceTypes" EntityType="TestModel.DeviceType" />
-          <AssociationSet Name="FK_Device_DeviceType" Association="TestModel.FK_Device_DeviceType">
-            <End Role="DeviceType" EntitySet="DeviceTypes" />
-            <End Role="Device" EntitySet="Devices" />
-          </AssociationSet>
-          <EntitySet Name="Designations" EntityType="TestModel.Designation" />
-          <AssociationSet Name="FK_AspNetUsers_Designation" Association="TestModel.FK_AspNetUsers_Designation">
-            <End Role="Designation" EntitySet="Designations" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
           <EntitySet Name="VehicleLogs" EntityType="TestModel.VehicleLog" />
           <AssociationSet Name="FK_Device_Device" Association="TestModel.FK_Device_Device">
             <End Role="Device" EntitySet="Devices" />
@@ -973,6 +949,30 @@
           </AssociationSet>
           <AssociationSet Name="FK_Device_Status" Association="TestModel.FK_Device_Status">
             <End Role="Status" EntitySet="Status" />
+            <End Role="Device" EntitySet="Devices" />
+          </AssociationSet>
+          <EntitySet Name="Appointments" EntityType="TestModel.Appointment" />
+          <AssociationSet Name="FK_Appointment_AspNetUsers2" Association="TestModel.FK_Appointment_AspNetUsers2">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Appointment1" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_AspNetUsers11" Association="TestModel.FK_Appointment_AspNetUsers11">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Appointment1" EntitySet="Appointments" />
+          </AssociationSet>
+          <EntitySet Name="AppointmentStatus" EntityType="TestModel.AppointmentStatu" />
+          <EntitySet Name="Designations" EntityType="TestModel.Designation" />
+          <EntitySet Name="DeviceTypes" EntityType="TestModel.DeviceType" />
+          <AssociationSet Name="FK_Appointment_AppointmentStatus" Association="TestModel.FK_Appointment_AppointmentStatus">
+            <End Role="AppointmentStatu1" EntitySet="AppointmentStatus" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUsers_Designation" Association="TestModel.FK_AspNetUsers_Designation">
+            <End Role="Designation" EntitySet="Designations" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_DeviceType" Association="TestModel.FK_Device_DeviceType">
+            <End Role="DeviceType" EntitySet="DeviceTypes" />
             <End Role="Device" EntitySet="Devices" />
           </AssociationSet>
         </EntityContainer>
@@ -993,107 +993,6 @@
           <Property Name="TagNumber" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="AccessType" Type="Int32" />
         </EntityType>
-        <EntityType Name="Appointment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserTo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Purpose" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="RequestDetails" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Time" Type="DateTime" Precision="3" />
-          <Property Name="AppointmentStatusId" Type="Int32" />
-          <NavigationProperty Name="AspNetUserBy" Relationship="TestModel.FK_Appointment_AspNetUsers" FromRole="Appointment" ToRole="AspNetUser" />
-          <NavigationProperty Name="AspNetUserTo" Relationship="TestModel.FK_Appointment_AspNetUsers1" FromRole="Appointment" ToRole="AspNetUser" />
-          <NavigationProperty Name="AppointmentStatu" Relationship="TestModel.FK_Appointment_AppointmentStatus" FromRole="Appointment" ToRole="AppointmentStatu" />
-        </EntityType>
-        <EntityType Name="AppointmentStatu">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Appointments" Relationship="TestModel.FK_Appointment_AppointmentStatus" FromRole="AppointmentStatu" ToRole="Appointment" />
-        </EntityType>
-        <Association Name="FK_Appointment_AspNetUsers">
-          <End Type="TestModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="TestModel.Appointment" Role="Appointment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Appointment">
-              <PropertyRef Name="UserBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Appointment_AspNetUsers1">
-          <End Type="TestModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="TestModel.Appointment" Role="Appointment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Appointment">
-              <PropertyRef Name="UserTo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Appointment_AppointmentStatus">
-          <End Type="TestModel.AppointmentStatu" Role="AppointmentStatu" Multiplicity="0..1" />
-          <End Type="TestModel.Appointment" Role="Appointment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AppointmentStatu">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Appointment">
-              <PropertyRef Name="AppointmentStatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="DeviceType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Devices" Relationship="TestModel.FK_Device_DeviceType" FromRole="DeviceType" ToRole="Device" />
-        </EntityType>
-        <Association Name="FK_Device_DeviceType">
-          <End Type="TestModel.DeviceType" Role="DeviceType" Multiplicity="1" />
-          <End Type="TestModel.Device" Role="Device" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeviceType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Device">
-              <PropertyRef Name="DeviceTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Designation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Order" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="TestModel.FK_AspNetUsers_Designation" FromRole="Designation" ToRole="AspNetUser" />
-        </EntityType>
-        <Association Name="FK_AspNetUsers_Designation">
-          <End Type="TestModel.Designation" Role="Designation" Multiplicity="0..1" />
-          <End Type="TestModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Designation">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUser">
-              <PropertyRef Name="DesignationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="VehicleLog">
           <Key>
             <PropertyRef Name="Id" />
@@ -1125,6 +1024,107 @@
             </Principal>
             <Dependent Role="Device">
               <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserTo" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Purpose" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RequestDetails" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="AppointmentStatusId" Type="Int32" />
+          <NavigationProperty Name="AspNetUserBy" Relationship="TestModel.FK_Appointment_AspNetUsers2" FromRole="Appointment1" ToRole="AspNetUser" />
+          <NavigationProperty Name="AspNetUserTo" Relationship="TestModel.FK_Appointment_AspNetUsers11" FromRole="Appointment1" ToRole="AspNetUser" />
+          <NavigationProperty Name="AppointmentStatu" Relationship="TestModel.FK_Appointment_AppointmentStatus" FromRole="Appointment" ToRole="AppointmentStatu1" />
+        </EntityType>
+        <Association Name="FK_Appointment_AspNetUsers2">
+          <End Type="TestModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="TestModel.Appointment" Role="Appointment1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment1">
+              <PropertyRef Name="UserBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_AspNetUsers11">
+          <End Type="TestModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="TestModel.Appointment" Role="Appointment1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment1">
+              <PropertyRef Name="UserTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AppointmentStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Appointments" Relationship="TestModel.FK_Appointment_AppointmentStatus" FromRole="AppointmentStatu1" ToRole="Appointment" />
+        </EntityType>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="TestModel.FK_AspNetUsers_Designation" FromRole="Designation" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="DeviceType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Devices" Relationship="TestModel.FK_Device_DeviceType" FromRole="DeviceType" ToRole="Device" />
+        </EntityType>
+        <Association Name="FK_Appointment_AppointmentStatus">
+          <End Type="TestModel.AppointmentStatu" Role="AppointmentStatu1" Multiplicity="0..1" />
+          <End Type="TestModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppointmentStatu1">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="AppointmentStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUsers_Designation">
+          <End Type="TestModel.Designation" Role="Designation" Multiplicity="0..1" />
+          <End Type="TestModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUser">
+              <PropertyRef Name="DesignationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_DeviceType">
+          <End Type="TestModel.DeviceType" Role="DeviceType" Multiplicity="1" />
+          <End Type="TestModel.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="DeviceTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1299,6 +1299,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="VehicleLogs">
+            <EntityTypeMapping TypeName="TestModel.VehicleLog">
+              <MappingFragment StoreEntitySet="VehicleLog">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="TagNumber" ColumnName="TagNumber" />
+                <ScalarProperty Name="IsEntry" ColumnName="IsEntry" />
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Appointments">
             <EntityTypeMapping TypeName="TestModel.Appointment">
               <MappingFragment StoreEntitySet="Appointment">
@@ -1321,14 +1332,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DeviceTypes">
-            <EntityTypeMapping TypeName="TestModel.DeviceType">
-              <MappingFragment StoreEntitySet="DeviceType">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Designations">
             <EntityTypeMapping TypeName="TestModel.Designation">
               <MappingFragment StoreEntitySet="Designation">
@@ -1338,13 +1341,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VehicleLogs">
-            <EntityTypeMapping TypeName="TestModel.VehicleLog">
-              <MappingFragment StoreEntitySet="VehicleLog">
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="TagNumber" ColumnName="TagNumber" />
-                <ScalarProperty Name="IsEntry" ColumnName="IsEntry" />
-                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+          <EntitySetMapping Name="DeviceTypes">
+            <EntityTypeMapping TypeName="TestModel.DeviceType">
+              <MappingFragment StoreEntitySet="DeviceType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

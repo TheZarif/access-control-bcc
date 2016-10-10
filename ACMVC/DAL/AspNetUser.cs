@@ -20,8 +20,8 @@ namespace ACMVC.DAL
             this.EmployeeAccessZoneMaps = new HashSet<EmployeeAccessZoneMap>();
             this.UserCardMaps = new HashSet<UserCardMap>();
             this.AspNetRoles = new HashSet<AspNetRole>();
-            this.Appointments = new HashSet<Appointment>();
-            this.Appointments1 = new HashSet<Appointment>();
+            this.Appointments2 = new HashSet<Appointment>();
+            this.Appointments11 = new HashSet<Appointment>();
         }
     
         public string Id { get; set; }
@@ -65,9 +65,9 @@ namespace ACMVC.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Appointment> Appointments { get; set; }
+        public virtual ICollection<Appointment> Appointments2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Appointment> Appointments1 { get; set; }
+        public virtual ICollection<Appointment> Appointments11 { get; set; }
         public virtual Designation Designation { get; set; }
     }
 }

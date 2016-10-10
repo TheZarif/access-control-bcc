@@ -37,9 +37,9 @@ namespace ACMVC.DAL
         public virtual ICollection<CardLog> CardLogs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeviceCardMap> DeviceCardMaps { get; set; }
-        public virtual DeviceType DeviceType { get; set; }
         public virtual Device Device1 { get; set; }
         public virtual Device Device2 { get; set; }
         public virtual Status Status { get; set; }
+        public virtual DeviceType DeviceType { get; set; }
     }
 }
