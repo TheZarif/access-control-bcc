@@ -1244,6 +1244,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Docs\" />
     <Folder Include="UploadedFiles\" />
     <Folder Include="Views\Api\" />
     <Folder Include="Views\IssueCard\" />

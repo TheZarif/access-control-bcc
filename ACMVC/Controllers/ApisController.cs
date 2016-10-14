@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ACMVC.DAL;
+using ACMVC.Models;
 
 namespace ACMVC.Controllers
 {
@@ -48,13 +49,56 @@ namespace ACMVC.Controllers
             foreach (var deviceCard in deviceCards)
             {
                 result += string.Format("[{0},{1},{2},{3},{4},{5},{6},{7}]",
-                    deviceCard.Id, deviceCard.CardId, deviceCard.CardInfo.Number, deviceCard.CardInfo.IdNumber, 
+                    deviceCard.Id, deviceCard.CardId, deviceCard.CardInfo.Number, deviceCard.CardInfo.IdNumber,
                     deviceCard.DeviceId, deviceCard.AssignTime, deviceCard.ExpireTime, deviceCard.StatusId);
             }
             result += "]";
             return Content(result);
         }
 
+        [HttpGet]
+        public ActionResult SetDeviceCardStatus(int deviceId, string cardNo, Statuses status)
+        {
+            var card = db.CardInfoes.FirstOrDefault(c => c.Number == cardNo);
+            var device = db.Devices.Find(deviceId);
+            var dbStatus = db.Status.Find((int)status);
+            var deviceCards = db.DeviceCardMaps.Where(dc => dc.DeviceId == deviceId && dc.CardId == card.Id).ToList();
 
+            string error = null;
+            if (card == null) error = "Invalid card Id";
+            else if (device == null) error = "Invalid device Id";
+            else if ( dbStatus == null) error = "Invalid status Id";
+            else if (deviceCards.Count == 0) error = "No entry exists for card and device";
+            if (error != null) return Content(string.Format("Invalid request: {0}", error));
+
+            foreach (var item in deviceCards)
+            {
+                item.StatusId = (int)status;
+            }
+            db.SaveChanges();
+            return Content(string.Format("{0} rows affected", deviceCards.Count));
+        }
+
+        [HttpGet]
+        public ActionResult InsertCardLog(int deviceId, string cardNo, DateTime time)
+        {
+            var device = db.Devices.Find(deviceId);
+            var card = db.CardInfoes.FirstOrDefault(c => c.Number == cardNo);
+
+            string error = null;
+            if (card == null) error = "Invalid card Id";
+            else if (device == null) error = "Invalid device Id";
+            if (error != null) return Content(string.Format("Invalid request: {0}", error));
+
+            db.CardLogs.Add(new CardLog
+            {
+                DeviceId = deviceId,
+                CardId = card.Id,
+                Time = time
+            });
+
+            db.SaveChanges();
+            return Content("Card Log added");
+        }
     }
 }

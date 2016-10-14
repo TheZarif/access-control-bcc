@@ -19,8 +19,9 @@ namespace ACMVC.Controllers
         [HttpPost]
         public JsonResult GetAll(SearchModel sModel)
         {
-            var cardLog = sModel.dateFrom != null ? db.CardLogs.Where(x => sModel.dateFrom <= DbFunctions.TruncateTime(x.Time)).ToList() : db.CardLogs.ToList();
-            cardLog = sModel.dateTo != null ? db.CardLogs.Where(x => sModel.dateTo >= DbFunctions.TruncateTime(x.Time)).ToList() : cardLog;
+            var FromDate = sModel.dateFrom.Date;
+            var ToDate = sModel.dateTo.Date;
+            var cardLog = db.CardLogs.Where(x => FromDate <= DbFunctions.TruncateTime(x.Time) && ToDate >= DbFunctions.TruncateTime(x.Time)).ToList();
 
             return Json(
                 cardLog.Select(x => new CardLog{

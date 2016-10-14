@@ -14,11 +14,16 @@
         $scope.newCardLog = {};
         var editMode = false;
 
-        $scope.dateTo = null;
-        $scope.dateFrom = null;
+        $scope.dateFrom = new Date();
+        $scope.dateTo = new Date();
+        $scope.dateTo.setDate($scope.dateFrom.getDate() + 1);
+
         $scope.searchLogs = function() {
             cardLogFactory.getCardLog($scope.dateFrom, $scope.dateTo).success(function (data) {
                 $scope.cardLogs = data;
+                for (var i = 0; i < $scope.cardLogs.length; i++) {
+                    $scope.cardLogs[i].Time = helperLib.serverDateToJS($scope.cardLogs[i].Time);
+                };
             }).error(function (err) {
                 notificationService.displayError("Could not load data");
                 console.log(err);

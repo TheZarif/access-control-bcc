@@ -34,7 +34,7 @@
                     <tr ng-repeat="cardLog in cardLogs">
                         <td><span>{{cardLog.CardInfo.IdNumber}}</span></td>
                         <td><span>{{cardLog.Device.Name}}</span></td>
-                        <td><span>{{cardLog.Time || date:"dd/MM/yyyy 'at' h:mma"}}</span></td>
+                        <td><span>{{cardLog.Time | date:"dd/MM/yyyy 'at' h:mma"}}</span></td>
                     </tr>
                 </table>
             </div>
