@@ -48,10 +48,17 @@
         });
 
         $scope.addRole = function (user, role) {
+            var existingRoles = user.AspNetRoles;
+            for (var i = 0; i < existingRoles.length; i++) {
+                if (existingRoles[i].Id === role.Id) {
+                    notificationService.displayError("Role already added");
+                    return;
+                }
+            }
             userFactory.addRole(user, role).success(function() {
                 notificationService.displaySuccess("Success");
                 user.AspNetRoles.push(role);
-                $scope.addRoleMode = false;
+                user.addRoleMode = false;
             }).error(function(err) {
                 notificationService.displayError("Something went wrong");
                 console.log(err);
@@ -68,10 +75,17 @@
         };
 
         $scope.addAccessZone = function (user, accessZone) {
+            var existingZones = user.EmployeeAccessZoneMaps;
+            for (var i = 0; i < existingZones.length; i++) {
+                if (existingZones[i].AccessZone.Id === accessZone.Id) {
+                    notificationService.displayError("Zone already added");
+                    return;
+                }
+            }
             userFactory.addAccessZone(user, accessZone).success(function () {
                 notificationService.displaySuccess("Success");
                 user.EmployeeAccessZoneMaps.push({"AccessZone": accessZone});
-                $scope.addAccessZoneMode = false;
+                user.addAccessZoneMode = false;
             }).error(function (err) {
                 notificationService.displayError("Something went wrong");
                 console.log(err);
@@ -80,7 +94,7 @@
         $scope.removeAccessZone = function (user, zoneMap) {
             userFactory.removeAccessZone(user, zoneMap.AccessZone).success(function () {
                 notificationService.displaySuccess("Success");
-                helperLib.deleteItem(zoneMap, user);
+                helperLib.deleteItem(zoneMap, user.EmployeeAccessZoneMaps);
             }).error(function (err) {
                 notificationService.displayError("Something went wrong");
                 console.log(err);
