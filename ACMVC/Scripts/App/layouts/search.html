@@ -1,8 +1,8 @@
 ﻿<div ng-if="config.noPaginate" id="custom-search-input">
     <div class="input-group col-md-12">
-        <input type="text" class="form-control input-lg" placeholder={{config.placeholder}} ng-model="config.model"/>
+        <input type="text" class="form-control input-sm" placeholder={{config.placeholder}} ng-model="config.model"/>
         <span class="input-group-btn">
-            <button class="btn btn-info btn-lg" type="button" ng-click="config.method(config.model)">
+            <button class="btn btn-info btn-sm" type="button" ng-click="config.method(config.model)">
                 <i class="glyphicon glyphicon-search"></i>
             </button>
         </span>
@@ -11,9 +11,9 @@
 
 <div ng-if="!config.noPaginate" id="custom-search-input">
     <div class="input-group col-md-12">
-        <input type="text" class="form-control input-lg" placeholder={{config.placeholder}} ng-model="config.model"/>
+        <input type="text" class="form-control input-sm" placeholder={{config.placeholder}} ng-model="config.model"/>
         <span class="input-group-btn">
-            <button class="btn btn-info btn-lg" type="button" ng-click="config.method(1, config.model)">
+            <button class="btn btn-info btn-sm" type="button" ng-click="config.method(1, config.model)">
                 <i class="glyphicon glyphicon-search"></i>
             </button>
         </span>

@@ -169,3 +169,10 @@ form .progress {
       padding-left: 5px!important;
     
 }
+
+.panelHeight {
+    height: 45px;
+}
+.headermargin {
+    margin-top: 4px !important;
+}

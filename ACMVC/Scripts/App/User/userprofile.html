@@ -163,8 +163,14 @@
 
                 <div class="col-md-9 col-lg-9">
                     <div ng-show="user.IsEmployee">
-                        <h4>Employee Id: {{user.EmployeeId}}</h4>
-                        <h4>Designation: {{user.Designation.Name}}</h4>
+                        <div class="col-md-6">
+                            <h4>Employee Id: {{user.EmployeeId}}</h4>
+                        </div>
+                        <div class="col-md-6" >
+                            <h4 style="margin-left: 22px;">Designation: {{user.Designation.Name}}</h4>
+                        </div>
+                        
+                       
 
                     </div>
                     <table class="table table-user-information">
