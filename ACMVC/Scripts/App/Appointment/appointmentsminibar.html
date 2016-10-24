@@ -27,7 +27,7 @@
                                 <div class="col-md-offset-2">{{getDate(appointment.Time) | date:"MM/dd/yyyy h:mma"}}</div>
                                 <br />
                                 <div class="">
-                                    <button id="button1id" name="button1id" class="btn btn-success" ng-hide="appointment.isApproved" ng-click="selectAppointment(appointment)">Approve</button>
+                                    <button id="button1id" name="button1id" class="btn btn-success" ng-hide="appointment.isApproved || !canApprove(appointment)" ng-click="selectAppointment(appointment)">Approve</button>
                                     <button id="button2id" name="button2id" class="btn btn-danger" ng-show="appointment.isApproved" ng-click="removeAppointment(appointment)">Reject</button>
                                 </div>
                             </div>

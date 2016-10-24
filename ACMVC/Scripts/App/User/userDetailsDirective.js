@@ -106,6 +106,10 @@
                 }).error(function (err) {
                     console.log(err);
                 });
+
+                $scope.adminPrivilege = function() {
+                    return $scope.self.isAdmin;
+                }
             }],
             templateUrl: "scripts/App/User/userprofile.html"
         }
