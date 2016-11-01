@@ -10,7 +10,7 @@
         $scope.userData = {};
         $scope.userData.isLoggedIn = false;
 
-     $http.get(baseUrl + "Account/checkifloggedin").success(function(data) {
+        $http.get(baseUrl + "Account/checkifloggedin").success(function (data) {
             console.log("IsloggedIn", data);
             $scope.userData = data;
             $scope.userData.isLoggedIn = true;
@@ -25,7 +25,7 @@
             $scope.userData.isVisitor = !data.isEmployee;
             authFactory.userData = $scope.userData;
 
-        }).error(function() {
+        }).error(function () {
             $window.location.href = baseUrl + 'Account/Login';
         });
     }
