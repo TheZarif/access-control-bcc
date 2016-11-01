@@ -415,7 +415,7 @@ namespace ACMVC.Controllers
                     {
                         System.IO.File.Delete(oldFile);
                     }
-                    User.ProfilePicUrl = fileSrc;
+                    User.ProfilePicUrl = "/UploadedFiles/"+fileName;
                     db.Entry(User).State = EntityState.Modified;
                     if (db.SaveChanges() > 0)
                     {
