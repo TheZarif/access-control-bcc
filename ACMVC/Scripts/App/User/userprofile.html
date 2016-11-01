@@ -21,11 +21,12 @@
                         <div class="form-group" ng-controller=fileUploadCtrl>
                             <label class="col-md-4 control-label" for="filebutton">Upload Photo</label>
                             <div class="col-md-4">
-                                <!-- <input id="filebutton" name="filebutton" class="input-file" type="file">-->
                                 <button type="file" class="btn btn-primary" ngf-select="uploadFiles($file, $invalidFiles, user.Id)"
                                         accept="image/*" ngf-max-height="1000" n gf-max-size="1MB">
                                     Select File
                                 </button>
+                                <span ng-if="user.ProfilePicUrl">Photo already uploaded</span>
+                                <span class="help-block">Upload your picture [Field required]</span>
                             </div>
                             <div style="font: smaller">
                                 {{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
@@ -35,6 +36,7 @@
                                 </span>
                             </div>
                             {{errorMsg}}
+
                         </div>
 
 
@@ -62,7 +64,7 @@
                             <label class="col-md-4 control-label" for="textinput">Phone</label>
                             <div class="col-md-8">
                                 <input id="textinput" ng-model="user.PhoneNumber" type="text" placeholder="+8801xxxxxxxxx" class="form-control input-md">
-                                <span class="help-block">Edit phone number</span>
+                                <span class="help-block">Edit phone number [Field required]</span>
                             </div>
                         </div>
 
@@ -100,7 +102,7 @@
                             <label class="col-md-4 control-label" for="presentaddress">Present Address</label>
                             <div class="col-md-8">
                                 <input id="presentaddress" ng-model="user.PresentAddress" type="text" placeholder="House 21, Road 4/a, Dhanmondi r/a, Dhaka" class="form-control input-md">
-                                <span class="help-block">Present Address</span>
+                                <span class="help-block">Present Address [Field required]</span>
                             </div>
                         </div>
 
@@ -109,7 +111,7 @@
                             <label class="col-md-4 control-label" for="permanentaddress">Permanent Address</label>
                             <div class="col-md-8">
                                 <input id="permanentaddress" ng-model="user.PermanentAddress" type="text" placeholder="House 21, Road 4/a, Dhanmondi r/a, Dhaka" class="form-control input-md">
-                                <span class="help-block">Permanent Address</span>
+                                <span class="help-block">Permanent Address [Field required]</span>
                             </div>
                         </div>
 
@@ -146,7 +148,8 @@
     <div ng-if="!viewMode">
         <h3>Profile Completed: </h3>
         <uib-progressbar animate="false" value="percentComplete" type="success"><b>{{percentComplete}}%</b></uib-progressbar>
-        <span ng-if="percentComplete<70" class="red">This profile is not sufficiently edited. You cannot make an appointment until you edit your profile and add in more information.</span>
+        <div ng-if="percentComplete<70" class="red">This profile is not sufficiently edited. You cannot make an appointment until you edit your profile and add in more information.</div>
+        <div ng-if="mandatoryFieldMissing" class="red">*Mandatory fields missing. Please fill them out to make appointments.</div>
     </div>
     <br/>
     <div class="panel panel-info">

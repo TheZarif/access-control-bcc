@@ -176,3 +176,7 @@ form .progress {
 .headermargin {
     margin-top: 4px !important;
 }
+
+.red {
+    color: red;
+}

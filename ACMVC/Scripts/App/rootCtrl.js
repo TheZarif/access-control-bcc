@@ -3,9 +3,9 @@
 
     app.controller('rootCtrl', rootCtrl);
 
-    rootCtrl.$inject = ['$scope', '$http', '$window', 'authFactory'];
+    rootCtrl.$inject = ['$scope', '$http', '$window', 'authFactory', 'userFactory'];
 
-    function rootCtrl($scope, $http, $window, authFactory) {
+    function rootCtrl($scope, $http, $window, authFactory, userFactory) {
 
         $scope.userData = {};
         $scope.userData.isLoggedIn = false;
@@ -24,6 +24,12 @@
             }
             $scope.userData.isVisitor = !data.isEmployee;
             authFactory.userData = $scope.userData;
+
+            userFactory.getProfileCompletion(data.Id).success(function (data) {
+                authFactory.profileCompletionData = data;
+            }).error(function (err) {
+                console.log(err);
+            });
 
         }).error(function () {
             $window.location.href = baseUrl + 'Account/Login';
