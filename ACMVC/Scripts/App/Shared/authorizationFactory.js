@@ -14,6 +14,11 @@
                 isAdmin: false,
                 isOfficial: false,
                 isVisitor: true
+            },
+            profileCompletionData: {
+                Valid: false,
+                Percent: 0,
+                MandatoryFieldMissing: true
             }
         };
     }

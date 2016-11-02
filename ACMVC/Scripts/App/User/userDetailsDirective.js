@@ -3,7 +3,7 @@
 
     app.directive('userProfile', userProfile);
 
-//    userCtrl.$inject = ['$scope', '$routeParams', 'userFactory', 'notificationService'];
+    //    userCtrl.$inject = ['$scope', '$routeParams', 'userFactory', 'notificationService'];
 
     function userProfile() {
         return {
@@ -13,7 +13,7 @@
                 self: "=",
                 viewMode: "="
             },
-            controller: ['$scope', 'userFactory', 'designationFactory', 'notificationService', function($scope, userFactory, designationFactory, notificationService) {
+            controller: ['$scope', 'userFactory', 'designationFactory', 'notificationService', 'authFactory', function ($scope, userFactory, designationFactory, notificationService, authFactory) {
 
                 $scope.default = "N/A";
                 $scope.user = {};
@@ -32,21 +32,18 @@
                 }
 
                 $scope.$watch("userInfo", function (newVal, oldVal) {
-                    if($scope.userInfo.Id != undefined)     getDetails();
+                    if ($scope.userInfo.Id != undefined) getDetails();
                 });
 
                 function getDetails() {
-                    userFactory.getUserDetails($scope.userInfo.Id).success(function(data) {
+                    userFactory.getUserDetails($scope.userInfo.Id).success(function (data) {
                         $scope.user = data;
                         $scope.tempUser = angular.copy($scope.user);
 
-                        userFactory.getProfileCompletion(data.Id).success(function(data) {
-                            $scope.percentComplete = data;
-                            $scope.user.percentComplete = data;
-                        }).error(function(err) {
-                            console.log(err);
-                        });
-                    }).error(function(err) {
+                        $scope.percentComplete = authFactory.profileCompletionData.Percent;
+                        $scope.mandatoryFieldMissing = authFactory.profileCompletionData.MandatoryFieldMissing;
+
+                    }).error(function (err) {
                         notificationService.displayError("Something went wrong.");
                         console.log(err);
                     });
@@ -59,7 +56,7 @@
                 $scope.isSelf = function () {
                     return $scope.self.Id === $scope.user.Id;
                 }
-                
+
                 $scope.updateUser = function () {
                     userFactory.updateUser($scope.user)
                         .success(function (data) {
@@ -75,7 +72,7 @@
                 $scope.verifyUser = function (val) {
                     var oldVal = $scope.user.IsVerified;
                     $scope.user.IsVerified = val;
-                    userFactory.verifyUser($scope.user).success(function() {
+                    userFactory.verifyUser($scope.user).success(function () {
                         $scope.user.IsVerified = val;
                     }).error(function (err) {
                         $scope.user.IsVerified = oldVal;
@@ -106,6 +103,10 @@
                 }).error(function (err) {
                     console.log(err);
                 });
+
+                $scope.adminPrivilege = function () {
+                    return $scope.self.isAdmin;
+                }
             }],
             templateUrl: "scripts/App/User/userprofile.html"
         }

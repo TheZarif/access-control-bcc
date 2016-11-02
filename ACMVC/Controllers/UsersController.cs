@@ -415,7 +415,7 @@ namespace ACMVC.Controllers
                     {
                         System.IO.File.Delete(oldFile);
                     }
-                    User.ProfilePicUrl = fileSrc;
+                    User.ProfilePicUrl = "/UploadedFiles/"+fileName;
                     db.Entry(User).State = EntityState.Modified;
                     if (db.SaveChanges() > 0)
                     {
@@ -440,21 +440,34 @@ namespace ACMVC.Controllers
         public JsonResult ProfileCompletionPercent(string userId)
         {
             AspNetUser User = db.AspNetUsers.Find(userId);
-            int count = 0, total = 9, percent;
+            int count = 0, total = 9;
+            bool mandatoryFieldMissing = false;
 
             if (User.BloodGroup != null) count++;
             if (User.FullName != null) count++;
             if (User.Gender != null) count++;
             if (User.NId != null) count++;
-            if (User.PhoneNumber != null) count++;
-            if (User.PermanentAddress != null) count++;
-            if (User.PresentAddress != null) count++;
             if (User.Profession != null) count++;
+
             if (User.ProfilePicUrl != null) count++;
+            else{ mandatoryFieldMissing = true; }
+            if (User.PhoneNumber != null) count++;
+            else{ mandatoryFieldMissing = true; }
+            if (User.PermanentAddress != null) count++;
+            else{ mandatoryFieldMissing = true; }
+            if (User.PresentAddress != null) count++;
+            else { mandatoryFieldMissing = true; }
 
-            percent = (int)(count / (float)total * 100);
+            var percent = (int)(count / (float)total * 100);
+            bool valid = percent > 60 && !mandatoryFieldMissing;
+            var result = new
+            {
+                Valid = valid,
+                Percent = percent,
+                MandatoryFieldMissing = mandatoryFieldMissing
+            };
 
-            return Json(percent, JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
 
         }
 

@@ -81,31 +81,6 @@
                 templateUrl: "scripts/App/User/userspublic.html",
                 controller: "userPublicCtrl"
             })
-
-            /*.when("/customers/register", {
-                templateUrl: "scripts/spa/customers/register.html",
-                controller: "customersRegCtrl"
-            })
-            .when("/movies", {
-                templateUrl: "scripts/spa/movies/movies.html",
-                controller: "moviesCtrl"
-            })
-            .when("/movies/add", {
-                templateUrl: "scripts/spa/movies/add.html",
-                controller: "movieAddCtrl"
-            })
-            .when("/movies/:id", {
-                templateUrl: "scripts/spa/movies/details.html",
-                controller: "movieDetailsCtrl"
-            })
-            .when("/movies/edit/:id", {
-                templateUrl: "scripts/spa/movies/edit.html",
-                controller: "movieEditCtrl"
-            })
-            .when("/rental", {
-                templateUrl: "scripts/spa/rental/rental.html",
-                controller: "rentStatsCtrl"
-            })*/
             .otherwise({ redirectTo: "/" });
     }
 
