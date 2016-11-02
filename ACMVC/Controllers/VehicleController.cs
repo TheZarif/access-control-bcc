@@ -22,6 +22,7 @@ namespace ACMVC.Controllers
             {
                 vehicles = db.VehicleInfoes.Where(p => (p.VehicleNo.Contains(search)) || (p.OwnerName.Contains(search)))
                     .ToList();
+
             }
             else
             {

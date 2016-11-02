@@ -176,7 +176,9 @@ form .progress {
 .headermargin {
     margin-top: 4px !important;
 }
-
-.red {
-    color: red;
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+    color: lightgray!important;
+}
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+     color: lightgray!important;
 }
