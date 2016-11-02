@@ -28,7 +28,7 @@
         <AssociationConnector Association="TestModel.FK_DeviceCardMap_Status" ManuallyRouted="false" />
         <AssociationConnector Association="TestModel.FK_UserCardMap_Status" ManuallyRouted="false" />
         <AssociationConnector Association="TestModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TestModel.VehicleInfo" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TestModel.VehicleInfo" Width="1.5" PointX="13.125" PointY="6.625" />
         <EntityTypeShape EntityType="TestModel.VehicleLog" Width="1.5" PointX="9.375" PointY="8.75" />
         <AssociationConnector Association="TestModel.FK_Device_Device" />
         <AssociationConnector Association="TestModel.FK_Device_Status" />

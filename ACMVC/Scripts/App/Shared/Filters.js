@@ -20,6 +20,18 @@
             return "N/A";
         }
     });
-
+    
+    app.filter("vehicleTypeString", function () {
+        return function (vehicleType) {
+            var vehicleTypes = angular.copy(VehicleTypes);
+            var id = parseInt(vehicleType);
+            for (var i = 0; i < vehicleTypes.length; i++) {
+                if (id === vehicleTypes[i].Id) {
+                    return vehicleTypes[i].Name;
+                }
+            }
+            return "N/A";
+        }
+    });
 
 })(angular.module('accessControl'));

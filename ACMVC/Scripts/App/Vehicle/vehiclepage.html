@@ -27,6 +27,7 @@
                         <th>Owner address</th>
                         <th>Driver Name</th>
                         <th>Driver Details</th>
+                        <th>Vehicle Type</th>
                         <th>License No.</th>
                     </tr>
                     <tr ng-show="addMode">
@@ -54,11 +55,16 @@
                             <input type="text" class="form-control" ng-model="newVehicle.DriverName" />
                         </td>
                         <td>
-                            <input type="text" class="form-control" ng-model="newVehicle.DriverDetails" />
+                            <input type="text" class="form-control" ng-model="newVehicle.DriverDetails"/>
                         </td>
                         <td>
-                            <input type="text" class="form-control" ng-model="newVehicle.LicenseNo" />
+                            <select ng-model="newVehicle.VehicleType"
+                                    ng-options="vehicleType.Id as vehicleType.Name for vehicleType in vehicleTypes" class="form-control"></select>
                         </td>
+                        <td>
+                            <input type="text" class="form-control" ng-model="newVehicle.LicenseNo"/>
+                        </td>
+                        
                     </tr>
                     <tr ng-repeat="vehicle in vehicles">
                         <td>
@@ -97,12 +103,18 @@
                         </td>
                         <td>
                             <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.DriverDetails}}</span>
-                            <input type="text" class="form-control" ng-model="vehicle.DriverDetails" ng-show="vehicle.editMode == true" />
+                            <input type="text" class="form-control" ng-model="vehicle.DriverDetails" ng-show="vehicle.editMode == true"/>
+                        </td>
+                        <td>
+                            <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.VehicleType | vehicleTypeString}}</span>
+                            <select ng-model="vehicle.VehicleType"
+                                    ng-options="vehicleType.Id as vehicleType.Name for vehicleType in vehicleTypes" class="form-control" ng-show="vehicle.editMode == true"></select>
                         </td>
                         <td>
                             <span ng-show="vehicle.editMode == null || vehicle.editMode == false">{{vehicle.LicenseNo}}</span>
-                            <input type="text" class="form-control" ng-model="vehicle.LicenseNo" ng-show="vehicle.editMode == true" />
+                            <input type="text" class="form-control" ng-model="vehicle.LicenseNo" ng-show="vehicle.editMode == true"/>
                         </td>
+                        
                     </tr>
                 </table>
                 <div>

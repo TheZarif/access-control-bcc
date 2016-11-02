@@ -81,7 +81,7 @@
                 templateUrl: "scripts/App/User/userspublic.html",
                 controller: "userPublicCtrl"
             })
-            .otherwise({ redirectTo: "/" });
+            .otherwise({ redirectTo: "" });
     }
 
 })();
