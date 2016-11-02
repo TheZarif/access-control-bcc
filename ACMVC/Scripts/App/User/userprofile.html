@@ -142,13 +142,25 @@
 
 <div class="container viewMode" ng-hide="editMode">
 
-
-    <div ng-if="!viewMode">
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Profile Completed: </h3>
+        </div>
+        <div class="panel-body">
+            <div class="row" ng-if="!viewMode">
+                <div class="col-md-12">
+                    <uib-progressbar animate="false" value="percentComplete" type="success"><b>{{percentComplete}}%</b></uib-progressbar>
+                    <span ng-if="percentComplete<70" class="red">This profile is not sufficiently edited. You cannot make an appointment until you edit your profile and add in more information.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div ng-if="!viewMode">
         <h3>Profile Completed: </h3>
         <uib-progressbar animate="false" value="percentComplete" type="success"><b>{{percentComplete}}%</b></uib-progressbar>
         <span ng-if="percentComplete<70" class="red">This profile is not sufficiently edited. You cannot make an appointment until you edit your profile and add in more information.</span>
-    </div>
-    <br/>
+    </div>-->
+    
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">{{user.FullName || user.Email}}</h3>
@@ -164,13 +176,13 @@
                 <div class="col-md-9 col-lg-9">
                     <div ng-show="user.IsEmployee">
                         <div class="col-md-6">
-                            <h4>Employee Id: {{user.EmployeeId}}</h4>
+                            Employee Id: <span class="text-muted">{{user.EmployeeId}}</span>
                         </div>
-                        <div class="col-md-6" >
-                            <h4 style="margin-left: 22px;">Designation: {{user.Designation.Name}}</h4>
+                        <div class="col-md-6">
+                            <p style="margin-left: 24px;">Designation:<span class="text-muted"> {{user.Designation.Name}}</span></p>
                         </div>
-                        
-                       
+
+
 
                     </div>
                     <table class="table table-user-information">
@@ -211,7 +223,7 @@
                                 <td>Profession:</td>
                                 <td>{{user.Profession || default}}</td>
                             </tr>
-                        </tbody>    
+                        </tbody>
                     </table>
 
 
@@ -220,7 +232,7 @@
         </div>
         <div class="panel-footer">
             <a ng-show="user.IsEmployee && !viewMode" ng-href="#/addappointment/{{user.Id}}" type="button" class="btn btn-sm btn-primary"> Make Appointment &nbsp;<i class="glyphicon glyphicon-envelope"></i></a>
-            <span  ng-if="user.IsVerified !== 1" ng-click="verifyUser(1)" class="btn btn-primary">Mark user verified</span>
+            <span ng-if="user.IsVerified !== 1" ng-click="verifyUser(1)" class="btn btn-primary">Mark user verified</span>
             <span ng-if="user.IsVerified === 1">
                 <span class="text-info">User is Verified <i class="glyphicon glyphicon-check"></i> </span>
                 <a ng-click="verifyUser(0)" class="btn btn-default">Unverify user</a>

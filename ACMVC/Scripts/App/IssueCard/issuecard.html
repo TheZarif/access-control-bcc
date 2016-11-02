@@ -1,6 +1,6 @@
 ﻿
 
-<div class="col-md-12 container" ng-controller="issueCardCtrl">
+<div class="col-md-12 container toppadding" ng-controller="issueCardCtrl">
 
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -22,25 +22,36 @@
                             <div user-profile="" user-info="selectedUser" self="userData" view-mode="true"></div>
                         </div>
 
+
                         <div class="col-md-4">
-                            <h4>Appointments Today</h4>
-                            <div class="alert-info" ng-if="appointments.length==0">
-                                <i class="glyphicon glyphicon-info-sign"></i> No appointments to show today
-                            </div>
-                            <div ng-repeat="appointment in appointments" class="appointment-item panel panel-default">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <span class="glyphicon glyphicon-credit-card"></span> &nbsp;Appointments Today
+                                </div>
                                 <div class="panel-body">
-                                    <div>Appointment Id: {{appointment.Id}}</div>
-                                    <div>
-                                        <img ng-src="appointment.AspNetUserTo.ImageUrl" />
+                                    <div class="col-md-12">
+                                        <div class="alert-info" ng-if="appointments.length==0">
+                                            <i class="glyphicon glyphicon-info-sign"></i> No appointments to show today
+                                        </div>
+                                        <div ng-repeat="appointment in appointments" class="appointment-item panel panel-default">
+                                            <div class="panel-body">
+                                                <div>Appointment Id: {{appointment.Id}}</div>
+                                                <div>
+                                                    <img ng-src="appointment.AspNetUserTo.ImageUrl" />
+                                                </div>
+                                                <div>TO: {{appointment.AspNetUserTo.FullName}}, {{appointment.AspNetUserTo.Designation}}</div>
+                                                <div>Purpose: {{appointment.Purpose}}</div>
+                                                <div>Status: {{appointment.AppointmentStatu.Name}}</div>
+                                                <div>{{getDate(appointment.Time) | date:"MM/dd/yyyy h:mma"}}</div>
+                                                <button id="button1id" name="button1id" class="btn btn-success" ng-hide="appointment.isApproved" ng-click="selectAppointment(appointment)">Approve</button>
+                                                <button id="button2id" name="button2id" class="btn btn-danger" ng-show="appointment.isApproved" ng-click="removeAppointment(appointment)">Reject</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>TO: {{appointment.AspNetUserTo.FullName}}, {{appointment.AspNetUserTo.Designation}}</div>
-                                    <div>Purpose: {{appointment.Purpose}}</div>
-                                    <div>Status: {{appointment.AppointmentStatu.Name}}</div>
-                                    <div>{{getDate(appointment.Time) | date:"MM/dd/yyyy h:mma"}}</div>
-                                    <button id="button1id" name="button1id" class="btn btn-success" ng-hide="appointment.isApproved" ng-click="selectAppointment(appointment)">Approve</button>
-                                    <button id="button2id" name="button2id" class="btn btn-danger" ng-show="appointment.isApproved" ng-click="removeAppointment(appointment)">Reject</button>
                                 </div>
                             </div>
+
+
                         </div>
 
 
