@@ -68,21 +68,21 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Gender" Type="nchar" MaxLength="10" />
           <Property Name="BloodGroup" Type="nchar" MaxLength="10" />
-          <Property Name="NId" Type="nchar" MaxLength="10" />
+          <Property Name="NId" Type="nvarchar(max)" />
           <Property Name="ProfilePicUrl" Type="nvarchar(max)" />
-          <Property Name="PresentAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="PresentDistrict" Type="nchar" MaxLength="10" />
-          <Property Name="PresentDivision" Type="nchar" MaxLength="10" />
-          <Property Name="PermanentAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="PermanentDistrict" Type="nchar" MaxLength="10" />
-          <Property Name="PermanentDivision" Type="nchar" MaxLength="10" />
-          <Property Name="Profession" Type="nchar" MaxLength="10" />
+          <Property Name="PresentAddress" Type="nvarchar(max)" />
+          <Property Name="PresentDistrict" Type="nvarchar(max)" />
+          <Property Name="PresentDivision" Type="nvarchar(max)" />
+          <Property Name="PermanentAddress" Type="nvarchar(max)" />
+          <Property Name="PermanentDistrict" Type="nvarchar(max)" />
+          <Property Name="PermanentDivision" Type="nvarchar(max)" />
+          <Property Name="Profession" Type="nchar" MaxLength="50" />
           <Property Name="SummaryNote" Type="ntext" />
-          <Property Name="UserGroup" Type="nchar" MaxLength="10" />
+          <Property Name="UserGroup" Type="nchar" MaxLength="50" />
           <Property Name="EmployeeId" Type="nvarchar" MaxLength="50" />
-          <Property Name="DeskFloor" Type="nchar" MaxLength="10" />
-          <Property Name="RoomNo" Type="nchar" MaxLength="10" />
-          <Property Name="WorkDivision" Type="nchar" MaxLength="10" />
+          <Property Name="DeskFloor" Type="nchar" MaxLength="50" />
+          <Property Name="RoomNo" Type="nchar" MaxLength="50" />
+          <Property Name="WorkDivision" Type="nchar" MaxLength="50" />
           <Property Name="IsVerified" Type="int" />
           <Property Name="FullName" Type="nvarchar" MaxLength="256" />
           <Property Name="IsEmployee" Type="bit" />
@@ -193,6 +193,7 @@
           <Property Name="Status" Type="varchar" MaxLength="10" />
           <Property Name="TagNumber" Type="nchar" MaxLength="50" />
           <Property Name="AccessType" Type="int" />
+          <Property Name="VehicleType" Type="int" />
         </EntityType>
         <EntityType Name="VehicleLog">
           <Key>
@@ -605,21 +606,21 @@
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="BloodGroup" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="NId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ProfilePicUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PresentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PresentDistrict" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="PresentDivision" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="PermanentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentDistrict" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="PermanentDivision" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Profession" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PresentAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PresentDistrict" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PresentDivision" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentDistrict" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentDivision" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Profession" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="SummaryNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UserGroup" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UserGroup" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="EmployeeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DeskFloor" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="RoomNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="WorkDivision" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DeskFloor" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="RoomNo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="WorkDivision" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="IsVerified" Type="Int32" />
           <NavigationProperty Name="EmployeeAccessZoneMaps" Relationship="Self.FK_EmployeeAccessZoneMap_AspNetUsers" FromRole="AspNetUsers" ToRole="EmployeeAccessZoneMap" />
           <NavigationProperty Name="UserCardMaps" Relationship="Self.FK_UserCardMap_AspNetUsers" FromRole="AspNetUsers" ToRole="UserCardMap" />
@@ -992,6 +993,7 @@
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="TagNumber" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="AccessType" Type="Int32" />
+          <Property Name="VehicleType" Type="Int32" />
         </EntityType>
         <EntityType Name="VehicleLog">
           <Key>
@@ -1284,6 +1286,7 @@
           <EntitySetMapping Name="VehicleInfoes">
             <EntityTypeMapping TypeName="TestModel.VehicleInfo">
               <MappingFragment StoreEntitySet="VehicleInfo">
+                <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
                 <ScalarProperty Name="AccessType" ColumnName="AccessType" />
                 <ScalarProperty Name="TagNumber" ColumnName="TagNumber" />
                 <ScalarProperty Name="Status" ColumnName="Status" />

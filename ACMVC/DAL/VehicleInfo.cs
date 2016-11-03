@@ -26,5 +26,6 @@ namespace ACMVC.DAL
         public string Status { get; set; }
         public string TagNumber { get; set; }
         public Nullable<int> AccessType { get; set; }
+        public Nullable<int> VehicleType { get; set; }
     }
 }
