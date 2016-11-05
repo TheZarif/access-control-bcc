@@ -13,6 +13,11 @@
         $scope.newDeviceCard = {};
 
         $scope.addMode = false;
+        $scope.search = "";
+
+        $scope.searchItems = function() {
+            $scope.getDeviceCards(1, $scope.search);
+        }
 
         $scope.getDeviceCards = function(page, search) {
             deviceCardFactory.getDeviceCard(page, search).success(function (data) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -28,9 +29,18 @@ namespace ACMVC.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetAll(int? page)
+        public JsonResult GetAll(int? page, string search)
         {
-            List<VehicleLog> logs = db.VehicleLogs.ToList();
+            List<VehicleLog> logs;
+            if (!string.IsNullOrEmpty(search))
+            {
+                logs = db.VehicleLogs.Where(vl => vl.TagNumber.Contains(search)).ToList();
+            }
+            else
+            {
+                logs = db.VehicleLogs.ToList();
+
+            }
             var pager = new Pager(logs.Count(), page);
 
             var viewModel = new

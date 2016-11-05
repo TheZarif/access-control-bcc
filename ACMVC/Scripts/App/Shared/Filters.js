@@ -34,4 +34,10 @@
         }
     });
 
+    app.filter("entryExit", function () {
+        return function (isEntry) {
+            return isEntry ? "Entry" : "Exit";
+        }
+    });
+
 })(angular.module('accessControl'));

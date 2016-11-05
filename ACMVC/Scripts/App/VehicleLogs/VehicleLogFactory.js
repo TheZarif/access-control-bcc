@@ -7,9 +7,11 @@
 
     function vehicleLogFactory($http) {
         return {
-            getVehicleLog: function (page) {
+            getVehicleLog: function (page, search) {
                 if (!page) page = 1;
-                return $http.get(baseUrl + "VehicleLogs/getall?page=" + page );
+                if (!search) search = "";
+                
+                return $http.get(baseUrl + "VehicleLogs/getall?page=" + page + "&search=" + search);
             }
         };
     }
