@@ -88,7 +88,7 @@
                         </span>
                         <span ng-show="user.editUserType">
                             <select ng-show="user.editUserType" name="repeatSelect" id="repeatSelect" ng-model="user.IsEmployee" class="form-control">
-                                <option ng-repeat="option in filterUserType" value="{{option.value}}">{{option.name}}</option>
+                                <option ng-repeat="option in filterUserType" ng-value="option.value">{{option.name}}</option>
                             </select>
                             <span class="btn btn-sm btn-success" ng-click="saveUserType(user, user.IsEmployee)"><i class="glyphicon glyphicon-floppy-disk"></i></span>
                             <span class="btn btn-sm btn-danger" ng-click="toggleEditUserType(user)"><i class="glyphicon glyphicon-remove"></i></span>

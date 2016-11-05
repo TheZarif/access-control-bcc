@@ -9,7 +9,7 @@
 
       
         $scope.searchItems = function() {
-            $scope.getVehicle(1, $scope.search);
+            $scope.getUser(1);
         };
         $scope.search = "";
         $scope.users = [];
@@ -112,9 +112,11 @@
         };
 
         $scope.saveUserType = function(user, isEmployee) {
+            isEmployee = isEmployee == 'true' ? true : false;
             console.log(user, isEmployee);
             userFactory.editType(user, isEmployee).success(function() {
                 user.editUserType = false;
+                user.IsEmployee = isEmployee;
             }); 
         }
 
