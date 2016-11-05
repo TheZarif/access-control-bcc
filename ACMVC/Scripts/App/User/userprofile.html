@@ -3,13 +3,13 @@
 
     <span class="btn btn-default" ng-click="toggleEditMode()" ng-show="editMode"><i class="glyphicon glyphicon-backward"></i> Cancel changes</span><br /><br />
 
-    <uib-accordion close-others="oneAtATime">
-        <uib-accordion-group is-open="tab.firstOpen" panel-class="panel-success">
+    <uib-accordion close-others="oneAtATime" >
+        <div uib-accordion-group is-open="tab.firstOpen" panel-class="panel-success" ng-show="userData.isAdmin">
             <uib-accordion-heading>
                 <i class="glyphicon glyphicon-plus"></i>Add/Update Employee Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': tab.firstOpen, 'glyphicon-chevron-right': !tab.firstOpen}"></i>
             </uib-accordion-heading>
             <div ng-include="'/Scripts/App/User/userdetails-employee.html'"></div>
-        </uib-accordion-group>
+        </div>
         <uib-accordion-group is-open="tab.secondOpen" panel-class="panel-success">
             <uib-accordion-heading>
                 <i class="glyphicon glyphicon-plus"></i>Update general information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': tab.secondOpen, 'glyphicon-chevron-right': !tab.secondOpen}"></i>

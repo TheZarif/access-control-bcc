@@ -13,21 +13,21 @@
                     <!-- Text input-->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="">Applicant</label>
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="margin-top:6px;">
                             {{selected.AspNetUserBy.Email}}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="">Meeting with</label>
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="margin-top:6px;">
                             {{selected.AspNetUserTo.Email}}
                         </div>
                     </div>
                     <!-- Textarea -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="textarea">Purpose of visit</label>
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="margin-top:6px;">
                             {{selected.Purpose}}
                         </div>
                     </div>
@@ -35,15 +35,15 @@
                     <div ng-if="!selected.isAuthorized">
                         <!-- Textarea -->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="textarea">Request details</label>
-                            <div class="col-md-4">
+                            <label class="col-md-4 control-label" for="textarea" >Request details</label>
+                            <div class="col-md-4" style="margin-top:6px;">
                                 {{selected.RequestDetails}}
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="textarea">Remarks</label>
-                            <div class="col-md-4">
+                            <div class="col-md-4" style="margin-top:6px;">
                                 {{selected.Remarks || "N/A"}}
                             </div>
                         </div>
@@ -52,7 +52,7 @@
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="textarea">Status</label>
-                            <div class="col-md-4">
+                            <div class="col-md-4" style="margin-top:6px;">
                                 {{selected.AppointmentStatusId.Name || "Pending"}}
                             </div>
                         </div>
@@ -62,14 +62,14 @@
                         <!-- Textarea -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="textarea">Remarks</label>
-                            <div class="col-md-4">
+                            <div class="col-md-4" style="margin-top:6px;">
                                 <textarea class="form-control" id="textarea" name="textarea" ng-model="selected.Remarks"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="textarea">Date</label>
-                            <div class="col-md-6">
+                            <div class="col-md-6" style="margin-top:6px;">
                                 {{getDate(selected.Time) | date:"MM/dd/yyyy h:mma"}}
                             </div>
                         </div>
