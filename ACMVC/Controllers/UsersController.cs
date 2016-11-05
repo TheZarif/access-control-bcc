@@ -36,7 +36,7 @@ namespace ACMVC.Controllers
             List<AspNetUser> users;
             if (!string.IsNullOrEmpty(search))
             {
-                users = db.AspNetUsers.Where(p => (p.Email.Contains(search)) || (p.PhoneNumber.Contains(search)))
+                users = db.AspNetUsers.Where(p => p.Email.Contains(search) || p.FullName.Contains(search) || p.PhoneNumber.Contains(search))
                     .ToList();
             }
             else
@@ -49,9 +49,9 @@ namespace ACMVC.Controllers
                 users = users.Where(p => p.IsEmployee == isEmployee).ToList();
             }
 
-            var pager = new Pager(users.Count(), page);
+            var pager = new Pager(users.Count, page);
             
-            var viewModel = new UserViewModel()
+            var viewModel = new UserViewModel
             {
                 Users = users.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize).Select(x => new AspNetUser()
                 {

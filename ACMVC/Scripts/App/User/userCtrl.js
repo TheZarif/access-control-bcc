@@ -9,7 +9,7 @@
 
       
         $scope.searchItems = function() {
-            $scope.getVehicle(1, $scope.search);
+            $scope.getUser(1);
         };
         $scope.search = "";
         $scope.users = [];
