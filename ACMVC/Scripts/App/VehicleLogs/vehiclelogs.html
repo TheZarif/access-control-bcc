@@ -5,20 +5,32 @@
             <span class="glyphicon glyphicon-list"></span> &nbsp; Vehicle Logs
 
         </div>
-
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="query-params col-md-12">
+                    <div class="col-md-5">
+                        Search:
+                        <input type="text" class="input-md form-control" placeholder="Name or number" ng-model="search" />
+                    </div>
+                    <div class="col-md-2" style="padding-top:18px;">
+                        <span class="btn btn-primary" ng-click="getVehicleLogs()">Search <i class="glyphicon glyphicon-search"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="panel-body">
             <table class="table table-striped table-bordered table-condensed table-hover">
                 <tr>
                     <th>Vehicle No.</th>
-                    <th>Date Time</th>
                     <th>Access Type</th>
                     <th>Tag Number</th>
+                    <th>Date Time</th>
                 </tr>
                 <tr ng-repeat="log in vehicleLogs">
                     <td>{{log.VehicleId}}</td>
-                    <td>{{log.IsEntry}}</td>
+                    <td>{{log.IsEntry | entryExit}}</td>
                     <td>{{log.TagNumber}}</td>
-                    <td>{{log.Time}}</td>
+                    <td>{{log.Time | dateServerToJS}}</td>
                 </tr>
             </table>
             <div>

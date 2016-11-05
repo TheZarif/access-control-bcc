@@ -24,8 +24,8 @@ namespace ACMVC.Controllers
             {
                 userCards =
                     db.UserCardMaps.Where(u =>
-                            u.CardInfo.IdNumber == search || u.AspNetUser.FullName == search ||
-                            u.AspNetUser.Email == search)
+                            u.CardInfo.IdNumber.Contains(search) || u.AspNetUser.FullName.Contains(search) ||
+                            u.AspNetUser.Email.Contains(search))
                     .ToList();
             }
             else

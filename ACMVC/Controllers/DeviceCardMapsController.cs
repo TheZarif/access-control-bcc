@@ -23,7 +23,7 @@ namespace ACMVC.Controllers
             if (!string.IsNullOrEmpty(search))
             {
                 deviceCardMaps = db.DeviceCardMaps
-                    .Where(dc => (dc.CardInfo.IdNumber.Contains(search) || dc.Device.Name.Contains(search))).ToList();
+                    .Where(dc => dc.CardInfo.IdNumber.Contains(search) || dc.Device.Name.Contains(search)).ToList();
             }
             else
             {

@@ -12,7 +12,7 @@
         $scope.currentPage = 0;
 
        $scope.getVehicleLogs = function (page) {
-           vehicleLogFactory.getVehicleLog(page).success(function (data) {
+           vehicleLogFactory.getVehicleLog(page, $scope.search).success(function (data) {
                 $scope.vehicleLogs = data.VehicleLogs;
                 $scope.totalPages = data.Pager.TotalPages;
                 $scope.totalItems = data.Pager.TotalItems;
