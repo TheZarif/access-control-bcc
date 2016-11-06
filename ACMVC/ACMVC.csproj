@@ -264,11 +264,14 @@
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Official.cs" />
     <Compile Include="Models\Pager.cs" />
     <Compile Include="Models\UserSearchModel.cs" />
     <Compile Include="Models\VehicleViewModel.cs" />
     <Compile Include="Models\ViewModels\AppointmentPagerViewModel.cs" />
     <Compile Include="Models\ViewModels\CardViewModel.cs" />
+    <Compile Include="Models\ViewModels\OfficialListViewModel.cs" />
+    <Compile Include="Models\ViewModels\OfficialViewModel.cs" />
     <Compile Include="Models\ViewModels\SearchModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Models\ViewModels\ViewModel.cs" />
@@ -374,6 +377,7 @@
     <Content Include="Scripts\App\IssueCard\issuecardconfirm.html" />
     <Content Include="Scripts\App\IssueCard\IssueCardCtrl.js" />
     <Content Include="Scripts\App\IssueCard\users.html" />
+    <Content Include="Scripts\App\layouts\dash.html" />
     <Content Include="Scripts\App\layouts\search.html" />
     <Content Include="Scripts\App\layouts\sidebar.html" />
     <Content Include="Scripts\App\layouts\sidebar.directive.js" />
@@ -1241,6 +1245,8 @@
     <Content Include="Views\Status\Edit.cshtml" />
     <Content Include="Views\Status\Index.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Views\Home\dash.cshtml" />
+    <Content Include="Views\Home\OfficialsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1249,6 +1255,7 @@
     <Folder Include="UploadedFiles\" />
     <Folder Include="Views\Api\" />
     <Folder Include="Views\IssueCard\" />
+    <Folder Include="Views\OfficialViewModel\" />
     <Folder Include="Views\Roles\" />
     <Folder Include="Views\VehicleLogs\" />
   </ItemGroup>

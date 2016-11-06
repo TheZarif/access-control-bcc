@@ -36,6 +36,7 @@ namespace ACMVC.Controllers
                     Name = x.Name
                 });
                 var isEmployee = user.IsEmployee;
+                
                 return Json(new {Id = id, UserName = Username, Roles = roles, IsEmployee = isEmployee}, JsonRequestBehavior.AllowGet);
             }
             else
