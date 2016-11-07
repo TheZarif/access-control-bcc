@@ -377,7 +377,6 @@
     <Content Include="Scripts\App\IssueCard\issuecardconfirm.html" />
     <Content Include="Scripts\App\IssueCard\IssueCardCtrl.js" />
     <Content Include="Scripts\App\IssueCard\users.html" />
-    <Content Include="Scripts\App\layouts\dash.html" />
     <Content Include="Scripts\App\layouts\search.html" />
     <Content Include="Scripts\App\layouts\sidebar.html" />
     <Content Include="Scripts\App\layouts\sidebar.directive.js" />

@@ -45,21 +45,19 @@
                         <!--<input type="datetime-local" ng-model="newAppointment.Time"/>-->
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-md-1 control-label" for="">Time</label>
+                    <div class="form-group" style="margin-left: 78px;"> 
+                        <label class="col-md-1 control-label" for="" style="margin-top:35px;">Time</label>
                         <div class="col-md-12">
                             <div class="col-md-4">
+                                <h5 class="header" style="margin-left:100px;">Hour</h5>
                                 <input type="number" class="form-control" ng-model="newAppointment.hours" ng-change="setHour()" min="0" max="23" ng-disabled="newAppointment.Time==null" /> 
                             </div>
-                            <div class="col-md-1" style="padding-top: 10px;">
-                                hours
-                            </div>
+                            <div class="col-md-1" style="margin-top: 41px; margin-left: 30px;"> <span><b>:</b></span></div>
                             <div class="col-md-4">
+                                <h5 class="header" style="margin-left:100px;">Minutes</h5>
                                 <input type="number" class="form-control" ng-model="newAppointment.minutes" ng-change="setMin()" min="0" max="59" ng-disabled="newAppointment.Time==null" /> 
                             </div>
-                            <div class="col-md-1" style="padding-top: 10px;">
-                                minutes
-                            </div>
+                            
 
                         </div>
                         
