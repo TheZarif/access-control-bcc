@@ -283,7 +283,22 @@
     <Content Include="Content\AdminLTE.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\extra.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\img\instructions\appointment.PNG" />
+    <Content Include="Content\img\instructions\appointment_list.PNG" />
+    <Content Include="Content\img\instructions\apporveApp.png" />
+    <Content Include="Content\img\instructions\approve.png" />
+    <Content Include="Content\img\instructions\editG_1.png" />
+    <Content Include="Content\img\instructions\edit_general.png" />
+    <Content Include="Content\img\instructions\edit_general_1.png" />
+    <Content Include="Content\img\instructions\homePage.png" />
+    <Content Include="Content\img\instructions\menu.png" />
+    <Content Include="Content\img\instructions\save_appointment.png" />
+    <Content Include="Content\img\instructions\step1.PNG" />
+    <Content Include="Content\img\instructions\step2.png" />
+    <Content Include="Content\img\instructions\tht.png" />
+    <Content Include="Content\instruct.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
@@ -343,6 +358,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\toastr.less" />
     <Content Include="Content\toastr.scss" />
+    <Content Include="Content\img\instructions\Thumbs.db" />
     <None Include="Properties\PublishProfiles\ac.app.lumexhost.net - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\ACS.pubxml" />
     <None Include="Scripts\angular.intellisense.js" />
@@ -1249,7 +1265,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\img\" />
     <Folder Include="Docs\" />
     <Folder Include="UploadedFiles\" />
     <Folder Include="Views\Api\" />

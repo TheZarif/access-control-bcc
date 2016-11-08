@@ -32,7 +32,8 @@
             });
 
         }).error(function () {
-            $window.location.href = baseUrl + 'Account/Login';
+            //$window.location.href = baseUrl + 'Account/Login';
+            $window.location.href = baseUrl + 'Home/dash';
         });
     }
 
