@@ -115,10 +115,18 @@
 
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="professioninput">Profession</label>
+                            <label class="col-md-4 control-label" for="professioninput">Designation</label>
                             <div class="col-md-8">
                                 <input id="professioninput" ng-model="user.Profession" type="text" placeholder="Professor at Dhaka University" class="form-control input-md">
-                                <span class="help-block">Enter your profession and place of work</span>
+                                <span class="help-block">Enter your Designation and place of work</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="professioninput">Card Id</label>
+                            <div class="col-md-8">
+                                <input id="cardidinput" ng-model="user.CardId" type="text" placeholder="Card Id" class="form-control input-md">
+                                <span class="help-block">Enter your CardId</span>
                             </div>
                         </div>
 
@@ -175,9 +183,9 @@
 
                 <div class="col-md-9 col-lg-9">
                     <div ng-show="user.IsEmployee">
-                        <div class="col-md-6">
+                        <!--<div class="col-md-6">
                             Employee Id: <span class="text-muted">{{user.EmployeeId}}</span>
-                        </div>
+                        </div>-->
                         <div class="col-md-6">
                             <p style="margin-left: 5px;">Designation:<span class="text-muted"> {{user.Designation.Name}}</span></p>
                         </div>
@@ -218,8 +226,13 @@
                                 <td>{{user.PermanentAddress || default}}</td>
                             </tr>
                             <tr>
-                                <td>Profession:</td>
+                                <td>Designation:</td>
                                 <td>{{user.Profession || default}}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Card Id:</td>
+                                <td>{{user.CardId || default}}</td>
                             </tr>
                         </tbody>
                     </table>
